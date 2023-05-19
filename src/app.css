@@ -1,0 +1,6 @@
+@import 'satoshi.css';
+@import 'excon.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
