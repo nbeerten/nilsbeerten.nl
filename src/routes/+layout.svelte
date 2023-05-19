@@ -3,6 +3,14 @@
     import { Nav, Footer, ThemeToggle } from '$lib/components';
 </script>
 
+<svelte:head>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+</svelte:head>
+
 <div
     class="bg-white dark:bg-stone-950 min-h-screen text-black dark:text-stone-50 overflow-x-hidden flex flex-col justify-between"
 >
