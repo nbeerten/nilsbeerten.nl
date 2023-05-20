@@ -1,5 +1,6 @@
 <script lang="ts">
     import { SocialLinks, RepoCard } from '$lib/components';
+    import { page } from '$app/stores';
     import Typescript from '@inqling/svelte-icons/simple-icons/typescript.svelte';
     import Svelte from '@inqling/svelte-icons/simple-icons/svelte.svelte';
     import CodeBracketSquare from '@inqling/svelte-icons/heroicon-24-solid/code-bracket-square.svelte';
@@ -9,10 +10,18 @@
 
 <svelte:head>
     <title>Nils Beerten</title>
-    <meta name="description" content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert." />
+    <meta
+        name="description"
+        content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert."
+    />
 
     <meta property="og:title" content="Nils Beerten" />
-    <meta property="og:description" content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert." />
+    <meta
+        property="og:description"
+        content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert."
+    />
+    <meta property="og:image" content="https://beta.nilsbeerten.nl/api/og" />
+    <meta property="og:url" content={$page.url.toString()} />
 </svelte:head>
 
 <div class="max-h-max py-20">
@@ -25,10 +34,10 @@
                 <p class="text-stone-950 dark:text-stone-200 font-medium text-lg prose">
                     I enjoy coding and developing various projects as a hobby, particularly
                     (full-stack) web applications and websites. Additionally, I sometimes code other
-                    stuff like a plugin for the game Trackmania.
-                    Online, I typically go by the usernames nbeerten or nbert.
+                    stuff like a plugin for the game Trackmania. Online, I typically go by the
+                    usernames nbeerten or nbert.
                 </p>
-                <SocialLinks class="text-stone-400" />
+                <SocialLinks />
             </div>
         </div>
         <div class="min-h-0 max-h-full w-52 aspect-square hidden lg:flex">

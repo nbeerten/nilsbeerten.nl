@@ -4,8 +4,8 @@
 </script>
 
 <svelte:head>
-    <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)">
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 </svelte:head>
 
 <div

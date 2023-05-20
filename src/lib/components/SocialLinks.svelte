@@ -1,7 +1,5 @@
 <script lang="ts">
     import Twitter from '@inqling/svelte-icons/simple-icons/twitter.svelte';
-    import Youtube from '@inqling/svelte-icons/simple-icons/youtube.svelte';
-    import Discord from '@inqling/svelte-icons/simple-icons/discord.svelte';
     import Github from '@inqling/svelte-icons/simple-icons/github.svelte';
     import type { ComponentType } from 'svelte';
 

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import ArrowTopRightOnSquare from '@inqling/svelte-icons/heroicon-24-solid/arrow-top-right-on-square.svelte';
     import Github from '@inqling/svelte-icons/simple-icons/github.svelte';
 
     export let username = 'nbeerten';
@@ -23,9 +22,9 @@
                 </span>
             </h3>
             {#if description}
-            <p>{description}</p>
+                <p>{description}</p>
             {:else}
-            <p><slot name="description" /></p>
+                <p><slot name="description" /></p>
             {/if}
         </a>
     </div>
