@@ -6,6 +6,10 @@
     import CodeBracketSquare from '@inqling/svelte-icons/heroicon-24-solid/code-bracket-square.svelte';
     import TailwindCSS from '@inqling/svelte-icons/simple-icons/tailwindcss.svelte';
     import Vercel from '@inqling/svelte-icons/simple-icons/vercel.svelte';
+    import ArrowDownTray from '@inqling/svelte-icons/heroicon-20-solid/arrow-down-tray.svelte';
+
+    export let data;
+    const { tmRefreshLeaderboardDownloads } = data;
 </script>
 
 <svelte:head>
@@ -24,29 +28,18 @@
     <meta property="og:url" content={$page.url.toString()} />
 </svelte:head>
 
-<div class="max-h-max py-20">
-    <div class="flex gap-8 justify-between">
-        <div class="max-w-[50ch] flex flex-col gap-4">
-            <h1 class="text-5xl sm:text-7xl font-extrabold">
-                <span class="text-stone-500 dark:text-stone-400">Hey, I'm</span><br />Nils Beerten.
-            </h1>
-            <div class="flex flex-col gap-2">
-                <p class="text-stone-950 dark:text-stone-200 font-medium text-lg prose">
-                    I enjoy coding and developing various projects as a hobby, particularly
-                    (full-stack) web applications and websites. Additionally, I sometimes code other
-                    stuff like a plugin for the game Trackmania. Online, I typically go by the
-                    usernames nbeerten or nbert.
-                </p>
-                <SocialLinks />
-            </div>
-        </div>
-        <div class="min-h-0 max-h-full w-52 aspect-square hidden lg:flex">
-            <img
-                src="/logo_white.svg"
-                alt="Logo"
-                class="filter invert dark:filter-none select-none pointer-events-none min-h-0 min-w-0 h-50 w-50 max-h-full max-w-full object-contain"
-            />
-        </div>
+<div class="max-w-[50ch] py-20 flex flex-col gap-4 relative">
+    <h1 class="text-5xl sm:text-7xl font-extrabold">
+        <span class="text-stone-500 dark:text-stone-400">Hey, I'm</span><br />Nils Beerten.
+    </h1>
+    <div class="flex flex-col gap-2">
+        <p class="text-stone-950 dark:text-stone-200 font-medium text-lg prose">
+            I enjoy coding and developing various projects as a hobby, particularly
+            (full-stack) web applications and websites. Additionally, I sometimes code other
+            stuff like a plugin for the game Trackmania. Online, I typically go by the
+            usernames nbeerten or nbert.
+        </p>
+        <SocialLinks />
     </div>
 </div>
 
@@ -76,6 +69,9 @@
             </svelte:fragment>
             <svelte:fragment slot="languages">
                 <span class="flex gap-2"><CodeBracketSquare class="h-5 w-5 scale-125" /></span>
+            </svelte:fragment>
+            <svelte:fragment slot="stats">
+                <ArrowDownTray class="h-5 w-5 mb-1" /> {tmRefreshLeaderboardDownloads.downloads} downloads
             </svelte:fragment>
         </RepoCard>
     </div>

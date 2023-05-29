@@ -12,7 +12,7 @@
     class="flex flex-col gap-2 bg-stone-100 dark:bg-stone-900 border border-stone-300 dark:border-stone-700 rounded px-4 py-2 justify-between overflow-hidden"
 >
     <div class="flex flex-col">
-        <a href="{baseGithubUrl}/{username}/{repo}" class="contents">
+        <a href="{baseGithubUrl}/{username}/{repo}" class="contents" target="_blank">
             <h3 class="font-semibold flex items-center gap-2 text-2xl">
                 <Github class="h-5 w-5 mt-0.5 flex-shrink-0" />
                 <span class="truncate">
@@ -31,6 +31,9 @@
     <div class="flex gap-4 justify-between border-t border-stone-300 dark:border-stone-700 pt-2">
         <div class="flex items-center gap-3 text-stone-800 dark:text-stone-400">
             <slot name="languages" />
+        </div>
+        <div class="h-[1lh]">
+            <slot name="stats" />
         </div>
     </div>
 </div>

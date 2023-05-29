@@ -9,27 +9,31 @@
     let socialLinks: {
         icon: ComponentType;
         url: string;
+        handle: string;
     }[] = [
         {
             icon: Twitter,
-            url: 'https://twitter.com/nbertn'
+            url: 'https://twitter.com/nbertn',
+            handle: 'nbertn'
         },
         {
             icon: Github,
-            url: 'https://github.com/nbeerten'
+            url: 'https://github.com/nbeerten',
+            handle: 'nbeerten'
         }
     ];
 </script>
 
-<div class="flex gap-2 -ml-1 {className}" {...$$restProps}>
+<div class="flex gap-2 -ml-2 {className}" {...$$restProps}>
     {#each socialLinks as link}
         <a
             href={link.url}
             target="_blank"
             rel="noreferer noopener"
-            class="transition bg-transparent px-1.5 py-1 rounded-full grid place-items-center aspect-square hover:scale-125 text-stone-800 dark:text-stone-50 hover:text-white hover:bg-stone-900"
+            class="transition bg-transparent px-2 py-1 rounded-full flex items-center justify-center gap-x-2 text-stone-800 dark:text-stone-50 hover:text-white hover:bg-stone-900"
         >
-            <svelte:component this={link.icon} class="h-5 w-5" />
+            <svelte:component this={link.icon} class="h-5 w-5 aspect-square" />
+            <span class="mb-0.5">{link.handle}</span>
         </a>
     {/each}
 </div>
