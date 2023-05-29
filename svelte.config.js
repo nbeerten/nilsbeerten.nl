@@ -1,7 +1,7 @@
 import adapterVercel from '@sveltejs/adapter-vercel';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import sveltePreprocess from 'svelte-preprocess';
-import delegateEvents from "svelte-preprocess-delegate-events/preprocess";
+import delegateEvents from 'svelte-preprocess-delegate-events/preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

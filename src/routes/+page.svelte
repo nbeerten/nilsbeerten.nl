@@ -34,10 +34,9 @@
     </h1>
     <div class="flex flex-col gap-2">
         <p class="text-stone-950 dark:text-stone-200 font-medium text-lg prose">
-            I enjoy coding and developing various projects as a hobby, particularly
-            (full-stack) web applications and websites. Additionally, I sometimes code other
-            stuff like a plugin for the game Trackmania. Online, I typically go by the
-            usernames nbeerten or nbert.
+            I enjoy coding and developing various projects as a hobby, particularly (full-stack) web
+            applications and websites. Additionally, I sometimes code other stuff like a plugin for
+            the game Trackmania. Online, I typically go by the usernames nbeerten or nbert.
         </p>
         <SocialLinks />
     </div>
@@ -71,7 +70,8 @@
                 <span class="flex gap-2"><CodeBracketSquare class="h-5 w-5 scale-125" /></span>
             </svelte:fragment>
             <svelte:fragment slot="stats">
-                <ArrowDownTray class="h-5 w-5 mb-1" /> {tmRefreshLeaderboardDownloads.downloads} downloads
+                <ArrowDownTray class="h-5 w-5 mb-1" />
+                {tmRefreshLeaderboardDownloads.downloads} downloads
             </svelte:fragment>
         </RepoCard>
     </div>
