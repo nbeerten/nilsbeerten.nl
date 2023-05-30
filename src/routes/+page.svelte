@@ -3,10 +3,9 @@
     import { page } from "$app/stores";
     import Typescript from "@inqling/svelte-icons/simple-icons/typescript.svelte";
     import Svelte from "@inqling/svelte-icons/simple-icons/svelte.svelte";
-    import CodeBracketSquare from "@inqling/svelte-icons/heroicon-24-solid/code-bracket-square.svelte";
     import TailwindCSS from "@inqling/svelte-icons/simple-icons/tailwindcss.svelte";
     import Vercel from "@inqling/svelte-icons/simple-icons/vercel.svelte";
-    import ArrowDownTray from "@inqling/svelte-icons/heroicon-20-solid/arrow-down-tray.svelte";
+    import { Download, CurlyBraces } from "lucide-svelte";
 
     export let data;
     const { tmRefreshLeaderboardDownloads } = data;
@@ -67,10 +66,10 @@
                 and is styled to fit in with the game's UI.
             </svelte:fragment>
             <svelte:fragment slot="languages">
-                <span class="flex gap-2"><CodeBracketSquare class="h-5 w-5 scale-125" /></span>
+                <span class="flex gap-2"><CurlyBraces class="h-5 w-5" /></span>
             </svelte:fragment>
             <svelte:fragment slot="stats">
-                <ArrowDownTray class="h-5 w-5 mb-1" />
+                <Download class="h-5 w-5" />
                 {tmRefreshLeaderboardDownloads.downloads} downloads
             </svelte:fragment>
         </RepoCard>

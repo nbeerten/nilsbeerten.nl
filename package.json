@@ -43,6 +43,7 @@
         "class-variance-authority": "^0.6.0",
         "clsx": "^1.2.1",
         "lucide-svelte": "^0.224.0",
+        "radix-svelte": "^0.7.0",
         "satori": "^0.9.1",
         "satori-html": "^0.3.2",
         "tailwind-merge": "^1.12.0"
