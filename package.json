@@ -39,7 +39,12 @@
         "@resvg/resvg-js": "^2.4.1",
         "@sveltejs/adapter-vercel": "^3.0.0",
         "@vercel/analytics": "^1.0.1",
+        "class-variance-authority": "^0.6.0",
+        "clsx": "^1.2.1",
+        "lucide-svelte": "^0.224.0",
         "satori": "^0.9.1",
-        "satori-html": "^0.3.2"
+        "satori-html": "^0.3.2",
+        "tailwind-merge": "^1.12.0",
+        "tailwindcss-animate": "^1.0.5"
     }
 }
