@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { SocialLinks, RepoCard } from '$lib/components';
-    import { page } from '$app/stores';
-    import Typescript from '@inqling/svelte-icons/simple-icons/typescript.svelte';
-    import Svelte from '@inqling/svelte-icons/simple-icons/svelte.svelte';
-    import CodeBracketSquare from '@inqling/svelte-icons/heroicon-24-solid/code-bracket-square.svelte';
-    import TailwindCSS from '@inqling/svelte-icons/simple-icons/tailwindcss.svelte';
-    import Vercel from '@inqling/svelte-icons/simple-icons/vercel.svelte';
-    import ArrowDownTray from '@inqling/svelte-icons/heroicon-20-solid/arrow-down-tray.svelte';
+    import { SocialLinks, RepoCard } from "$lib/components";
+    import { page } from "$app/stores";
+    import Typescript from "@inqling/svelte-icons/simple-icons/typescript.svelte";
+    import Svelte from "@inqling/svelte-icons/simple-icons/svelte.svelte";
+    import CodeBracketSquare from "@inqling/svelte-icons/heroicon-24-solid/code-bracket-square.svelte";
+    import TailwindCSS from "@inqling/svelte-icons/simple-icons/tailwindcss.svelte";
+    import Vercel from "@inqling/svelte-icons/simple-icons/vercel.svelte";
+    import ArrowDownTray from "@inqling/svelte-icons/heroicon-20-solid/arrow-down-tray.svelte";
 
     export let data;
     const { tmRefreshLeaderboardDownloads } = data;

@@ -1,11 +1,11 @@
 <script lang="ts">
-    import "../app.postcss";
-    import { Nav, Footer, ThemeToggle } from '$lib/components';
+    import "../app.css";
+    import { Nav, Footer, ThemeToggle } from "$lib/components";
 
-    import { dev } from '$app/environment';
-    import { inject } from '@vercel/analytics';
+    import { dev } from "$app/environment";
+    import { inject } from "@vercel/analytics";
 
-    inject({ mode: dev ? 'development' : 'production' });
+    inject({ mode: dev ? "development" : "production" });
 </script>
 
 <svelte:head>
@@ -50,7 +50,7 @@
                 theme(colors.transparent) 50%,
                 theme(colors.white) 100%
             ),
-            url('/topography_light.svg');
+            url("/topography_light.svg");
         background-repeat: no-repeat, repeat-x;
         background-size: 100% 600px, 600px 600px;
         min-height: 600px;
@@ -62,6 +62,6 @@
                 theme(colors.transparent) 50%,
                 theme(colors.stone.950) 100%
             ),
-            url('/topography.svg');
+            url("/topography.svg");
     }
 </style>

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Github from '@inqling/svelte-icons/simple-icons/github.svelte';
+    import Github from "@inqling/svelte-icons/simple-icons/github.svelte";
 
-    export let username = 'nbeerten';
-    export let repo = 'nb';
+    export let username = "nbeerten";
+    export let repo = "nb";
     export let description: string | null = null;
 
     const baseGithubUrl = `//github.com`;

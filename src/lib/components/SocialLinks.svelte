@@ -1,9 +1,9 @@
 <script lang="ts">
-    import Twitter from '@inqling/svelte-icons/simple-icons/twitter.svelte';
-    import Github from '@inqling/svelte-icons/simple-icons/github.svelte';
-    import type { ComponentType } from 'svelte';
+    import Twitter from "@inqling/svelte-icons/simple-icons/twitter.svelte";
+    import Github from "@inqling/svelte-icons/simple-icons/github.svelte";
+    import type { ComponentType } from "svelte";
 
-    let className = '';
+    let className = "";
     export { className as class };
 
     let socialLinks: {
@@ -13,13 +13,13 @@
     }[] = [
         {
             icon: Twitter,
-            url: 'https://twitter.com/nbertn',
-            handle: 'nbertn'
+            url: "https://twitter.com/nbertn",
+            handle: "nbertn"
         },
         {
             icon: Github,
-            url: 'https://github.com/nbeerten',
-            handle: 'nbeerten'
+            url: "https://github.com/nbeerten",
+            handle: "nbeerten"
         }
     ];
 </script>

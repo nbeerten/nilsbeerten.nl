@@ -38,6 +38,6 @@
                 theme(colors.transparent) 50%,
                 theme(colors.stone.950) 100%
             ),
-            url('https://beta.nilsbeerten.nl/topography.svg');
+            url("https://beta.nilsbeerten.nl/topography.svg");
     }
 </style>

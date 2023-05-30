@@ -1,10 +1,10 @@
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-import { html as toReactElement } from 'satori-html';
-import Og from './Og.svelte';
-import type { SvelteComponent } from 'svelte';
+import satori from "satori";
+import { Resvg } from "@resvg/resvg-js";
+import { html as toReactElement } from "satori-html";
+import Og from "./Og.svelte";
+import type { SvelteComponent } from "svelte";
 
-const fontFile = await fetch('https://beta.nilsbeerten.nl/fonts/excon/Excon-Black.ttf');
+const fontFile = await fetch("https://beta.nilsbeerten.nl/fonts/excon/Excon-Black.ttf");
 const fontData: ArrayBuffer = await fontFile.arrayBuffer();
 
 const height = 630;
@@ -22,15 +22,15 @@ function componentToMarkup(component: typeof SvelteComponent, props: Record<stri
 export async function GET({ url }) {
     const html = toReactElement(
         componentToMarkup(Og, {
-            title: url.searchParams.get('title')
+            title: url.searchParams.get("title")
         })
     );
     const svg = await satori(html, {
         fonts: [
             {
-                name: 'Inter Latin',
+                name: "Inter Latin",
                 data: fontData,
-                style: 'normal'
+                style: "normal"
             }
         ],
         height,
@@ -39,7 +39,7 @@ export async function GET({ url }) {
 
     const resvg = new Resvg(svg, {
         fitTo: {
-            mode: 'width',
+            mode: "width",
             value: width
         }
     });
@@ -48,7 +48,7 @@ export async function GET({ url }) {
 
     return new Response(image.asPng(), {
         headers: {
-            'content-type': 'image/png'
+            "content-type": "image/png"
         }
     });
 }
