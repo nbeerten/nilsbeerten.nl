@@ -10,7 +10,10 @@ const fontData: ArrayBuffer = await fontFile.arrayBuffer();
 const height = 630;
 const width = 1200;
 
-function componentToMarkup(component: typeof SvelteComponent, props: Record<string, unknown> = {}) {
+function componentToMarkup(
+    component: typeof SvelteComponent<Record<string, unknown>>,
+    props: Record<string, unknown> = {}
+) {
     const SvelteRenderedMarkup = (component as unknown as SvelteComponent).render(props);
     let htmlTemplate = `${SvelteRenderedMarkup.html}`;
     if (SvelteRenderedMarkup && SvelteRenderedMarkup.css && SvelteRenderedMarkup.css.code) {

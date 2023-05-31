@@ -1,13 +1,13 @@
 <script lang="ts">
     import Twitter from "@inqling/svelte-icons/simple-icons/twitter.svelte";
     import Github from "@inqling/svelte-icons/simple-icons/github.svelte";
-    import type { ComponentType } from "svelte";
+    import type { SvelteComponent } from "svelte";
 
     let className = "";
     export { className as class };
 
     let socialLinks: {
-        icon: ComponentType;
+        icon: typeof SvelteComponent<Record<string, unknown>>;
         url: string;
         handle: string;
     }[] = [
