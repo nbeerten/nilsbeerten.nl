@@ -3,11 +3,6 @@ import { Resvg } from "@resvg/resvg-js";
 import { html as toReactElement } from "satori-html";
 import Og from "./Og.svelte";
 import type { SvelteComponent } from "svelte";
-import type { EdgeConfig } from "@sveltejs/adapter-vercel";
-
-export const config: EdgeConfig = {
-    runtime: "edge"
-};
 
 const height = 630;
 const width = 1200;
