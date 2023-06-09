@@ -1,15 +1,14 @@
 <script lang="ts">
     import { page } from "$app/stores";
+
+    $: domain = $page.url.hostname;
 </script>
 
 <svelte:head>
     <title>{$page.error?.message} - Nils Beerten</title>
 
     <meta property="og:title" content="{$page.error?.message} - Nils Beerten" />
-    <meta
-        property="og:image"
-        content="https://beta.nilsbeerten.nl/api/og?title={$page.error?.message}"
-    />
+    <meta property="og:image" content="{domain}/api/og?title={$page.error?.message}" />
     <meta property="og:url" content={$page.url.toString()} />
 </svelte:head>
 

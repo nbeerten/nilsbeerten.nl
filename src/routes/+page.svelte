@@ -5,26 +5,31 @@
     import Svelte from "@inqling/svelte-icons/simple-icons/svelte.svelte";
     import TailwindCSS from "@inqling/svelte-icons/simple-icons/tailwindcss.svelte";
     import Vercel from "@inqling/svelte-icons/simple-icons/vercel.svelte";
-    import { Download, CurlyBraces } from "lucide-svelte";
+    import { Download, CurlyBraces, Loader2 as Loader } from "lucide-svelte";
 
     export let data;
-    const { tmRefreshLeaderboardDownloads } = data;
+    const { streamed } = data;
+
+    $: domain = $page.url.hostname;
 </script>
 
 <svelte:head>
     <title>Nils Beerten</title>
     <meta
         name="description"
-        content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert."
+        content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, 
+                 particularly (full-stack) web applications and websites. 
+                 Online, I typically go by the usernames nbeerten or nbert."
     />
 
     <meta property="og:title" content="Nils Beerten" />
     <meta
         property="og:description"
-        content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert."
+        content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, 
+                 particularly (full-stack) web applications and websites. 
+                 Online, I typically go by the usernames nbeerten or nbert."
     />
-    <meta property="og:image" content="https://beta.nilsbeerten.nl/api/og" />
-    <meta property="og:url" content={$page.url.toString()} />
+    <meta property="og:image" content="{domain}/api/og" />
 </svelte:head>
 
 <div class="max-w-[50ch] py-20 flex flex-col gap-4 relative">
@@ -70,7 +75,11 @@
             </svelte:fragment>
             <svelte:fragment slot="stats">
                 <Download class="h-5 w-5" />
-                {tmRefreshLeaderboardDownloads.downloads} downloads
+                {#await streamed.tmRefreshLeaderboardDownloads}
+                    <Loader class="animate-spin" />
+                {:then data}
+                    {data.downloads} downloads
+                {/await}
             </svelte:fragment>
         </RepoCard>
     </div>

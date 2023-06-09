@@ -11,6 +11,21 @@
 <svelte:head>
     <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+
+    <link
+        rel="preload"
+        as="image"
+        type="image/svg+xml"
+        href="/topography.svg"
+        media="(prefers-color-scheme: dark)"
+    />
+    <link
+        rel="preload"
+        as="image"
+        type="image/svg+xml"
+        href="/topography_light.svg"
+        media="(prefers-color-scheme: light)"
+    />
 </svelte:head>
 
 <div

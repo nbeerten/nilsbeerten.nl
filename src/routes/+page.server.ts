@@ -1,13 +1,11 @@
-import type { ServerlessConfig } from "@sveltejs/adapter-vercel";
+import type { EdgeConfig } from "@sveltejs/adapter-vercel";
 
-export const config: ServerlessConfig = {
-    isr: {
-        expiration: 60 * 60 * 24
-    }
+export const config: EdgeConfig = {
+    runtime: "edge"
 };
 
 export async function load({ fetch }) {
-    const tmRefreshLeaderboardDownloads = await fetch("https://openplanet.dev/api/plugin/229", {
+    const tmRefreshLeaderboardDownloads = fetch("https://openplanet.dev/api/plugin/229", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -23,6 +21,8 @@ export async function load({ fetch }) {
     );
 
     return {
-        tmRefreshLeaderboardDownloads
+        streamed: {
+            tmRefreshLeaderboardDownloads
+        }
     };
 }

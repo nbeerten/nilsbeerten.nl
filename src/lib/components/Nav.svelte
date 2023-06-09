@@ -6,7 +6,7 @@
                     <slot name="logo">
                         <img
                             class="h-8 w-8 filter invert dark:filter-none"
-                            src="https://nilsbeerten.nl/assets/logo_white.svg"
+                            src="/logo_white.svg"
                             alt="Logo"
                         />
                     </slot>

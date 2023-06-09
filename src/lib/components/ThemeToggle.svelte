@@ -1,6 +1,5 @@
 <script lang="ts">
-    import Sun from "@inqling/svelte-icons/heroicon-24-solid/sun.svelte";
-    import Moon from "@inqling/svelte-icons/heroicon-24-solid/moon.svelte";
+    import { Sun, Moon } from "lucide-svelte";
     import { onMount } from "svelte";
 
     // indicate if we're in dark mode or not

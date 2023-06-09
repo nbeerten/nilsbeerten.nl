@@ -3,18 +3,21 @@ import { Resvg } from "@resvg/resvg-js";
 import { html as toReactElement } from "satori-html";
 import Og from "./Og.svelte";
 import type { SvelteComponent } from "svelte";
+import type { EdgeConfig } from "@sveltejs/adapter-vercel";
 
-const fontFile = await fetch("https://beta.nilsbeerten.nl/fonts/excon/Excon-Black.ttf");
-const fontData: ArrayBuffer = await fontFile.arrayBuffer();
+export const config: EdgeConfig = {
+    runtime: "edge"
+};
 
 const height = 630;
 const width = 1200;
 
-function componentToMarkup(
-    component: typeof SvelteComponent<Record<string, unknown>>,
-    props: Record<string, unknown> = {}
-) {
-    const SvelteRenderedMarkup = (component as unknown as SvelteComponent).render(props);
+type ComponentType = typeof SvelteComponent & {
+    render: (props: Record<string, unknown>) => { html: string; css: { code: string } };
+};
+
+function componentToMarkup(component: unknown, props: Record<string, unknown> = {}) {
+    const SvelteRenderedMarkup = (component as unknown as ComponentType).render(props);
     let htmlTemplate = `${SvelteRenderedMarkup.html}`;
     if (SvelteRenderedMarkup && SvelteRenderedMarkup.css && SvelteRenderedMarkup.css.code) {
         htmlTemplate = `${SvelteRenderedMarkup.html}<style>${SvelteRenderedMarkup.css.code}</style>`;
@@ -22,7 +25,10 @@ function componentToMarkup(
     return htmlTemplate;
 }
 
-export async function GET({ url }) {
+export async function GET({ url, fetch }) {
+    const fontFile = await fetch("/fonts/excon/Excon-Black.ttf");
+    const fontData: ArrayBuffer = await fontFile.arrayBuffer();
+
     const html = toReactElement(
         componentToMarkup(Og, {
             title: url.searchParams.get("title")

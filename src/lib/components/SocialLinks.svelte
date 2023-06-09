@@ -1,13 +1,12 @@
 <script lang="ts">
-    import Twitter from "@inqling/svelte-icons/simple-icons/twitter.svelte";
-    import Github from "@inqling/svelte-icons/simple-icons/github.svelte";
+    import { Twitter, Github, type IconProps } from "lucide-svelte";
     import type { SvelteComponent } from "svelte";
 
     let className = "";
     export { className as class };
 
     let socialLinks: {
-        icon: typeof SvelteComponent<Record<string, unknown>>;
+        icon: typeof SvelteComponent<IconProps>;
         url: string;
         handle: string;
     }[] = [
