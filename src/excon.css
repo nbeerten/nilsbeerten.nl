@@ -5,16 +5,6 @@
  * Designed by: Alisa Nowak
  * URL: https://www.fontshare.com/fonts/excon/excon
  * © 2023 Indian Type Foundry
- *
- * Font Styles:
- * Excon Variable(Variable font)
- * Excon Thin
- * Excon Light
- * Excon Regular
- * Excon Medium
- * Excon Bold
- * Excon Black
- *
 */
 
 /**
@@ -23,9 +13,7 @@
 * font-variation-settings: 'wght' 900.0;
 *
 * available axes:
-
-* 'wght' (range from 100.0 to 900.0)
-
+*   'wght' (range from 100.0 to 900.0)
 */
 
 @font-face {
@@ -34,66 +22,6 @@
         url("/fonts/excon/Excon-Variable.woff") format("woff"),
         url("/fonts/excon/Excon-Variable.ttf") format("truetype");
     font-weight: 100 900;
-    font-display: swap;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Excon";
-    src: url("/fonts/excon/Excon-Thin.woff2") format("woff2"),
-        url("/fonts/excon/Excon-Thin.woff") format("woff"),
-        url("/fonts/excon/Excon-Thin.ttf") format("truetype");
-    font-weight: 100;
-    font-display: swap;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Excon";
-    src: url("/fonts/excon/Excon-Light.woff2") format("woff2"),
-        url("/fonts/excon/Excon-Light.woff") format("woff"),
-        url("/fonts/excon/Excon-Light.ttf") format("truetype");
-    font-weight: 300;
-    font-display: swap;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Excon";
-    src: url("/fonts/excon/Excon-Regular.woff2") format("woff2"),
-        url("/fonts/excon/Excon-Regular.woff") format("woff"),
-        url("/fonts/excon/Excon-Regular.ttf") format("truetype");
-    font-weight: 400;
-    font-display: swap;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Excon";
-    src: url("/fonts/excon/Excon-Medium.woff2") format("woff2"),
-        url("/fonts/excon/Excon-Medium.woff") format("woff"),
-        url("/fonts/excon/Excon-Medium.ttf") format("truetype");
-    font-weight: 500;
-    font-display: swap;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Excon";
-    src: url("/fonts/excon/Excon-Bold.woff2") format("woff2"),
-        url("/fonts/excon/Excon-Bold.woff") format("woff"),
-        url("/fonts/excon/Excon-Bold.ttf") format("truetype");
-    font-weight: 700;
-    font-display: swap;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: "Excon";
-    src: url("/fonts/excon/Excon-Black.woff2") format("woff2"),
-        url("/fonts/excon/Excon-Black.woff") format("woff"),
-        url("/fonts/excon/Excon-Black.ttf") format("truetype");
-    font-weight: 900;
     font-display: swap;
     font-style: normal;
 }

@@ -26,6 +26,8 @@
         href="/topography_light.svg"
         media="(prefers-color-scheme: light)"
     />
+    <link rel="preload" href="/fonts/satoshi/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/excon/Excon-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 </svelte:head>
 
 <div
