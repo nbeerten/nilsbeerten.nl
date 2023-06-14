@@ -14,7 +14,7 @@
 
 <div class="max-h-max py-20">
     <div class="flex gap-8 justify-between">
-        <div class="max-w-[50ch] flex flex-col gap-4">
+        <div class="flex flex-col gap-4">
             <h1 class="text-7xl font-extrabold">
                 <span class="text-stone-500 dark:text-stone-400 text-5xl sm:text-6xl"
                     >{$page.error?.message}</span

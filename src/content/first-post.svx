@@ -1,0 +1,10 @@
+---
+title: First post!
+description: The first post of my website.
+date: '2023-6-15'
+categories:
+  - svelte
+published: false
+---
+
+First post example

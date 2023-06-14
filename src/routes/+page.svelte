@@ -1,11 +1,13 @@
 <script lang="ts">
     import { SocialLinks, RepoCard } from "$lib/components";
+    import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "$components/ui/card";
     import { page } from "$app/stores";
     import Typescript from "@inqling/svelte-icons/simple-icons/typescript.svelte";
     import Svelte from "@inqling/svelte-icons/simple-icons/svelte.svelte";
     import TailwindCSS from "@inqling/svelte-icons/simple-icons/tailwindcss.svelte";
     import Vercel from "@inqling/svelte-icons/simple-icons/vercel.svelte";
     import { Download, CurlyBraces, Loader2 as Loader } from "lucide-svelte";
+    import { browser } from "$app/environment";
 
     export let data;
     const { streamed } = data;
@@ -82,5 +84,46 @@
                 {/await}
             </svelte:fragment>
         </RepoCard>
+    </div>
+</section>
+
+<section class="flex flex-col gap-4 my-4 py-4">
+    <h2 class="text-4xl font-bold">Posts</h2>
+
+    <div class="grid gap-4 lg:grid-cols-2 w-full">
+        {#await streamed.posts}
+            <Loader class="animate-spin justify-self-center col-span-full" />
+        {:then posts}
+            {#if posts.length > 0}
+                {#each posts as post}
+                    <Card>
+                        <CardHeader>
+                            <CardTitle tag="h3">
+                                {post.title}
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            {post.description}
+                        </CardContent>
+                        <CardFooter class="flex gap-2 justify-between text-muted-foreground">
+                            {#if browser}
+                                <span>{new Date(post.date).toLocaleDateString()}</span>
+                            {/if}
+
+                            <a
+                                href="/post/{post.slug}"
+                                target="_blank"
+                                rel="noreferrer"
+                                class="underline"
+                            >
+                                Read more
+                            </a>
+                        </CardFooter>
+                    </Card>
+                {/each}
+            {:else}
+                No posts found.
+            {/if}
+        {/await}
     </div>
 </section>

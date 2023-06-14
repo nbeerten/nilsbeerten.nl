@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import typography from "@tailwindcss/typography";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
     content: ["./src/**/*.{html,js,svelte,ts}"],
@@ -60,9 +61,5 @@ export default {
             }
         }
     },
-    plugins: [
-        typography(),
-        // @ts-expect-error Cannot find name 'require' for some reason
-        require("tailwindcss-animate")
-    ]
+    plugins: [typography(), tailwindcssAnimate]
 } satisfies Config;

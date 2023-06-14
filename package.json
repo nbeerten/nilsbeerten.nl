@@ -15,12 +15,13 @@
         "@sveltejs/adapter-auto": "^2.1.0",
         "@sveltejs/kit": "^1.20.2",
         "@tailwindcss/typography": "^0.5.9",
-        "@typescript-eslint/eslint-plugin": "^5.59.9",
-        "@typescript-eslint/parser": "^5.59.9",
+        "@typescript-eslint/eslint-plugin": "^5.59.11",
+        "@typescript-eslint/parser": "^5.59.11",
         "autoprefixer": "^10.4.14",
         "eslint": "^8.42.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-svelte": "^2.30.0",
+        "mdsvex": "^0.10.6",
         "postcss": "^8.4.24",
         "prettier": "^2.8.8",
         "prettier-plugin-svelte": "^2.10.1",
@@ -42,10 +43,11 @@
         "@vercel/analytics": "^1.0.1",
         "class-variance-authority": "^0.6.0",
         "clsx": "^1.2.1",
-        "lucide-svelte": "^0.241.0",
+        "lucide-svelte": "^0.244.0",
         "radix-svelte": "^0.7.1",
         "satori": "^0.10.1",
         "satori-html": "^0.3.2",
+        "shiki": "^0.14.2",
         "tailwind-merge": "^1.13.1"
     }
 }

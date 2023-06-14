@@ -1,4 +1,5 @@
 import type { EdgeConfig } from "@sveltejs/adapter-vercel";
+import type { Post } from "$lib/types";
 
 export const config: EdgeConfig = {
     runtime: "edge"
@@ -20,9 +21,12 @@ export async function load({ fetch }) {
             >
     );
 
+    const posts: Promise<Post[]> = fetch("/api/posts").then((res) => res.json());
+
     return {
         streamed: {
-            tmRefreshLeaderboardDownloads
+            tmRefreshLeaderboardDownloads,
+            posts
         }
     };
 }
