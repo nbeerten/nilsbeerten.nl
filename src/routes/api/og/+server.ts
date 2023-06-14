@@ -3,6 +3,11 @@ import { Resvg } from "@resvg/resvg-js";
 import { html as toReactElement } from "satori-html";
 import Og from "./Og.svelte";
 import type { SvelteComponent } from "svelte";
+import type { ServerlessConfig } from "@sveltejs/adapter-vercel";
+
+export const config: ServerlessConfig = {
+    runtime: "nodejs18.x"
+}
 
 const height = 630;
 const width = 1200;
