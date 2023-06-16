@@ -26,7 +26,7 @@
             "Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert.",
         images: [
             {
-                url: `${domain}/api/og`,
+                url: `https://${domain}/api/og`,
                 alt: "Home - Nils Beerten"
             }
         ]

@@ -18,7 +18,7 @@
         description: data.meta.description,
         images: [
             {
-                url: `${domain}/api/og?title=${data.meta.title}`,
+                url: `https://${domain}/api/og?title=${data.meta.title}`,
                 alt: data.meta.title
             }
         ]
