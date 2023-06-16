@@ -48,6 +48,7 @@
         "satori": "^0.10.1",
         "satori-html": "^0.3.2",
         "shiki": "^0.14.2",
-        "tailwind-merge": "^1.13.1"
+        "somerset": "^0.0.3",
+        "tailwind-merge": "^1.13.2"
     }
 }

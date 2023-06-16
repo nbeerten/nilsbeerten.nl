@@ -8,6 +8,7 @@
     import Vercel from "@inqling/svelte-icons/simple-icons/vercel.svelte";
     import { Download, CurlyBraces, Loader2 as Loader } from "lucide-svelte";
     import { browser } from "$app/environment";
+    import { Somerset, SocialProfileJsonLd } from "somerset";
 
     export let data;
     const { streamed } = data;
@@ -15,24 +16,38 @@
     $: domain = $page.url.hostname;
 </script>
 
-<svelte:head>
-    <title>Nils Beerten</title>
-    <meta
-        name="description"
-        content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, 
-                 particularly (full-stack) web applications and websites. 
-                 Online, I typically go by the usernames nbeerten or nbert."
-    />
+<Somerset
+    title="Nils Beerten"
+    description="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert."
+    openGraph={{
+        url: $page.url.toString(),
+        title: "Nils Beerten",
+        description:
+            "Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert.",
+        images: [
+            {
+                url: `${domain}/api/og`,
+                alt: "Home - Nils Beerten"
+            }
+        ]
+    }}
+    twitter={{
+        handle: "@nbertn",
+        cardType: "summary_large_image"
+    }}
+/>
 
-    <meta property="og:title" content="Nils Beerten" />
-    <meta
-        property="og:description"
-        content="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, 
-                 particularly (full-stack) web applications and websites. 
-                 Online, I typically go by the usernames nbeerten or nbert."
-    />
-    <meta property="og:image" content="{domain}/api/og" />
-</svelte:head>
+<SocialProfileJsonLd
+    type="Person"
+    name="Nils Beerten"
+    url="https://nilsbeerten.nl"
+    sameAs={[
+        "https://twitter.com/nbeerten",
+        "https://youtube.com/nbertn",
+        "https://github.com/nbeerten",
+        "https://twitch.tv/nbeerten"
+    ]}
+/>
 
 <div class="max-w-[50ch] py-20 flex flex-col gap-4 relative">
     <h1 class="text-5xl sm:text-7xl font-extrabold">

@@ -7,7 +7,7 @@ import type { ServerlessConfig } from "@sveltejs/adapter-vercel";
 
 export const config: ServerlessConfig = {
     runtime: "nodejs18.x"
-}
+};
 
 const height = 630;
 const width = 1200;
@@ -57,7 +57,8 @@ export async function GET({ url, fetch }) {
 
     return new Response(image.asPng(), {
         headers: {
-            "content-type": "image/png"
+            "content-type": "image/png",
+            "cache-control": "public, max-age=604800"
         }
     });
 }
