@@ -31,10 +31,14 @@ export const actions = {
         }
 
         const email = new Email({
+<<<<<<< HEAD
             from: {
                 email: NOREPLY_EMAIL,
                 name: `${contactForm.data.name} (${contactForm.data.email})`
             },
+=======
+            from: { email: "noreply@nilsbeerten.nl", name: `${contactForm.data.name} (${contactForm.data.email})` },
+>>>>>>> 115c7a0e97754a70e7869422b6c0f46eece3afcc
             to: { email: SEND_TO_EMAIL, name: "Nils Beerten" },
             replyTo: { email: contactForm.data.email, name: contactForm.data.name },
             subject: contactForm.data.subject,
