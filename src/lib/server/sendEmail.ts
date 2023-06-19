@@ -52,7 +52,7 @@ export class Email {
     protected html?: string;
 
     constructor(email: Partial<IEmail>) {
-        this.from = email.from ?? { email: "test@nilsbeerten.nl", name: "Test Sender" };
+        this.from = email.from ?? { email: "noreply@nilsbeerten.nl", name: "Nils Beerten (noreply)" };
         this.to = email.to ?? { email: SEND_TO_EMAIL };
         this.replyTo = email.replyTo;
         this.cc = email.cc;
