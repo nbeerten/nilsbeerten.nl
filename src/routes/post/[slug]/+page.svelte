@@ -39,16 +39,16 @@
 
 <article class="flex flex-col gap-2 pt-16">
     <hgroup>
-        <h1 class="text-4xl sm:text-5xl font-extrabold font-display">{data.meta.title}</h1>
+        <h1 class="font-display text-4xl font-extrabold sm:text-5xl">{data.meta.title}</h1>
         {#if browser}
-            <p class="font-medium pt-2">Published at {new Date(data.meta.date).toDateString()}</p>
+            <p class="pt-2 font-medium">Published at {new Date(data.meta.date).toDateString()}</p>
         {/if}
     </hgroup>
 
     <div class="flex gap-4">
         {#each data.meta.categories as category}
-            <span class="rounded-full bg-background border px-4 flex items-center gap-2"
-                ><Tag class="h-3 w-3 mt-px" />{category}</span
+            <span class="flex items-center gap-2 rounded-full border bg-background px-4"
+                ><Tag class="mt-px h-3 w-3" />{category}</span
             >
         {/each}
     </div>
