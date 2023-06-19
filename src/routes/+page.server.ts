@@ -3,7 +3,7 @@ import type { Post } from "$lib/types";
 import { z } from "zod";
 import { superValidate, message } from "sveltekit-superforms/server";
 import { Email } from "$lib/server/sendEmail";
-import { SEND_TO_EMAIL } from "$env/static/private";
+import { SEND_TO_EMAIL, NOREPLY_EMAIL } from "$env/static/private";
 import { dev } from "$app/environment";
 
 export const config: EdgeConfig = {
@@ -31,8 +31,11 @@ export const actions = {
         }
 
         const email = new Email({
-            from: { email: "contactform@nilsbeerten.nl", name: "Contact Form" },
-            to: { email: SEND_TO_EMAIL },
+            from: {
+                email: NOREPLY_EMAIL,
+                name: `${contactForm.data.name} (${contactForm.data.email})`
+            },
+            to: { email: SEND_TO_EMAIL, name: "Nils Beerten" },
             replyTo: { email: contactForm.data.email, name: contactForm.data.name },
             subject: contactForm.data.subject,
             text: contactForm.data.message
@@ -44,9 +47,7 @@ export const actions = {
 
         if (emailResponse === null && dev) {
             return message(contactForm, "Dev environment cannot send emails.");
-        } else if (emailResponse === null) {
-            return message(contactForm, "Failed to send email.");
-        } else if ("statusText" in emailResponse) {
+        } else if (emailResponse !== null && "statusText" in emailResponse) {
             return message(contactForm, "Failed to send email: " + emailResponse.statusText);
         } else {
             return message(contactForm, "Succesfully sent! Thanks!");
