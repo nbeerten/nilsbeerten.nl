@@ -85,6 +85,7 @@ export class Email {
                     }
                 ],
                 from: this.from,
+                reply_to: this.replyTo,
                 subject: this.subject,
                 content: content
             } satisfies MailSendBody)
