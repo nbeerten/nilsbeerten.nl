@@ -14,7 +14,7 @@
 </svelte:head>
 
 <div
-    class="bg-white dark:bg-stone-950 min-h-screen text-black dark:text-stone-50 overflow-x-hidden flex flex-col justify-between"
+    class="flex min-h-screen flex-col justify-between overflow-x-hidden bg-white text-black dark:bg-stone-950 dark:text-stone-50"
 >
     <Nav>
         <svelte:fragment slot="right">
@@ -37,7 +37,7 @@
     }
 
     :global(.shell-max-w-center) {
-        @apply w-[80rem] max-w-full mx-auto px-4 md:px-8;
+        @apply mx-auto w-[80rem] max-w-full px-4 md:px-8;
     }
 
     :global(:root:is(.dark)) {

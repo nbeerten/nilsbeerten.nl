@@ -1,19 +1,30 @@
 <script lang="ts">
     import { SocialLinks, RepoCard } from "$lib/components";
-    import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "$components/ui/card";
+    import { socialLinks } from "$lib/components/SocialLinks.svelte";
+    import {
+        Card,
+        CardContent,
+        CardFooter,
+        CardHeader,
+        CardTitle,
+        CardDescription
+    } from "$components/ui/card";
     import { page } from "$app/stores";
-    import Typescript from "@inqling/svelte-icons/simple-icons/typescript.svelte";
-    import Svelte from "@inqling/svelte-icons/simple-icons/svelte.svelte";
-    import TailwindCSS from "@inqling/svelte-icons/simple-icons/tailwindcss.svelte";
-    import Vercel from "@inqling/svelte-icons/simple-icons/vercel.svelte";
-    import { Download, CurlyBraces, Loader2 as Loader } from "lucide-svelte";
+    import { Download, Loader2, Mail, ExternalLink } from "lucide-svelte";
     import { browser } from "$app/environment";
     import { Somerset, SocialProfileJsonLd } from "somerset";
+    import { onMount } from "svelte";
 
     export let data;
     const { streamed } = data;
 
     $: domain = $page.url.hostname;
+
+    $: emailAddress = "";
+
+    onMount(() => {
+        emailAddress = atob("Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==");
+    });
 </script>
 
 <Somerset
@@ -49,12 +60,12 @@
     ]}
 />
 
-<div class="max-w-[50ch] py-20 flex flex-col gap-4 relative">
-    <h1 class="text-5xl sm:text-7xl font-extrabold">
+<div class="relative flex max-w-[50ch] flex-col gap-4 py-20">
+    <h1 class="text-5xl font-extrabold sm:text-7xl">
         <span class="text-stone-500 dark:text-stone-400">Hey, I'm</span><br />Nils Beerten.
     </h1>
     <div class="flex flex-col gap-2">
-        <p class="text-stone-950 dark:text-stone-200 font-medium text-lg prose">
+        <p class="prose text-lg font-medium text-stone-950 dark:text-stone-200">
             I enjoy coding and developing various projects as a hobby, particularly (full-stack) web
             applications and websites. Additionally, I sometimes code other stuff like a plugin for
             the game Trackmania. Online, I typically go by the usernames nbeerten or nbert.
@@ -63,51 +74,55 @@
     </div>
 </div>
 
-<section class="flex flex-col gap-4 my-4 py-4">
+<section class="my-4 flex flex-col gap-4 py-4">
     <h2 class="text-4xl font-bold">Things I've built</h2>
 
-    <div class="grid gap-4 lg:grid-cols-2">
+    <div class="grid gap-6 lg:grid-cols-2">
         <RepoCard username="nbeerten" repo="nilsbeerten.nl">
             <svelte:fragment slot="description">
                 Repository of this website, which is made with SvelteKit and TailwindCSS, and is
                 hosted on Vercel. It replaces my previous website, which was made using Laravel and
                 was hosted on a VPS.
             </svelte:fragment>
-            <svelte:fragment slot="languages">
-                <Typescript class="h-5 w-5" />
-                <Svelte class="h-5 w-5" />
-                <TailwindCSS class="h-5 w-5" />
-                <Vercel class="h-5 w-5" />
+            <svelte:fragment slot="stats">
+                <div class="w-full flex justify-end">
+                    <a href="https://www.nilsbeerten.nl/" target="_blank" rel="noreferrer" class="hover:underline flex gap-1 items-center">
+                        Visit <ExternalLink class="h-4 w-4" />
+                    </a>
+                </div>
             </svelte:fragment>
         </RepoCard>
-
         <RepoCard username="nbeerten" repo="tm-refresh-leaderboard">
             <svelte:fragment slot="description">
                 A plugin for Openplanet, a 3rd party alternative scripting platform for the game
                 Trackmania. It allows players to refresh the leaderboard at the click of a button
                 and is styled to fit in with the game's UI.
             </svelte:fragment>
-            <svelte:fragment slot="languages">
-                <span class="flex gap-2"><CurlyBraces class="h-5 w-5" /></span>
-            </svelte:fragment>
             <svelte:fragment slot="stats">
-                <Download class="h-5 w-5" />
-                {#await streamed.tmRefreshLeaderboardDownloads}
-                    <Loader class="animate-spin" />
-                {:then data}
-                    {data.downloads} downloads
-                {/await}
+                <div class="flex gap-2 items-center">
+                    <Download class="h-5 w-5" />
+                    {#await streamed.tmRefreshLeaderboardDownloads}
+                        <Loader2 class="animate-spin" />
+                    {:then data}
+                        {data.downloads} downloads
+                    {/await}
+                </div>
+                <div>
+                    <a href="https://openplanet.dev/plugin/229" target="_blank" rel="noreferrer" class="hover:underline flex gap-1 items-center">
+                        Visit <ExternalLink class="h-4 w-4" />
+                    </a>
+                </div>
             </svelte:fragment>
         </RepoCard>
     </div>
 </section>
 
-<section class="flex flex-col gap-4 my-4 py-4">
+<section class="my-4 flex flex-col gap-4 py-4">
     <h2 class="text-4xl font-bold">Posts</h2>
 
-    <div class="grid gap-4 lg:grid-cols-2 w-full">
+    <div class="grid w-full gap-4 lg:grid-cols-2">
         {#await streamed.posts}
-            <Loader class="animate-spin justify-self-center col-span-full" />
+            <Loader2 class="col-span-full animate-spin justify-self-center" />
         {:then posts}
             {#if posts.length > 0}
                 {#each posts as post}
@@ -120,7 +135,7 @@
                         <CardContent>
                             {post.description}
                         </CardContent>
-                        <CardFooter class="flex gap-2 justify-between text-muted-foreground">
+                        <CardFooter class="flex justify-between gap-2 text-muted-foreground">
                             {#if browser}
                                 <span>{new Date(post.date).toLocaleDateString()}</span>
                             {/if}
@@ -140,5 +155,42 @@
                 No posts found.
             {/if}
         {/await}
+    </div>
+</section>
+
+<section class="my-4 flex flex-col gap-4 py-4">
+    <h2 class="text-4xl font-bold">Contact</h2>
+
+    <div class="flex w-full flex-col justify-start gap-6 md:flex-row">
+        <Card class="h-min">
+            <CardHeader>
+                <CardTitle tag="h3">Or contact me through my socials...</CardTitle>
+                <CardDescription>
+                    Send me a message and I'll get back to you as soon as possible.
+                </CardDescription>
+            </CardHeader>
+            <CardContent class="mt-2 flex flex-col gap-2">
+                <ul class="flex flex-col gap-0.5">
+                    <li>
+                        <a href="mailto:{emailAddress}" target="_blank" rel="noreferrer" class="flex gap-2 items-center hover:underline">
+                            <Mail class="h-4 w-4" /> <span>{emailAddress.split("@")[0]}<span class="hidden">spam</span>@{emailAddress.split("@")[1]}</span>
+                        </a>
+                    </li>
+                    {#each socialLinks as link}
+                        <li>
+                            {#if link.url}
+                                <a href={link.url} target="_blank" rel="noreferrer" class="flex gap-2 items-center hover:underline">
+                                    <svelte:component this={link.icon} class="h-4 w-4" /> {link.handle}
+                                </a>
+                            {:else}
+                                <span class="flex gap-2 items-center">
+                                    <svelte:component this={link.icon} class="h-4 w-4" /> {link.handle}
+                                </span>
+                            {/if}
+                        </li>
+                    {/each}
+                </ul>
+            </CardContent>
+        </Card>
     </div>
 </section>

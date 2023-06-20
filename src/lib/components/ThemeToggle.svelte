@@ -64,6 +64,6 @@
     title="Toggle theme"
     on:click={toggleTheme}
 >
-    <Moon class="h-5 w-5 -mt-1 hidden dark:block" style={null} />
-    <Sun class="h-5 w-5 -mt-1 dark:hidden" style={null} />
+    <Moon class="-mt-1 hidden h-5 w-5 dark:block" style={null} />
+    <Sun class="-mt-1 h-5 w-5 dark:hidden" style={null} />
 </button>

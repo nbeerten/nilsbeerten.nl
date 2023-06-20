@@ -2,27 +2,27 @@
     export let title: string;
 </script>
 
-<div class="px-16 pb-16 topography flex items-center h-full text-white">
+<div class="topography flex h-full items-center px-16 pb-16 text-white">
     <!-- mt-16 = space for nav -->
     <div class="flex items-center">
-        <div class="max-h-max py-20 flex">
-            <div class="flex gap-8 justify-between w-full">
-                <div class="max-w-[50ch] flex flex-col gap-4">
+        <div class="flex max-h-max py-20">
+            <div class="flex w-full justify-between gap-8">
+                <div class="flex max-w-[50ch] flex-col gap-4">
                     <h1 class="flex flex-col text-7xl font-extrabold">
                         {#if title}
                             <span>{title}</span>
-                            <span class="text-stone-600 text-6xl">nilsbeerten.nl</span>
+                            <span class="text-6xl text-stone-600">nilsbeerten.nl</span>
                         {:else}
                             <span class="text-stone-400">Hey, I’m</span>
                             <span>Nils Beerten</span>
                         {/if}
                     </h1>
                 </div>
-                <div class="min-h-0 max-h-full w-52 flex">
+                <div class="flex max-h-full min-h-0 w-52">
                     <img
                         src="https://beta.nilsbeerten.nl/logo_white.svg"
                         alt="Logo"
-                        class="filter-none select-none pointer-events-none min-h-0 min-w-0 h-50 w-50 max-h-full max-w-full object-contain"
+                        class="h-50 w-50 pointer-events-none max-h-full min-h-0 min-w-0 max-w-full select-none object-contain filter-none"
                     />
                 </div>
             </div>

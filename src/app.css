@@ -11,18 +11,18 @@
         --foreground: theme(colors.black);
 
         --muted: hsl(210 40% 96.1%);
-        --muted-foreground: theme(colors.stone.800);
+        --muted-foreground: theme(colors.stone.600);
 
         --popover: hsl(hsl(0 0% 100%));
         --popover-foreground: hsl(222.2 47.4% 11.2%);
 
-        --card: theme(colors.stone.100);
+        --card: theme(colors.white);
         --card-foreground: theme(colors.black);
 
         --border: theme(colors.stone.300);
         --input: hsl(214.3 31.8% 91.4%);
 
-        --primary: hsl(222.2 47.4% 11.2%);
+        --primary: theme(colors.stone.900);
         --primary-foreground: hsl(210 40% 98%);
 
         --secondary: hsl(210 40% 96.1%);
@@ -34,7 +34,7 @@
         --destructive: hsl(0 92% 38%);
         --destructive-foreground: hsl(210 40% 98%);
 
-        --ring: hsl(215 20.2% 65.1%);
+        --ring: theme(colors.stone.900);
 
         --radius: 0.25rem;
     }
@@ -49,13 +49,13 @@
         --popover: hsl(224 71% 4%);
         --popover-foreground: hsl(215 20.2% 65.1%);
 
-        --card: theme(colors.stone.900);
+        --card: theme(colors.stone.950);
         --card-foreground: theme(colors.stone.50);
 
         --border: theme(colors.stone.700);
-        --input: hsl(216 34% 17%);
+        --input: theme(colors.stone.700);
 
-        --primary: hsl(210 40% 98%);
+        --primary: theme(colors.stone.50);
         --primary-foreground: hsl(222.2 47.4% 1.2%);
 
         --secondary: hsl(222.2 47.4% 11.2%);
@@ -67,7 +67,7 @@
         --destructive: hsl(359 51% 48%);
         --destructive-foreground: hsl(210 40% 98%);
 
-        --ring: hsl(216 34% 17%);
+        --ring: theme(colors.white);
 
         --radius: 0.25rem;
     }

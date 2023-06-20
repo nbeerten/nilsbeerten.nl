@@ -3,8 +3,8 @@
     export { className as class };
 </script>
 
-<div class="py-2 w-full shell-max-w-center {className} flex justify-between">
-    <p class="text-stone-800 font-medium dark:text-stone-400">
+<div class="shell-max-w-center w-full py-2 {className} flex justify-between">
+    <p class="font-medium text-stone-800 dark:text-stone-400">
         © {new Date().getFullYear()} Nils Beerten
     </p>
     <div>

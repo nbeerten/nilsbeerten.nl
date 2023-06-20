@@ -1,7 +1,5 @@
 import adapterVercel from "@sveltejs/adapter-vercel";
 import { vitePreprocess } from "@sveltejs/kit/vite";
-import sveltePreprocess from "svelte-preprocess";
-import delegateEvents from "svelte-preprocess-delegate-events/preprocess";
 import { mdsvex, escapeSvelte } from "mdsvex";
 import shiki from "shiki";
 
@@ -22,7 +20,7 @@ const config = {
     extensions: [".svelte", ".svx"],
     // Consult https://kit.svelte.dev/docs/integrations#preprocessors
     // for more information about preprocessors
-    preprocess: [vitePreprocess(), mdsvex(mdsvexOptions), sveltePreprocess(), delegateEvents()],
+    preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
     kit: {
         // adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
         // If your environment is not supported or you settled on a specific environment, switch out the adapter.
