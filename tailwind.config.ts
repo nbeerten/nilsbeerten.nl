@@ -20,38 +20,54 @@ export default {
                 display: ["Excon", ...defaultTheme.fontFamily.sans]
             },
             colors: {
-                border: "var(--border)",
-                input: "var(--input)",
-                ring: "var(--ring)",
-                background: "var(--background)",
-                foreground: "var(--foreground)",
+                border: "color-mix(in oklab, var(--border), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                input: "color-mix(in oklab, var(--input), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                ring: "color-mix(in oklab, var(--ring), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                background:
+                    "color-mix(in oklab, var(--background), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                foreground:
+                    "color-mix(in oklab, var(--foreground), transparent calc(100% - calc(<alpha-value> * 100%)))",
                 primary: {
-                    DEFAULT: "var(--primary)",
-                    foreground: "var(--primary-foreground)"
+                    DEFAULT:
+                        "color-mix(in oklab, var(--primary), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                    foreground:
+                        "color-mix(in oklab,  var(--primary-foreground), transparent calc(100% - calc(<alpha-value> * 100%)))"
                 },
                 secondary: {
-                    DEFAULT: "var(--secondary)",
-                    foreground: "var(--secondary-foreground)"
+                    DEFAULT:
+                        "color-mix(in oklab, var(--secondary), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                    foreground:
+                        "color-mix(in oklab, var(--secondary-foreground), transparent calc(100% - calc(<alpha-value> * 100%)))"
                 },
                 destructive: {
-                    DEFAULT: "var(--destructive)",
-                    foreground: "var(--destructive-foreground)"
+                    DEFAULT:
+                        "color-mix(in oklab, var(--destructive), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                    foreground:
+                        "color-mix(in oklab, var(--destructive-foreground), transparent calc(100% - calc(<alpha-value> * 100%)))"
                 },
                 muted: {
-                    DEFAULT: "var(--muted)",
-                    foreground: "var(--muted-foreground)"
+                    DEFAULT:
+                        "color-mix(in oklab, var(--muted), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                    foreground:
+                        "color-mix(in oklab, var(--muted-foreground), transparent calc(100% - calc(<alpha-value> * 100%)))"
                 },
                 accent: {
-                    DEFAULT: "var(--accent)",
-                    foreground: "var(--accent-foreground)"
+                    DEFAULT:
+                        "color-mix(in oklab, var(--accent), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                    foreground:
+                        "color-mix(in oklab, var(--accent-foreground), transparent calc(100% - calc(<alpha-value> * 100%)))"
                 },
                 popover: {
-                    DEFAULT: "var(--popover)",
-                    foreground: "var(--popover-foreground)"
+                    DEFAULT:
+                        "color-mix(in oklab, var(--popover), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                    foreground:
+                        "color-mix(in oklab, var(--popover-foreground), transparent calc(100% - calc(<alpha-value> * 100%)))"
                 },
                 card: {
-                    DEFAULT: "var(--card)",
-                    foreground: "var(--card-foreground)"
+                    DEFAULT:
+                        "color-mix(in oklab, var(--card), transparent calc(100% - calc(<alpha-value> * 100%)))",
+                    foreground:
+                        "color-mix(in oklab, var(--card-foreground), transparent calc(100% - calc(<alpha-value> * 100%)))"
                 }
             },
             borderRadius: {

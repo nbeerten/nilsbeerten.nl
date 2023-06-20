@@ -23,12 +23,12 @@
         --input: hsl(214.3 31.8% 91.4%);
 
         --primary: theme(colors.stone.900);
-        --primary-foreground: hsl(210 40% 98%);
+        --primary-foreground: theme(colors.stone.100);
 
-        --secondary: hsl(210 40% 96.1%);
-        --secondary-foreground: hsl(222.2 47.4% 11.2%);
+        --secondary: theme(colors.stone.100);
+        --secondary-foreground: theme(colors.stone.900);
 
-        --accent: hsl(210 40% 96.1%);
+        --accent: theme(colors.stone.100);
         --accent-foreground: hsl(222.2 47.4% 11.2%);
 
         --destructive: hsl(0 92% 38%);
@@ -56,13 +56,13 @@
         --input: theme(colors.stone.700);
 
         --primary: theme(colors.stone.50);
-        --primary-foreground: hsl(222.2 47.4% 1.2%);
+        --primary-foreground: theme(colors.stone.900);
 
-        --secondary: hsl(222.2 47.4% 11.2%);
-        --secondary-foreground: hsl(210 40% 98%);
+        --secondary: theme(colors.stone.900);
+        --secondary-foreground: theme(colors.stone.50);
 
-        --accent: hsl(216 34% 17%);
-        --accent-foreground: hsl(210 40% 98%);
+        --accent: theme(colors.stone.900);
+        --accent-foreground: theme(colors.stone.100);
 
         --destructive: hsl(359 51% 48%);
         --destructive-foreground: hsl(210 40% 98%);

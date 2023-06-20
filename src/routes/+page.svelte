@@ -14,6 +14,7 @@
     import { browser } from "$app/environment";
     import { Somerset, SocialProfileJsonLd } from "somerset";
     import { onMount } from "svelte";
+    import Button from "$components/ui/button/Button.svelte";
 
     export let data;
     const { streamed } = data;
@@ -85,8 +86,13 @@
                 was hosted on a VPS.
             </svelte:fragment>
             <svelte:fragment slot="stats">
-                <div class="w-full flex justify-end">
-                    <a href="https://www.nilsbeerten.nl/" target="_blank" rel="noreferrer" class="hover:underline flex gap-1 items-center">
+                <div class="flex w-full justify-end">
+                    <a
+                        href="https://www.nilsbeerten.nl/"
+                        target="_blank"
+                        rel="noreferrer"
+                        class="flex items-center gap-1 hover:underline"
+                    >
                         Visit <ExternalLink class="h-4 w-4" />
                     </a>
                 </div>
@@ -99,7 +105,7 @@
                 and is styled to fit in with the game's UI.
             </svelte:fragment>
             <svelte:fragment slot="stats">
-                <div class="flex gap-2 items-center">
+                <div class="flex items-center gap-2">
                     <Download class="h-5 w-5" />
                     {#await streamed.tmRefreshLeaderboardDownloads}
                         <Loader2 class="animate-spin" />
@@ -108,7 +114,12 @@
                     {/await}
                 </div>
                 <div>
-                    <a href="https://openplanet.dev/plugin/229" target="_blank" rel="noreferrer" class="hover:underline flex gap-1 items-center">
+                    <a
+                        href="https://openplanet.dev/plugin/229"
+                        target="_blank"
+                        rel="noreferrer"
+                        class="flex items-center gap-1 hover:underline"
+                    >
                         Visit <ExternalLink class="h-4 w-4" />
                     </a>
                 </div>
@@ -170,22 +181,42 @@
                 </CardDescription>
             </CardHeader>
             <CardContent class="mt-2 flex flex-col gap-2">
-                <ul class="flex flex-col gap-0.5">
+                <ul class="flex flex-col gap-1">
                     <li>
-                        <a href="mailto:{emailAddress}" target="_blank" rel="noreferrer" class="flex gap-2 items-center hover:underline">
-                            <Mail class="h-4 w-4" /> <span>{emailAddress.split("@")[0]}<span class="hidden">spam</span>@{emailAddress.split("@")[1]}</span>
-                        </a>
+                        <Button
+                            href="mailto:{emailAddress}"
+                            target="_blank"
+                            rel="noreferrer"
+                            class="grid grid-cols-[1fr,auto,1fr]"
+                        >
+                            <Mail class="h-5 w-5" />
+                            <span class="w-full text-center"
+                                >{emailAddress.split("@")[0]}<span class="hidden">spam</span
+                                >@{emailAddress.split("@")[1]}</span
+                            >
+                        </Button>
                     </li>
                     {#each socialLinks as link}
                         <li>
                             {#if link.url}
-                                <a href={link.url} target="_blank" rel="noreferrer" class="flex gap-2 items-center hover:underline">
-                                    <svelte:component this={link.icon} class="h-4 w-4" /> {link.handle}
-                                </a>
+                                <Button
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    class="grid grid-cols-[1fr,auto,1fr]"
+                                    variant="secondary"
+                                >
+                                    <svelte:component this={link.icon} class="h-4 w-4" />
+                                    {link.handle}
+                                </Button>
                             {:else}
-                                <span class="flex gap-2 items-center">
-                                    <svelte:component this={link.icon} class="h-4 w-4" /> {link.handle}
-                                </span>
+                                <Button
+                                    variant="ghost"
+                                    class="grid w-full grid-cols-[1fr,auto,1fr]"
+                                >
+                                    <svelte:component this={link.icon} class="h-4 w-4" />
+                                    {link.handle}
+                                </Button>
                             {/if}
                         </li>
                     {/each}
@@ -194,3 +225,10 @@
         </Card>
     </div>
 </section>
+
+<style lang="postcss">
+    :global(.button-grid) {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+    }
+</style>

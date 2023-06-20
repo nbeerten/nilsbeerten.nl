@@ -1,8 +1,3 @@
-<script lang="ts">
-    let className = "";
-    export { className as class };
-</script>
-
 <script context="module" lang="ts">
     import { Twitter, Github, type IconProps } from "lucide-svelte";
     import Discord from "@inqling/svelte-icons/simple-icons/discord.svelte";
@@ -25,9 +20,15 @@
         },
         {
             icon: Discord,
+            url: "https://discord.com/invite/TdRSgYjJ7S",
             handle: "@nbeerten"
         }
     ];
+</script>
+
+<script lang="ts">
+    let className = "";
+    export { className as class };
 </script>
 
 <div class="-ml-2 flex gap-2 {className}" {...$$restProps}>
@@ -37,7 +38,7 @@
                 href={link.url}
                 target="_blank"
                 rel="noreferer noopener"
-                class="flex items-center justify-center gap-x-2 rounded-full bg-transparent px-2 py-1 text-foreground transition hover:bg-stone-900"
+                class="flex items-center justify-center gap-x-2 rounded-full bg-transparent px-2 py-1 text-foreground transition hover:bg-primary-foreground"
             >
                 <svelte:component this={link.icon} class="aspect-square h-5 w-5" />
                 <span class="mb-0.5">{link.handle}</span>

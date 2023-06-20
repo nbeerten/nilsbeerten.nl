@@ -17,13 +17,13 @@
                 <a
                     href="{baseGithubUrl}/{username}"
                     target="_blank"
-                    class="outline-none focus-visible:underline hover:underline">{username}</a
+                    class="outline-none hover:underline focus-visible:underline">{username}</a
                 >
                 <span class="text-stone-500 dark:text-stone-400">/</span>
                 <a
                     href="{baseGithubUrl}/{username}/{repo}"
                     target="_blank"
-                    class="outline-none focus-visible:underline hover:underline">{repo}</a
+                    class="outline-none hover:underline focus-visible:underline">{repo}</a
                 >
             </span>
         </CardTitle>
@@ -35,7 +35,7 @@
             <slot name="description" />
         {/if}
     </CardContent>
-    <CardFooter class="text-muted-foreground h-[1lh] justify-between">
+    <CardFooter class="h-[1lh] justify-between text-muted-foreground">
         <slot name="stats" />
     </CardFooter>
 </Card>
