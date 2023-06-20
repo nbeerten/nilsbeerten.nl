@@ -1,12 +1,14 @@
 <script lang="ts">
+    let className = "";
+    export { className as class };
+</script>
+
+<script context="module" lang="ts">
     import { Twitter, Github, type IconProps } from "lucide-svelte";
     import Discord from "@inqling/svelte-icons/simple-icons/discord.svelte";
     import type { SvelteComponent } from "svelte";
 
-    let className = "";
-    export { className as class };
-
-    let socialLinks: {
+    export const socialLinks: {
         icon: typeof SvelteComponent<IconProps>;
         url?: string;
         handle: string;

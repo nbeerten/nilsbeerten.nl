@@ -1,5 +1,6 @@
 <script lang="ts">
     import { SocialLinks, RepoCard } from "$lib/components";
+    import { socialLinks } from "$lib/components/SocialLinks.svelte";
     import {
         Card,
         CardContent,
@@ -8,26 +9,21 @@
         CardTitle,
         CardDescription
     } from "$components/ui/card";
-    import { Input } from "$components/ui/input";
-    import { Label } from "$components/ui/label";
-    import { Textarea } from "$components/ui/textarea";
-    import { Button } from "$components/ui/button";
-    import { Alert, AlertTitle } from "$components/ui/alert";
     import { page } from "$app/stores";
-    import { Typescript, Svelte, Tailwindcss, Vercel } from "@inqling/svelte-icons/simple-icons";
-    import { Download, CurlyBraces, Loader2 as Loader, Send } from "lucide-svelte";
+    import { Download, Loader2, Mail, ExternalLink } from "lucide-svelte";
     import { browser } from "$app/environment";
     import { Somerset, SocialProfileJsonLd } from "somerset";
-    import { superForm } from "sveltekit-superforms/client";
+    import { onMount } from "svelte";
 
     export let data;
     const { streamed } = data;
 
     $: domain = $page.url.hostname;
 
-    const { form, errors, constraints, enhance, message } = superForm(data.contactForm, {
-        clearOnSubmit: "errors-and-message",
-        resetForm: true
+    $: emailAddress = "";
+
+    onMount(() => {
+        emailAddress = atob("Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==");
     });
 </script>
 
@@ -88,30 +84,34 @@
                 hosted on Vercel. It replaces my previous website, which was made using Laravel and
                 was hosted on a VPS.
             </svelte:fragment>
-            <svelte:fragment slot="languages">
-                <Typescript class="h-5 w-5" />
-                <Svelte class="h-5 w-5" />
-                <Tailwindcss class="h-5 w-5" />
-                <Vercel class="h-5 w-5" />
+            <svelte:fragment slot="stats">
+                <div class="w-full flex justify-end">
+                    <a href="https://www.nilsbeerten.nl/" target="_blank" rel="noreferrer" class="hover:underline flex gap-1 items-center">
+                        Visit <ExternalLink class="h-4 w-4" />
+                    </a>
+                </div>
             </svelte:fragment>
         </RepoCard>
-
         <RepoCard username="nbeerten" repo="tm-refresh-leaderboard">
             <svelte:fragment slot="description">
                 A plugin for Openplanet, a 3rd party alternative scripting platform for the game
                 Trackmania. It allows players to refresh the leaderboard at the click of a button
                 and is styled to fit in with the game's UI.
             </svelte:fragment>
-            <svelte:fragment slot="languages">
-                <span class="flex gap-2"><CurlyBraces class="h-5 w-5" /></span>
-            </svelte:fragment>
             <svelte:fragment slot="stats">
-                <Download class="h-5 w-5" />
-                {#await streamed.tmRefreshLeaderboardDownloads}
-                    <Loader class="animate-spin" />
-                {:then data}
-                    {data.downloads} downloads
-                {/await}
+                <div class="flex gap-2 items-center">
+                    <Download class="h-5 w-5" />
+                    {#await streamed.tmRefreshLeaderboardDownloads}
+                        <Loader2 class="animate-spin" />
+                    {:then data}
+                        {data.downloads} downloads
+                    {/await}
+                </div>
+                <div>
+                    <a href="https://openplanet.dev/plugin/229" target="_blank" rel="noreferrer" class="hover:underline flex gap-1 items-center">
+                        Visit <ExternalLink class="h-4 w-4" />
+                    </a>
+                </div>
             </svelte:fragment>
         </RepoCard>
     </div>
@@ -122,7 +122,7 @@
 
     <div class="grid w-full gap-4 lg:grid-cols-2">
         {#await streamed.posts}
-            <Loader class="col-span-full animate-spin justify-self-center" />
+            <Loader2 class="col-span-full animate-spin justify-self-center" />
         {:then posts}
             {#if posts.length > 0}
                 {#each posts as post}
@@ -162,86 +162,6 @@
     <h2 class="text-4xl font-bold">Contact</h2>
 
     <div class="flex w-full flex-col justify-start gap-6 md:flex-row">
-        <Card class="min-w-[26rem]">
-            <CardHeader>
-                <CardTitle tag="h3">Contact form</CardTitle>
-                <CardDescription>
-                    Send me a message and I'll get back to you as soon as possible.
-                </CardDescription>
-            </CardHeader>
-            <CardContent class="mt-2 flex flex-col gap-2">
-                <form method="POST" use:enhance class="flex flex-col gap-1">
-                    <div>
-                        <Label for="email">Your email</Label>
-                        <Input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="email@example.com"
-                            bind:value={$form.email}
-                            {...$constraints.email}
-                        />
-                        {#if $errors.email}<span class="text-sm text-destructive"
-                                >{$errors.email}</span
-                            >{/if}
-                    </div>
-                    <div>
-                        <Label for="name">Your name</Label>
-                        <Input
-                            type="text"
-                            id="name"
-                            name="name"
-                            placeholder="John Doe"
-                            bind:value={$form.name}
-                            {...$constraints.name}
-                        />
-                        {#if $errors.name}<span class="invalid">{$errors.name}</span>{/if}
-                    </div>
-                    <div>
-                        <Label for="subject">Subject</Label>
-                        <Input
-                            type="text"
-                            id="subject"
-                            name="subject"
-                            placeholder="Subject"
-                            bind:value={$form.subject}
-                            {...$constraints.subject}
-                        />
-                        {#if $errors.subject}<span class="invalid">{$errors.subject}</span>{/if}
-                    </div>
-                    <div>
-                        <Label for="message">Your message</Label>
-                        <Textarea
-                            id="message"
-                            name="message"
-                            placeholder="Your message here"
-                            bind:value={$form.message}
-                            {...$constraints.message}
-                        />
-                        {#if $errors.message}<span class="invalid">{$errors.message}</span>{/if}
-                    </div>
-                    <div class="hidden">
-                        <Input
-                            type="text"
-                            id="honeypot"
-                            name="honeypot"
-                            bind:value={$form.honeypot}
-                        />
-                    </div>
-                    <Button type="submit" class="flex items-center gap-2"
-                        ><Send class="h-4 w-4" /> Submit</Button
-                    >
-                </form>
-
-                {#if $message}
-                    <Alert variant="success">
-                        <Send class="h-4 w-4" />
-                        <AlertTitle>{$message}</AlertTitle>
-                    </Alert>
-                {/if}
-            </CardContent>
-        </Card>
-
         <Card class="h-min">
             <CardHeader>
                 <CardTitle tag="h3">Or contact me through my socials...</CardTitle>
@@ -250,7 +170,26 @@
                 </CardDescription>
             </CardHeader>
             <CardContent class="mt-2 flex flex-col gap-2">
-                <SocialLinks class="flex-col items-start gap-0" />
+                <ul class="flex flex-col gap-0.5">
+                    <li>
+                        <a href="mailto:{emailAddress}" target="_blank" rel="noreferrer" class="flex gap-2 items-center hover:underline">
+                            <Mail class="h-4 w-4" /> <span>{emailAddress.split("@")[0]}<span class="hidden">spam</span>@{emailAddress.split("@")[1]}</span>
+                        </a>
+                    </li>
+                    {#each socialLinks as link}
+                        <li>
+                            {#if link.url}
+                                <a href={link.url} target="_blank" rel="noreferrer" class="flex gap-2 items-center hover:underline">
+                                    <svelte:component this={link.icon} class="h-4 w-4" /> {link.handle}
+                                </a>
+                            {:else}
+                                <span class="flex gap-2 items-center">
+                                    <svelte:component this={link.icon} class="h-4 w-4" /> {link.handle}
+                                </span>
+                            {/if}
+                        </li>
+                    {/each}
+                </ul>
             </CardContent>
         </Card>
     </div>
