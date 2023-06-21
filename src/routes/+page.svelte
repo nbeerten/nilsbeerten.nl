@@ -71,7 +71,7 @@
             applications and websites. Additionally, I sometimes code other stuff like a plugin for
             the game Trackmania. Online, I typically go by the usernames nbeerten or nbert.
         </p>
-        <SocialLinks />
+        <!-- <SocialLinks /> -->
     </div>
 </div>
 
@@ -170,65 +170,50 @@
 </section>
 
 <section class="my-4 flex flex-col gap-4 py-4">
-    <h2 class="text-4xl font-bold">Contact</h2>
+    <hgroup>
+        <h2 class="text-4xl font-bold">Contact</h2>
+        <p class="text-sm text-muted-foreground">
+            Send me a message and I'll get back to you as soon as possible.
+        </p>
+    </hgroup>
 
     <div class="flex w-full flex-col justify-start gap-6 md:flex-row">
-        <Card class="h-min">
-            <CardHeader>
-                <CardTitle tag="h3">Or contact me through my socials...</CardTitle>
-                <CardDescription>
-                    Send me a message and I'll get back to you as soon as possible.
-                </CardDescription>
-            </CardHeader>
-            <CardContent class="mt-2 flex flex-col gap-2">
-                <ul class="flex flex-col gap-1">
-                    <li>
+        <ul class="flex flex-col gap-1">
+            <li>
+                <Button
+                    href="mailto:{emailAddress}"
+                    target="_blank"
+                    rel="noreferrer"
+                    class="grid grid-cols-[1fr,auto,1fr] gap-4"
+                >
+                    <Mail class="h-5 w-5" />
+                    <span class="w-full text-center"
+                        >{emailAddress.split("@")[0]}<span class="hidden">spam</span
+                        >@{emailAddress.split("@")[1]}</span
+                    >
+                </Button>
+            </li>
+            {#each socialLinks as link}
+                <li>
+                    {#if link.url}
                         <Button
-                            href="mailto:{emailAddress}"
+                            href={link.url}
                             target="_blank"
                             rel="noreferrer"
-                            class="grid grid-cols-[1fr,auto,1fr]"
+                            class="grid grid-cols-[1fr,auto,1fr] gap-4"
+                            variant="secondary"
                         >
-                            <Mail class="h-5 w-5" />
-                            <span class="w-full text-center"
-                                >{emailAddress.split("@")[0]}<span class="hidden">spam</span
-                                >@{emailAddress.split("@")[1]}</span
-                            >
+                            <svelte:component this={link.icon} class="h-5 w-5" />
+                            {link.handle}
                         </Button>
-                    </li>
-                    {#each socialLinks as link}
-                        <li>
-                            {#if link.url}
-                                <Button
-                                    href={link.url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    class="grid grid-cols-[1fr,auto,1fr]"
-                                    variant="secondary"
-                                >
-                                    <svelte:component this={link.icon} class="h-4 w-4" />
-                                    {link.handle}
-                                </Button>
-                            {:else}
-                                <Button
-                                    variant="ghost"
-                                    class="grid w-full grid-cols-[1fr,auto,1fr]"
-                                >
-                                    <svelte:component this={link.icon} class="h-4 w-4" />
-                                    {link.handle}
-                                </Button>
-                            {/if}
-                        </li>
-                    {/each}
-                </ul>
-            </CardContent>
-        </Card>
+                    {:else}
+                        <Button variant="ghost" class="grid w-full grid-cols-[1fr,auto,1fr] gap-4">
+                            <svelte:component this={link.icon} class="h-5 w-5" />
+                            {link.handle}
+                        </Button>
+                    {/if}
+                </li>
+            {/each}
+        </ul>
     </div>
 </section>
-
-<style lang="postcss">
-    :global(.button-grid) {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-    }
-</style>

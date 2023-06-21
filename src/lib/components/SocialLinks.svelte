@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-    import { Twitter, Github, type IconProps } from "lucide-svelte";
+    import { Github, type IconProps } from "lucide-svelte";
     import Discord from "@inqling/svelte-icons/simple-icons/discord.svelte";
     import type { SvelteComponent } from "svelte";
 
@@ -8,11 +8,6 @@
         url?: string;
         handle: string;
     }[] = [
-        {
-            icon: Twitter,
-            url: "https://twitter.com/nbertn",
-            handle: "nbertn"
-        },
         {
             icon: Github,
             url: "https://github.com/nbeerten",
