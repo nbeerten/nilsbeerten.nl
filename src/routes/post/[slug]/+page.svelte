@@ -1,6 +1,6 @@
 <script lang="ts">
     import { browser } from "$app/environment";
-    import { Tag } from "lucide-svelte";
+    import { Tag } from "svelte-lucide";
     import { Somerset, ArticleJsonLd } from "somerset";
     import { page } from "$app/stores";
 

@@ -9,12 +9,12 @@
         CardTitle,
         CardDescription
     } from "$components/ui/card";
+    import Button from "$components/ui/button/Button.svelte";
     import { page } from "$app/stores";
-    import { Download, Loader2, Mail, ExternalLink } from "lucide-svelte";
+    import { Download, Loader2, Mail, ExternalLink } from "svelte-lucide";
     import { browser } from "$app/environment";
     import { Somerset, SocialProfileJsonLd } from "somerset";
     import { onMount } from "svelte";
-    import Button from "$components/ui/button/Button.svelte";
 
     export let data;
     const { streamed } = data;

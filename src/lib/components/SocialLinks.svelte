@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
-    import { Github, type IconProps } from "lucide-svelte";
+    import { Github } from "svelte-lucide";
     import Discord from "@inqling/svelte-icons/simple-icons/discord.svelte";
     import type { SvelteComponent } from "svelte";
 
     export const socialLinks: {
-        icon: typeof SvelteComponent<IconProps>;
+        icon: typeof SvelteComponent<any>;
         url?: string;
         handle: string;
     }[] = [
