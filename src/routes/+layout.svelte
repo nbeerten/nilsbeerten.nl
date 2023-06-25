@@ -2,6 +2,8 @@
     import "../app.css";
     import { Nav, Footer, ThemeToggle } from "$lib/components";
 
+    import WebVitals from "$lib/WebVitals.svelte";
+
     import { dev } from "$app/environment";
     import { inject } from "@vercel/analytics";
 
@@ -12,6 +14,8 @@
     <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 </svelte:head>
+
+<WebVitals />
 
 <div
     class="flex min-h-screen flex-col justify-between overflow-x-hidden bg-white text-black dark:bg-stone-950 dark:text-stone-50"

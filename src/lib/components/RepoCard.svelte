@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "$components/ui/card";
-    import { Github } from "svelte-lucide";
+    import * as Icon from "svelte-lucide";
 
     export let username = "nbeerten";
     export let repo = "nb";
@@ -12,7 +12,7 @@
 <Card>
     <CardHeader>
         <CardTitle tag="h3" class="flex items-center gap-2">
-            <Github class="mt-0.5 h-5 w-5 flex-shrink-0" />
+            <Icon.Github class="mt-0.5 h-5 w-5 flex-shrink-0" />
             <span class="truncate">
                 <a
                     href="{baseGithubUrl}/{username}"

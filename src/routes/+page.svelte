@@ -1,17 +1,10 @@
 <script lang="ts">
-    import { SocialLinks, RepoCard } from "$lib/components";
+    import { RepoCard } from "$lib/components";
     import { socialLinks } from "$lib/components/SocialLinks.svelte";
-    import {
-        Card,
-        CardContent,
-        CardFooter,
-        CardHeader,
-        CardTitle,
-        CardDescription
-    } from "$components/ui/card";
+    import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "$components/ui/card";
     import Button from "$components/ui/button/Button.svelte";
     import { page } from "$app/stores";
-    import { Download, Loader2, Mail, ExternalLink } from "svelte-lucide";
+    import * as Icon from "svelte-lucide";
     import { browser } from "$app/environment";
     import { Somerset, SocialProfileJsonLd } from "somerset";
     import { onMount } from "svelte";
@@ -93,7 +86,7 @@
                         rel="noreferrer"
                         class="flex items-center gap-1 hover:underline"
                     >
-                        Visit <ExternalLink class="h-4 w-4" />
+                        Visit <Icon.ExternalLink class="h-4 w-4" />
                     </a>
                 </div>
             </svelte:fragment>
@@ -106,9 +99,9 @@
             </svelte:fragment>
             <svelte:fragment slot="stats">
                 <div class="flex items-center gap-2">
-                    <Download class="h-5 w-5" />
+                    <Icon.Download class="h-5 w-5" />
                     {#await streamed.tmRefreshLeaderboardDownloads}
-                        <Loader2 class="animate-spin" />
+                        <Icon.Loader2 class="animate-spin" />
                     {:then data}
                         {data.downloads} downloads
                     {/await}
@@ -120,7 +113,7 @@
                         rel="noreferrer"
                         class="flex items-center gap-1 hover:underline"
                     >
-                        Visit <ExternalLink class="h-4 w-4" />
+                        Visit <Icon.ExternalLink class="h-4 w-4" />
                     </a>
                 </div>
             </svelte:fragment>
@@ -133,7 +126,7 @@
 
     <div class="grid w-full gap-4 lg:grid-cols-2">
         {#await streamed.posts}
-            <Loader2 class="col-span-full animate-spin justify-self-center" />
+            <Icon.Loader2 class="col-span-full animate-spin justify-self-center" />
         {:then posts}
             {#if posts.length > 0}
                 {#each posts as post}
@@ -186,7 +179,7 @@
                     rel="noreferrer"
                     class="grid grid-cols-[1fr,auto,1fr] gap-4"
                 >
-                    <Mail class="h-5 w-5" />
+                    <Icon.Mail class="h-5 w-5" />
                     <span class="w-full text-center"
                         >{emailAddress.split("@")[0]}<span class="hidden">spam</span
                         >@{emailAddress.split("@")[1]}</span

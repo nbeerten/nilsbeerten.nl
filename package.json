@@ -1,6 +1,4 @@
 {
-    "name": "nilsbeerten.nl",
-    "version": "0.0.1",
     "private": true,
     "scripts": {
         "dev": "vite dev",
@@ -16,7 +14,7 @@
         "@resvg/resvg-js": "^2.4.1",
         "@sveltejs/adapter-auto": "^2.1.0",
         "@sveltejs/adapter-vercel": "^3.0.1",
-        "@sveltejs/kit": "^1.20.4",
+        "@sveltejs/kit": "^1.20.5",
         "@tailwindcss/typography": "^0.5.9",
         "@typescript-eslint/eslint-plugin": "^5.60.0",
         "@typescript-eslint/parser": "^5.60.0",
@@ -27,7 +25,6 @@
         "eslint": "^8.43.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-svelte": "^2.31.0",
-        "lucide-svelte": "^0.248.0",
         "mdsvex": "^0.10.6",
         "postcss": "^8.4.24",
         "prettier": "^2.8.8",
@@ -49,6 +46,7 @@
         "tslib": "^2.5.3",
         "typescript": "^5.1.3",
         "vite": "^4.3.9",
+        "web-vitals": "^3.3.2",
         "zod": "^3.21.4"
     },
     "type": "module"

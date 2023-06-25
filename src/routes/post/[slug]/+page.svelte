@@ -1,6 +1,6 @@
 <script lang="ts">
     import { browser } from "$app/environment";
-    import { Tag } from "svelte-lucide";
+    import * as Icon from "svelte-lucide";
     import { Somerset, ArticleJsonLd } from "somerset";
     import { page } from "$app/stores";
 
@@ -48,7 +48,7 @@
     <div class="flex gap-4">
         {#each data.meta.categories as category}
             <span class="flex items-center gap-2 rounded-full border bg-background px-4"
-                ><Tag class="mt-px h-3 w-3" />{category}</span
+                ><Icon.Tag class="mt-px h-3 w-3" />{category}</span
             >
         {/each}
     </div>

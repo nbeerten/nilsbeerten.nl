@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-    import { Github } from "svelte-lucide";
+    import * as Icon from "svelte-lucide";
     import Discord from "@inqling/svelte-icons/simple-icons/discord.svelte";
     import type { SvelteComponent } from "svelte";
 
@@ -9,7 +9,7 @@
         handle: string;
     }[] = [
         {
-            icon: Github,
+            icon: Icon.Github,
             url: "https://github.com/nbeerten",
             handle: "nbeerten"
         },
