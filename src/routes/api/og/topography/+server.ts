@@ -1,7 +1,7 @@
 import satori from "satori/wasm";
 import { Resvg } from "@resvg/resvg-wasm";
 import { html as toReactElement } from "satori-html";
-import Og from "./Og.svelte";
+import Topography from "./Topography.svelte";
 import type { SvelteComponent } from "svelte";
 import type { EdgeConfig } from "@sveltejs/adapter-vercel";
 
@@ -25,15 +25,12 @@ function componentToMarkup(component: unknown, props: Record<string, unknown> = 
     return htmlTemplate;
 }
 
-export async function GET({ url, fetch }) {
+export async function GET({ fetch }) {
     const fontFile = await fetch("/fonts/excon/Excon-Black.ttf");
     const fontData: ArrayBuffer = await fontFile.arrayBuffer();
 
-    const html = toReactElement(
-        componentToMarkup(Og, {
-            title: url.searchParams.get("title")
-        })
-    );
+    const html = toReactElement(componentToMarkup(Topography));
+
     const svg = await satori(html, {
         fonts: [
             {
