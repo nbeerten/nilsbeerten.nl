@@ -1,11 +1,9 @@
 <script lang="ts">
-    import { RepoCard } from "$lib/components";
+    import { RepoCard, PostCard } from "$lib/components";
     import { socialLinks } from "$lib/components/SocialLinks.svelte";
-    import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "$components/ui/card";
     import Button from "$components/ui/button/Button.svelte";
     import { page } from "$app/stores";
     import * as Icon from "svelte-lucide";
-    import { browser } from "$app/environment";
     import { Somerset, SocialProfileJsonLd } from "somerset";
     import { onMount } from "svelte";
 
@@ -130,30 +128,7 @@
         {:then posts}
             {#if posts.length > 0}
                 {#each posts as post}
-                    <Card>
-                        <CardHeader>
-                            <CardTitle tag="h3">
-                                {post.title}
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            {post.description}
-                        </CardContent>
-                        <CardFooter class="flex justify-between gap-2 text-muted-foreground">
-                            {#if browser}
-                                <span>{new Date(post.date).toLocaleDateString()}</span>
-                            {/if}
-
-                            <a
-                                href="/post/{post.slug}"
-                                target="_blank"
-                                rel="noreferrer"
-                                class="underline"
-                            >
-                                Read more
-                            </a>
-                        </CardFooter>
-                    </Card>
+                    <PostCard {post} />
                 {/each}
             {:else}
                 No posts found.

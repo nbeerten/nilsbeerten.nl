@@ -41,7 +41,12 @@
     <hgroup>
         <h1 class="font-display text-4xl font-extrabold sm:text-5xl">{data.meta.title}</h1>
         {#if browser}
-            <p class="pt-2 font-medium">Published at {new Date(data.meta.date).toDateString()}</p>
+            <p class="pt-2 font-medium text-muted-foreground">
+                Published at {new Date(data.meta.date).toLocaleString("en-UK", {
+                    timeStyle: "short",
+                    dateStyle: "short"
+                })}
+            </p>
         {/if}
     </hgroup>
 
@@ -53,7 +58,7 @@
         {/each}
     </div>
 
-    <div class="prose prose-stone dark:prose-invert">
+    <div class="prose-lg prose-stone text-foreground dark:prose-invert">
         <svelte:component this={data.content} />
     </div>
 </article>

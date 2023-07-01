@@ -1,21 +1,19 @@
 import { error } from "@sveltejs/kit";
-import type { Post } from "$lib/types";
-import type { SvelteComponent } from "svelte";
+import { postSchema } from "$lib/posts/schema";
 
 export async function load({ params }) {
     try {
-        const post = (await import(`../../../content/${params.slug}.svx`)) as {
-            default: typeof SvelteComponent;
-            metadata: Omit<Post, "slug">;
-        };
+        const post = await import(`../../../content/posts/${params.slug}.svx`);
 
-        if (!post.metadata.published) {
+        const postMetadata = postSchema.parse(post.metadata);
+
+        if (!postMetadata.published) {
             throw Error("Not published");
         }
 
         return {
             content: post.default,
-            meta: { ...post.metadata, slug: params.slug }
+            meta: { ...postMetadata, slug: params.slug }
         };
     } catch (e) {
         throw error(404, `Could not find ${params.slug}`);
