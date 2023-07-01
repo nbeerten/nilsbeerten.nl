@@ -1,12 +1,12 @@
-import satori from "satori/wasm";
-import { Resvg } from "@resvg/resvg-wasm";
+import satori from "satori";
+import { Resvg } from "@resvg/resvg-js";
 import { html as toReactElement } from "satori-html";
 import Og from "./Og.svelte";
 import type { SvelteComponent } from "svelte";
-import type { EdgeConfig } from "@sveltejs/adapter-vercel";
+import type { ServerlessConfig } from "@sveltejs/adapter-vercel";
 
-export const config: EdgeConfig = {
-    runtime: "edge"
+export const config: ServerlessConfig = {
+    runtime: "nodejs18.x"
 };
 
 const height = 630;
