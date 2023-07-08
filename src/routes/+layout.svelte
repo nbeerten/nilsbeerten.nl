@@ -54,7 +54,7 @@
                 theme(colors.transparent) 50%,
                 theme(colors.white) 100%
             ),
-            url("/topography_light.svg");
+            url("/topography.svg#light");
         background-repeat: no-repeat, repeat-x;
         background-size: 100% 600px, 600px 600px;
         min-height: 600px;
@@ -66,6 +66,6 @@
                 theme(colors.transparent) 50%,
                 theme(colors.stone.950) 100%
             ),
-            url("/topography.svg");
+            url("/topography.svg#dark");
     }
 </style>

@@ -33,6 +33,6 @@
 <style lang="postcss">
     .topography {
         background-color: theme(colors.stone.950);
-        background-image: url(https://nilsbeerten.nl/topography.svg);
+        background-image: url(https://nilsbeerten.nl/topography.svg#dark);
     }
 </style>
