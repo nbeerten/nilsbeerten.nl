@@ -1,6 +1,6 @@
 <script lang="ts">
     import { browser } from "$app/environment";
-    import * as Icon from "svelte-lucide";
+    import { Tag } from "svelte-lucide";
     import { Somerset, ArticleJsonLd } from "somerset";
     import { page } from "$app/stores";
 
@@ -42,7 +42,7 @@
         <h1 class="font-display text-4xl font-extrabold sm:text-5xl">{data.meta.title}</h1>
         {#if browser}
             <p class="pt-2 font-medium text-muted-foreground">
-                Published at {new Date(data.meta.date).toLocaleString("en-UK", {
+                Published on {new Date(data.meta.date).toLocaleString("en-UK", {
                     timeStyle: "short",
                     dateStyle: "short"
                 })}
@@ -53,12 +53,12 @@
     <div class="flex gap-4">
         {#each data.meta.categories as category}
             <span class="flex items-center gap-2 rounded-full border bg-background px-4"
-                ><Icon.Tag class="mt-px h-3 w-3" />{category}</span
+                ><Tag class="mt-px h-3 w-3" />{category}</span
             >
         {/each}
     </div>
 
     <div class="prose-lg prose-stone text-foreground dark:prose-invert">
-        <svelte:component this={data.content} />
+        <svelte:component this={data.component} />
     </div>
 </article>

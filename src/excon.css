@@ -18,7 +18,8 @@
 
 @font-face {
     font-family: "Excon";
-    src: url("/fonts/excon/Excon-Variable.woff2") format("woff2"),
+    src:
+        url("/fonts/excon/Excon-Variable.woff2") format("woff2"),
         url("/fonts/excon/Excon-Variable.woff") format("woff"),
         url("/fonts/excon/Excon-Variable.ttf") format("truetype");
     font-weight: 100 900;

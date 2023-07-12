@@ -11,8 +11,8 @@ const mdsvexOptions = {
             const highlighter = await shiki.getHighlighter({ theme: "dark-plus" });
             const html = escapeSvelte(highlighter.codeToHtml(code, { lang }));
             return `{@html \`${html}\` }`;
-        }
-    }
+        },
+    },
 };
 
 /** @type {import('@sveltejs/kit').Config}*/
@@ -28,15 +28,15 @@ const config = {
         adapter: adapterVercel({
             runtime: "edge",
             regions: ["fra1"],
-            split: true
+            split: true,
         }),
         alias: {
             $components: "src/lib/components",
-            "$components/*": "src/lib/components/*"
-        }
+            "$components/*": "src/lib/components/*",
+        },
     },
     shadcn: {
-        componentPath: "./src/lib/components/ui"
-    }
+        componentPath: "./src/lib/components/ui",
+    },
 };
 export default config;

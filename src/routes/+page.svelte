@@ -3,7 +3,7 @@
     import { socialLinks } from "$lib/components/SocialLinks.svelte";
     import Button from "$components/ui/button/Button.svelte";
     import { page } from "$app/stores";
-    import * as Icon from "svelte-lucide";
+    import { ExternalLink, Download, Loader2, Mail } from "svelte-lucide";
     import { Somerset, SocialProfileJsonLd } from "somerset";
     import { onMount } from "svelte";
 
@@ -21,6 +21,7 @@
 
 <Somerset
     title="Nils Beerten"
+    titleTemplate="%s"
     description="Hey, I'm Nils Beerten. I enjoy coding and developing various projects as a hobby, particularly (full-stack) web applications and websites. Online, I typically go by the usernames nbeerten or nbert."
     openGraph={{
         url: $page.url.toString(),
@@ -84,7 +85,7 @@
                         rel="noreferrer"
                         class="flex items-center gap-1 hover:underline"
                     >
-                        Visit <Icon.ExternalLink class="h-4 w-4" />
+                        Visit <ExternalLink class="h-4 w-4" />
                     </a>
                 </div>
             </svelte:fragment>
@@ -97,9 +98,9 @@
             </svelte:fragment>
             <svelte:fragment slot="stats">
                 <div class="flex items-center gap-2">
-                    <Icon.Download class="h-5 w-5" />
+                    <Download class="h-5 w-5" />
                     {#await streamed.tmRefreshLeaderboardDownloads}
-                        <Icon.Loader2 class="animate-spin" />
+                        <Loader2 class="animate-spin" />
                     {:then data}
                         {data.downloads} downloads
                     {/await}
@@ -111,7 +112,7 @@
                         rel="noreferrer"
                         class="flex items-center gap-1 hover:underline"
                     >
-                        Visit <Icon.ExternalLink class="h-4 w-4" />
+                        Visit <ExternalLink class="h-4 w-4" />
                     </a>
                 </div>
             </svelte:fragment>
@@ -124,7 +125,7 @@
 
     <div class="grid w-full gap-4 lg:grid-cols-2">
         {#await streamed.posts}
-            <Icon.Loader2 class="col-span-full animate-spin justify-self-center" />
+            <Loader2 class="col-span-full animate-spin justify-self-center" />
         {:then posts}
             {#if posts.length > 0}
                 {#each posts as post}
@@ -147,16 +148,16 @@
 
     <div class="flex w-full flex-col justify-start gap-6 md:flex-row">
         <ul class="flex flex-col gap-1">
-            <li>
+            <li data-nosnippet>
                 <Button
                     href="mailto:{emailAddress}"
                     target="_blank"
                     rel="noreferrer"
                     class="grid grid-cols-[1fr,auto,1fr] gap-4"
                 >
-                    <Icon.Mail class="h-5 w-5" />
+                    <Mail class="h-5 w-5" />
                     <span class="w-full text-center"
-                        >{emailAddress.split("@")[0]}<span class="hidden">spam</span
+                        ><span class="hidden">not.the.correct.</span>{emailAddress.split("@")[0]}<span class="hidden">.email</span
                         >@{emailAddress.split("@")[1]}</span
                     >
                 </Button>

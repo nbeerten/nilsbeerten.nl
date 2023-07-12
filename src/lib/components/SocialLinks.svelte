@@ -1,15 +1,15 @@
 <script context="module" lang="ts">
-    import * as Icon from "svelte-lucide";
+    import { Github } from "svelte-lucide";
     import Discord from "@inqling/svelte-icons/simple-icons/discord.svelte";
     import type { SvelteComponent } from "svelte";
 
     export const socialLinks: {
-        icon: typeof SvelteComponent<any>;
+        icon: typeof SvelteComponent<Record<string, unknown>>;
         url?: string;
         handle: string;
     }[] = [
         {
-            icon: Icon.Github,
+            icon: Github,
             url: "https://github.com/nbeerten",
             handle: "nbeerten"
         },

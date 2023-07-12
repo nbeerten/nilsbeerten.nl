@@ -6,7 +6,7 @@ import type { SvelteComponent } from "svelte";
 import type { ServerlessConfig } from "@sveltejs/adapter-vercel";
 
 export const config: ServerlessConfig = {
-    runtime: "nodejs18.x"
+    runtime: "nodejs18.x",
 };
 
 const height = 630;
@@ -31,7 +31,7 @@ export async function GET({ url, fetch }) {
 
     const html = toReactElement(
         componentToMarkup(Og, {
-            title: url.searchParams.get("title")
+            title: url.searchParams.get("title"),
         })
     );
     const svg = await satori(html, {
@@ -39,18 +39,18 @@ export async function GET({ url, fetch }) {
             {
                 name: "Inter Latin",
                 data: fontData,
-                style: "normal"
-            }
+                style: "normal",
+            },
         ],
         height,
-        width
+        width,
     });
 
     const resvg = new Resvg(svg, {
         fitTo: {
             mode: "width",
-            value: width
-        }
+            value: width,
+        },
     });
 
     const image = resvg.render();
@@ -58,7 +58,7 @@ export async function GET({ url, fetch }) {
     return new Response(image.asPng(), {
         headers: {
             "content-type": "image/png",
-            "cache-control": "public, max-age=604800"
-        }
+            "cache-control": "public, max-age=604800",
+        },
     });
 }

@@ -1,21 +1,10 @@
 import { error } from "@sveltejs/kit";
-import { postSchema } from "$lib/posts/schema";
+import { getPost } from "$lib/posts/index";
 
 export async function load({ params }) {
-    try {
-        const post = await import(`../../../content/posts/${params.slug}.svx`);
+    const postresult = await getPost(params.slug);
 
-        const postMetadata = postSchema.parse(post.metadata);
+    if (!postresult.success) throw error(postresult.code ?? 404, postresult.error);
 
-        if (!postMetadata.published) {
-            throw Error("Not published");
-        }
-
-        return {
-            content: post.default,
-            meta: { ...postMetadata, slug: params.slug }
-        };
-    } catch (e) {
-        throw error(404, `Could not find ${params.slug}`);
-    }
+    return postresult.data;
 }

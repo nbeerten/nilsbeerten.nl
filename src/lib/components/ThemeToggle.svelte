@@ -1,5 +1,5 @@
 <script lang="ts">
-    import * as Icon from "svelte-lucide";
+    import { Sun, CloudMoon } from "svelte-lucide";
     import { onMount } from "svelte";
 
     // indicate if we're in dark mode or not
@@ -64,6 +64,6 @@
     title="Toggle theme"
     on:click={toggleTheme}
 >
-    <Icon.Moon class="-mt-1 hidden h-5 w-5 dark:block" style={null} />
-    <Icon.Sun class="-mt-1 h-5 w-5 dark:hidden" style={null} />
+    <CloudMoon class="-mt-1 hidden h-5 w-5 dark:block" style={null} />
+    <Sun class="-mt-1 h-5 w-5 dark:hidden" style={null} />
 </button>

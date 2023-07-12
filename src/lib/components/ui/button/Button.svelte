@@ -1,8 +1,7 @@
 <script lang="ts">
-    import type { VariantProps } from "class-variance-authority";
     import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements";
     import { cn } from "$lib/utils";
-    import { cva } from "class-variance-authority";
+    import { cva, type VariantProps } from "class-variance-authority";
 
     let className: string | undefined | null = undefined;
     export { className as class };

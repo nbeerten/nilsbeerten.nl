@@ -2,7 +2,7 @@ import type { EdgeConfig } from "@sveltejs/adapter-vercel";
 import type { Post } from "$lib/types";
 
 export const config: EdgeConfig = {
-    runtime: "edge"
+    runtime: "edge",
 };
 
 export async function load({ fetch }) {
@@ -10,8 +10,8 @@ export async function load({ fetch }) {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "User-Agent": "nilsbeerten.nl/1.0 (https://github.com/nbeerten/nilsbeerten.nl)"
-        }
+            "User-Agent": "nilsbeerten.nl/1.0 (https://github.com/nbeerten/nilsbeerten.nl)",
+        },
     }).then(
         (res) =>
             res.json() as Promise<
@@ -26,7 +26,7 @@ export async function load({ fetch }) {
     return {
         streamed: {
             tmRefreshLeaderboardDownloads,
-            posts
-        }
+            posts,
+        },
     };
 }

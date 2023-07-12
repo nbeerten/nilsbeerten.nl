@@ -1,7 +1,7 @@
 ---
 title: Second post!
 description: The second post of my website.
-date: '2023-6-14'
+date: '2023-6-14 15:00'
 categories:
   - blog
 published: false
