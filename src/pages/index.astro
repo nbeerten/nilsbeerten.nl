@@ -61,13 +61,13 @@ import { Icon } from "astro-icon/components";
     </section>
 </Layout>
 
-<script>
+<script is:inline>
     document.querySelectorAll("#mail").forEach((el) => {
         const mail = "Y29udGFjdA==@nilsbeerten.nl"
             .split("@")
             .map((part) => (part.endsWith("==") ? atob(part) : part))
             .join("@");
         el.textContent = mail;
-        (el.parentNode as HTMLDivElement).setAttribute("href", `mailto:${mail}`);
+        el.parentNode.setAttribute("href", `mailto:${mail}`);
     });
 </script>
