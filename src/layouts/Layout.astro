@@ -1,0 +1,73 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/png" sizes="500x500" href="/favicon.png" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        <meta name="description" content="Personal website of Nils Beerten, aka nbeerten, nbert." />
+    </head>
+    <body class="flex justify-center px-10 py-20">
+        <div class="max-w-2xl w-full">
+            <slot />
+        </div>
+    </body>
+</html>
+
+<style is:global lang="postcss">
+    :root {
+        background-color: theme(colors.stone.950);
+        color: theme(colors.amber.100);
+    }
+
+    /* Satoshi */
+    @font-face {
+        font-family: "Satoshi";
+        src:
+            url(/fonts/Satoshi-Variable.woff2) format("woff2") tech(variations),
+            url(/fonts/Satoshi-Variable.ttf) format("truetype") tech(variations);
+        font-weight: 300 900;
+        font-display: swap;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "Satoshi";
+        src:
+            url(/fonts/Satoshi-VariableItalic.woff2) format("woff2") tech(variations),
+            url(/fonts/Satoshi-VariableItalic.ttf) format("truetype") tech(variations);
+        font-weight: 300 900;
+        font-display: swap;
+        font-style: italic;
+    }
+
+    /* Inter */
+    @font-face {
+        font-family: "Inter";
+        src:
+            url(/fonts/Inter-Variable.woff2) format("woff2") tech(variations),
+            url(/fonts/Inter-Variable.ttf) format("truetype") tech(variations);
+        font-weight: 100 900;
+        font-display: swap;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "Inter";
+        src:
+            url(/fonts/Inter-VariableItalic.woff2) format("woff2") tech(variations),
+            url(/fonts/Inter-VariableItalic.ttf) format("truetype") tech(variations);
+        font-weight: 100 900;
+        font-display: swap;
+        font-style: italic;
+    }
+</style>

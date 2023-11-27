@@ -1,0 +1,27 @@
+{
+    "name": "nilsbeerten.nl",
+    "type": "module",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro check && astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "format": "prettier --write ."
+    },
+    "dependencies": {
+        "@astrojs/check": "^0.3.1",
+        "@astrojs/cloudflare": "^7.7.1",
+        "@astrojs/tailwind": "^5.0.2",
+        "astro": "^3.6.1",
+        "astro-icon": "1.0.0-next.2",
+        "prettier": "^3.1.0",
+        "tailwindcss": "^3.3.5",
+        "typescript": "^5.3.2"
+    },
+    "devDependencies": {
+        "@iconify-json/lucide": "^1.1.142",
+        "@iconify-json/simple-icons": "^1.1.80",
+        "prettier-plugin-astro": "^0.12.2"
+    }
+}

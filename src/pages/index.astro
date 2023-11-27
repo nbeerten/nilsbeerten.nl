@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+---
+
+<Layout title="Nils Beerten">
+    <hgroup>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold font-display -ml-[0.3vh]">
+            Nils Beerten
+        </h1>
+        <p class="text-amber-100/60">
+            <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span> - <abbr
+                title="also known as"
+                class="underline-offset-2">a.k.a.</abbr
+            > nbeerten, nbert
+        </p>
+        <div
+            class="flex flex-col gap-2 mt-2 [&>*]:x-[flex,gap-2,items-center,w-max,underline] [&>*>svg]:x-[w-5,h-5]">
+            <a href="mailto:Y29udGFjdA==@nilsbeerten.nl">
+                <Icon name="lucide:mail" />
+                <p class="mb-px" id="mail"></p>
+            </a>
+            <a href="https://github.com/nbeerten">
+                <Icon name="simple-icons:github" />
+                <p class="mb-px">nbeerten</p>
+            </a>
+            <a href="https://twitter.com/nbertn">
+                <Icon name="simple-icons:x" />
+                <p class="mb-px">nbertn</p>
+            </a>
+            <div>
+                <Icon name="simple-icons:discord" />
+                <p class="mb-px">@nbeerten</p>
+            </div>
+        </div>
+    </hgroup>
+    <hr class="border-amber-100/25 my-5" />
+    <section>
+        <h2 class="text-amber-100/75 text-xl">Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+            <div>
+                <a
+                    href="https://github.com/nbeerten/nilsbeerten.nl/"
+                    class="underline text-lg font-bold">
+                    nilsbeerten.nl
+                </a>
+                <p class="[text-wrap:pretty]">Simple and minimal personal site built with Astro.</p>
+            </div>
+
+            <div>
+                <a
+                    href="https://github.com/nbeerten/nilsbeerten.nl/"
+                    class="underline text-lg font-bold">
+                    tm-refresh-leaderboard
+                </a>
+                <p class="[text-wrap:pretty]">
+                    Trackmania plugin to refresh the in-game leaderboards.
+                </p>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    document.querySelectorAll("#mail").forEach((el) => {
+        const mail = "Y29udGFjdA==@nilsbeerten.nl"
+            .split("@")
+            .map((part) => (part.endsWith("==") ? atob(part) : part))
+            .join("@");
+        el.textContent = mail;
+        (el.parentNode as HTMLDivElement).setAttribute("href", `mailto:${mail}`);
+    });
+</script>
