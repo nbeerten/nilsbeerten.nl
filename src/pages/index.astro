@@ -5,7 +5,7 @@ import { Icon } from "astro-icon/components";
 
 <Layout title="Nils Beerten">
     <hgroup>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold font-display -ml-[0.3vh]">
+        <h1 class="-ml-[0.3vh] font-display text-4xl font-extrabold md:text-5xl lg:text-6xl">
             Nils Beerten
         </h1>
         <p class="text-amber-100/60">
@@ -15,7 +15,7 @@ import { Icon } from "astro-icon/components";
             > nbeerten, nbert
         </p>
         <div
-            class="flex flex-col gap-2 mt-2 [&>*]:x-[flex,gap-2,items-center,w-max,underline] [&>*>svg]:x-[w-5,h-5]">
+            class="mt-2 flex flex-col gap-2 [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max,underline]">
             <a href="mailto:Y29udGFjdA==@nilsbeerten.nl">
                 <Icon name="lucide:mail" />
                 <p class="mb-px" id="mail"></p>
@@ -34,14 +34,14 @@ import { Icon } from "astro-icon/components";
             </div>
         </div>
     </hgroup>
-    <hr class="border-amber-100/25 my-5" />
+    <hr class="my-5 border-amber-100/25" />
     <section>
-        <h2 class="text-amber-100/75 text-xl">Projects</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+        <h2 class="text-xl text-amber-100/75">Projects</h2>
+        <div class="grid grid-cols-1 gap-4 py-4 md:grid-cols-2">
             <div>
                 <a
                     href="https://github.com/nbeerten/nilsbeerten.nl/"
-                    class="underline text-lg font-bold">
+                    class="text-lg font-bold underline">
                     nilsbeerten.nl
                 </a>
                 <p class="[text-wrap:pretty]">Simple and minimal personal site built with Astro.</p>
@@ -50,7 +50,7 @@ import { Icon } from "astro-icon/components";
             <div>
                 <a
                     href="https://github.com/nbeerten/nilsbeerten.nl/"
-                    class="underline text-lg font-bold">
+                    class="text-lg font-bold underline">
                     tm-refresh-leaderboard
                 </a>
                 <p class="[text-wrap:pretty]">
