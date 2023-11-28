@@ -17,14 +17,15 @@ export default defineConfig({
             },
         }),
         sitemap({
-            filter: (page) => page !== "https://nilsbeerten.nl/logo/",
+            filter: (page) =>
+                new URL(page).toString() !== new URL("https://nilsbeerten.nl/brand/").toString(),
         }),
         robotsTxt({
             policy: [
                 {
                     userAgent: "*",
                     allow: "/",
-                    disallow: "/logo",
+                    disallow: "/brand",
                 },
             ],
         }),
