@@ -1,9 +1,12 @@
----
-import Layout from "../layouts/Layout.astro";
----
-
-<Layout title="Logo - Nils Beerten" class="bg-stone-900">
-    <div class="grid w-full grid-flow-row place-content-center gap-32 bg-transparent">
+<html lang="en" class="bg-transparent">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+    </head>
+    <body class="grid w-full grid-flow-row place-content-center gap-32 bg-transparent">
         <div
             class="grid h-[500px] w-[500px] place-content-center overflow-hidden rounded-[5rem] bg-stone-950"
             id="logo1">
@@ -21,5 +24,18 @@ import Layout from "../layouts/Layout.astro";
                 nb
             </h1>
         </div>
-    </div>
-</Layout>
+    </body>
+</html>
+
+<style>
+    /* Satoshi */
+    @font-face {
+        font-family: "Satoshi";
+        src:
+            url(/fonts/Satoshi-Variable.woff2) format("woff2") tech(variations),
+            url(/fonts/Satoshi-Variable.ttf) format("truetype") tech(variations);
+        font-weight: 300 900;
+        font-display: swap;
+        font-style: normal;
+    }
+</style>
