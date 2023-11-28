@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const { pathname } = Astro.url;
+---
+
+<Layout title="Nils Beerten">
+    <hgroup>
+        <h1 class="-ml-[0.3vh] font-display text-4xl font-extrabold md:text-5xl lg:text-6xl">
+            404
+        </h1>
+        <p class="text-amber-100/60">
+            Page <code class="rounded bg-black px-1">{pathname}</code> not found
+        </p>
+        <a href="/" class="underline">Home</a>
+    </hgroup>
+</Layout>
+
+<script is:inline>
+    document.querySelectorAll("#mail").forEach((el) => {
+        const mail = "Y29udGFjdA==@nilsbeerten.nl"
+            .split("@")
+            .map((part) => (part.endsWith("==") ? window.atob(part) : part))
+            .join("@");
+        el.textContent = mail;
+        el.parentNode.setAttribute("href", `mailto:${mail}`);
+    });
+</script>

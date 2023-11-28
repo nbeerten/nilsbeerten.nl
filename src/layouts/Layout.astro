@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { title, class: className } = Astro.props;
+import { ViewTransitions } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -19,15 +20,14 @@ const { title, class: className } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
         <meta name="description" content="Personal website of Nils Beerten, aka nbeerten, nbert." />
+
+        <ViewTransitions />
     </head>
     <body class={`flex justify-center px-10 py-20 ${className}`}>
         <div class="w-full max-w-2xl">
             <slot />
         </div>
-    </body>
-</html>
-
-<style is:global lang="postcss">
+    </body><style is:global lang="postcss">
     :root {
         background-color: theme(colors.stone.950);
         color: theme(colors.amber.100);
@@ -76,3 +76,4 @@ const { title, class: className } = Astro.props;
         font-style: italic;
     }
 </style>
+</html>

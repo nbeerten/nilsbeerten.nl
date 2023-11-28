@@ -62,12 +62,26 @@ import { Icon } from "astro-icon/components";
 </Layout>
 
 <script is:inline>
-    document.querySelectorAll("#mail").forEach((el) => {
-        const mail = "Y29udGFjdA==@nilsbeerten.nl"
-            .split("@")
-            .map((part) => (part.endsWith("==") ? window.atob(part) : part))
-            .join("@");
-        el.textContent = mail;
-        el.parentNode.setAttribute("href", `mailto:${mail}`);
+    // @ts-check
+    /**
+     * @param {Document} document
+     */
+    const mail = (document) =>
+        document.documentElement.querySelectorAll("#mail").forEach((el) => {
+            const mail = "Y29udGFjdA==@nilsbeerten.nl"
+                .split("@")
+                .map((part) => (part.endsWith("==") ? window.atob(part) : part))
+                .join("@");
+            el.textContent = mail;
+            /* @ts-ignore */
+            el.parentNode.setAttribute("href", `mailto:${mail}`);
+        });
+
+    mail(window.document);
+
+    // Fix view transitions
+    document.addEventListener("astro:before-swap", (e) => {
+        // @ts-ignore
+        mail(e.newDocument);
     });
 </script>
