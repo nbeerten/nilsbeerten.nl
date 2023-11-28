@@ -31,7 +31,7 @@ export default defineConfig({
         }),
     ],
     site: "https://nilsbeerten.nl",
-    output: "hybrid" /* This makes astro-icon work (with this switched to "server", worker.js in the outputDir is over 1 MB, too large for Cloudflare) */,
+    output: "server" /* This makes astro-icon work (with this switched to "server", worker.js in the outputDir is over 1 MB, too large for Cloudflare) */,
     adapter: vercel({
         webAnalytics: {
             enabled: true,
