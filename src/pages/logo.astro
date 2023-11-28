@@ -1,34 +1,25 @@
-<html lang="en" class="bg-transparent">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="description" content="Astro description" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    </head>
-    <body class="grid h-[90svh] w-full grid-flow-row place-items-center gap-16 bg-transparent py-10">
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Logo - Nils Beerten" class="bg-stone-900">
+    <div class="grid w-full grid-flow-row place-content-center gap-32 bg-transparent">
         <div
             class="grid h-[500px] w-[500px] place-content-center overflow-hidden rounded-[5rem] bg-stone-950"
             id="logo1">
-            <h1 class="font-display text-[300px] font-black text-amber-100 tracking-tighter -ml-[10px]">nb</h1>
+            <h1
+                class="-ml-[10px] font-display text-[300px] font-black tracking-tighter text-amber-100">
+                nb
+            </h1>
         </div>
 
         <div
             class="grid h-[500px] w-[500px] place-content-center overflow-hidden rounded-full bg-stone-950"
             id="logo2">
-            <h1 class="font-display text-[250px] font-black text-amber-100 tracking-tighter -ml-[12px] mb-[30px]">nb</h1>
+            <h1
+                class="-ml-[12px] mb-[30px] font-display text-[250px] font-black tracking-tighter text-amber-100">
+                nb
+            </h1>
         </div>
-    </body>
-</html>
-
-<style>
-    /* Satoshi */
-    @font-face {
-        font-family: "Satoshi";
-        src:
-            url(//cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2) format("woff2"),
-            url(//cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.ttf) format("truetype");
-        font-weight: 300 900;
-        font-display: swap;
-        font-style: normal;
-    }
-</style>
+    </div>
+</Layout>

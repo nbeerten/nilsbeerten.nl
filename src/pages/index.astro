@@ -15,7 +15,7 @@ import { Icon } from "astro-icon/components";
             > nbeerten, nbert
         </p>
         <div
-            class="mt-2 flex flex-col gap-2 [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max,underline]">
+            class="mt-2 flex flex-col gap-2 [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:underline">
             <a href="mailto:Y29udGFjdA==@nilsbeerten.nl">
                 <Icon name="lucide:mail" />
                 <p class="mb-px" id="mail"></p>
@@ -65,7 +65,7 @@ import { Icon } from "astro-icon/components";
     document.querySelectorAll("#mail").forEach((el) => {
         const mail = "Y29udGFjdA==@nilsbeerten.nl"
             .split("@")
-            .map((part) => (part.endsWith("==") ? atob(part) : part))
+            .map((part) => (part.endsWith("==") ? window.atob(part) : part))
             .join("@");
         el.textContent = mail;
         el.parentNode.setAttribute("href", `mailto:${mail}`);
