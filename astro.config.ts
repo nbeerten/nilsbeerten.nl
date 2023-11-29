@@ -6,6 +6,8 @@ import robotsTxt from "astro-robots-txt";
 
 import vercel from "@astrojs/vercel/serverless";
 
+const VERCEL_PREVIEW_SITE = (process.env.VERCEL_ENV !== "production" &&	process.env.VERCEL_URL) ? `https://${process.env.VERCEL_URL}` : false;
+
 // https://astro.build/config
 export default defineConfig({
     integrations: [
@@ -30,8 +32,8 @@ export default defineConfig({
             ],
         }),
     ],
-    site: "https://nilsbeerten.nl",
-    output: "server" /* This makes astro-icon work (with this switched to "server", worker.js in the outputDir is over 1 MB, too large for Cloudflare) */,
+    site: VERCEL_PREVIEW_SITE || "https://nilsbeerten.nl",
+    output: "server",
     adapter: vercel({
         webAnalytics: {
             enabled: true,
