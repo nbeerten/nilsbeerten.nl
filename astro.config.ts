@@ -33,7 +33,7 @@ export default defineConfig({
         }),
     ],
     site: VERCEL_PREVIEW_SITE || "https://nilsbeerten.nl",
-    output: "server",
+    output: "hybrid",
     adapter: vercel({
         webAnalytics: {
             enabled: true,
