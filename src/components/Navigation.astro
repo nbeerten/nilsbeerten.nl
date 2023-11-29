@@ -1,0 +1,26 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    class?: string;
+}
+const { class: className } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const c = (path: string, className: string) => (pathname === path ? className : "");
+---
+
+<nav class={`${className}`}>
+    <ul class="flex gap-10 text-amber-100/60">
+        <li>
+            <a
+                href="/"
+                class:list={[
+                    "flex items-center gap-2 border-b border-amber-100/25",
+                    c("/", "invisible"),
+                ]}>
+                <Icon name="lucide:arrow-left" class="-mb-px -ml-[2px] h-4 w-4" /> back
+            </a>
+        </li>
+    </ul>
+</nav>

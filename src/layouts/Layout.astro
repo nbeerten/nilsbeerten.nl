@@ -1,11 +1,13 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+import Navigation from "../components/Navigation.astro";
+
 interface Props {
     title: string;
     class?: string;
 }
 
 const { title, class: className } = Astro.props;
-import { ViewTransitions } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -21,13 +23,18 @@ import { ViewTransitions } from "astro:transitions";
         <title>{title}</title>
         <meta name="description" content="Personal website of Nils Beerten, aka nbeerten, nbert." />
 
-        <ViewTransitions />
+        {/* Fix prettier formatting; without this the <style> gets moved to inside the <body> */}
+        {() => <ViewTransitions />}
     </head>
-    <body class={`flex justify-center px-10 py-20 ${className}`}>
+    <body class={`flex justify-center px-10 py-10 ${className}`}>
         <div class="w-full max-w-2xl">
+            <Navigation class="mb-5" />
             <slot />
         </div>
-    </body><style is:global lang="postcss">
+    </body>
+</html>
+
+<style is:global lang="postcss">
     :root {
         background-color: theme(colors.stone.950);
         color: theme(colors.amber.100);
@@ -76,4 +83,3 @@ import { ViewTransitions } from "astro:transitions";
         font-style: italic;
     }
 </style>
-</html>
