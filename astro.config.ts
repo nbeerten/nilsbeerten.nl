@@ -14,8 +14,8 @@ export default defineConfig({
         tailwind(),
         icon({
             include: {
-                "simple-icons": ["*"],
-                lucide: ["*"],
+                "simple-icons": ["github", "x", "discord"],
+                lucide: ["mail"],
             },
         }),
         sitemap({
