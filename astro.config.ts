@@ -15,7 +15,7 @@ export default defineConfig({
         icon({
             include: {
                 "simple-icons": ["github", "x", "discord"],
-                lucide: ["mail"],
+                lucide: ["mail", "arrow-left"],
             },
         }),
         sitemap({
