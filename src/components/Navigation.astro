@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon/components";
+import ArrowLeft from "~icons/lucide/arrow-left";
 
 interface Props {
     class?: string;
@@ -19,7 +19,7 @@ const c = (path: string, className: string) => (pathname === path ? className : 
                     "flex items-center gap-2 border-b border-amber-100/25",
                     c("/", "invisible"),
                 ]}>
-                <Icon name="lucide:arrow-left" class="-mb-px -ml-[2px] h-4 w-4" /> back
+                <ArrowLeft class="-mb-px -ml-[2px] h-4 w-4" /> back
             </a>
         </li>
     </ul>

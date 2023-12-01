@@ -1,6 +1,9 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Icon } from "astro-icon/components";
+import Mail from "~icons/lucide/mail";
+import GitHub from "~icons/simple-icons/github";
+import X from "~icons/simple-icons/x";
+import Discord from "~icons/simple-icons/discord";
 ---
 
 <Layout title="Nils Beerten">
@@ -21,20 +24,20 @@ import { Icon } from "astro-icon/components";
         }
         <div
             class="mt-2 flex flex-col gap-2 [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:underline">
-            <a href="mailto:Y29udGFjdA==@nilsbeerten.nl">
-                <Icon name="lucide:mail" />
+            <a href="">
+                <Mail />
                 <p class="mb-px" id="mail"></p>
             </a>
             <a href="https://github.com/nbeerten">
-                <Icon name="simple-icons:github" />
+                <GitHub />
                 <p class="mb-px">nbeerten</p>
             </a>
             <a href="https://twitter.com/nbertn">
-                <Icon name="simple-icons:x" />
+                <X />
                 <p class="mb-px">nbertn</p>
             </a>
             <div>
-                <Icon name="simple-icons:discord" />
+                <Discord />
                 <p class="mb-px">@nbeerten</p>
             </div>
         </div>
@@ -67,26 +70,20 @@ import { Icon } from "astro-icon/components";
 </Layout>
 
 <script is:inline>
-    // @ts-check
-    /**
-     * @param {Document} document
-     */
-    const mail = (document) =>
-        document.documentElement.querySelectorAll("#mail").forEach((el) => {
-            const mail = "Y29udGFjdA==@nilsbeerten.nl"
-                .split("@")
-                .map((part) => (part.endsWith("==") ? window.atob(part) : part))
-                .join("@");
-            el.textContent = mail;
-            /* @ts-ignore */
-            el.parentNode.setAttribute("href", `mailto:${mail}`);
+    const parseHex = (str, pos) => parseInt(str.substr(pos, 2), 16);
+    const decode = (href, startPos = 0) => {
+        let r = "",
+            k = parseHex(href, startPos);
+        for (let p = startPos + 2; p < href.length; p += 2)
+            r += String.fromCharCode(parseHex(href, p) ^ k);
+        return r;
+    };
+    const mail = (doc) =>
+        doc.documentElement.querySelectorAll("#mail").forEach((el) => {
+            const MAIL_ADDRESS = "87e4e8e9f3e6e4f3c7e9eeebf4e5e2e2f5f3e2e9a9e9eb";
+            el.textContent = decode(MAIL_ADDRESS);
+            el.parentNode.setAttribute("href", `mailto:${decode(MAIL_ADDRESS)}`);
         });
-
     mail(window.document);
-
-    // Fix view transitions
-    document.addEventListener("astro:before-swap", (e) => {
-        // @ts-ignore
-        mail(e.newDocument);
-    });
+    document.addEventListener("astro:before-swap", (e) => mail(e.newDocument));
 </script>
