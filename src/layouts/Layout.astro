@@ -1,7 +1,6 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import Navigation from "@components/Navigation.astro";
-import Font from "../lib/font/Font.astro";
 
 interface Props {
     title: string;
@@ -24,10 +23,8 @@ const { title, class: className } = Astro.props;
         <title>{title}</title>
         <meta name="description" content="Personal website of Nils Beerten, aka nbeerten, nbert." />
 
-        <Font fonts={[
-                { name: "Satoshi", weights: "variable", provider: "fontshare" }
-            ]}
-        />
+        <link rel="preload" href="/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+        <link rel="preload" href="/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
         <style lang="postcss">
             :root {
@@ -36,12 +33,26 @@ const { title, class: className } = Astro.props;
                 color-scheme: dark;
             }
 
+            /* Satoshi */
+            @font-face {
+                font-family: 'Satoshi';
+                src: url(/fonts/Satoshi-Variable.woff2) format('woff2');
+                font-weight: 300 900;
+                font-display: swap;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'Satoshi';
+                src: url(/fonts/Satoshi-VariableItalic.woff2) format('woff2');
+                font-display: swap;
+                font-style: italic;
+            }
+
             /* Inter */
             @font-face {
                 font-family: "Inter";
-                src:
-                    url(/fonts/Inter-Variable.woff2) format("woff2") tech(variations),
-                    url(/fonts/Inter-Variable.ttf) format("truetype") tech(variations);
+                src: url(/fonts/Inter-Variable.woff2) format("woff2");
                 font-weight: 100 900;
                 font-display: swap;
                 font-style: normal;
@@ -49,9 +60,7 @@ const { title, class: className } = Astro.props;
 
             @font-face {
                 font-family: "Inter";
-                src:
-                    url(/fonts/Inter-VariableItalic.woff2) format("woff2") tech(variations),
-                    url(/fonts/Inter-VariableItalic.ttf) format("truetype") tech(variations);
+                src: url(/fonts/Inter-VariableItalic.woff2) format("woff2");
                 font-weight: 100 900;
                 font-display: swap;
                 font-style: italic;
@@ -67,7 +76,10 @@ const { title, class: className } = Astro.props;
             <slot />
         </div>
         <!-- Cloudflare Web Analytics -->
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "97a6549cb43b4db7a5beb264a988e5bd"}'></script>
+        <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "97a6549cb43b4db7a5beb264a988e5bd"}'></script>
         <!-- End Cloudflare Web Analytics -->
     </body>
 </html>
