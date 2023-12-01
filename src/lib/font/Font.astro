@@ -1,0 +1,18 @@
+---
+import { Font as FontClass } from ".";
+import { type WebFontMeta } from "./types";
+
+interface Props {
+    fonts: WebFontMeta[];
+}
+
+const { fonts: provided_fonts } = Astro.props;
+
+const fontClass = new FontClass(provided_fonts);
+
+const fonts = await fontClass.get();
+---
+
+{fonts.map((font) => <link rel="preconnect" href={font.preconnectUrl} crossorigin="anonymous" />)}
+
+<style set:html={fonts.map((font) => font.css).join("\n")}></style>
