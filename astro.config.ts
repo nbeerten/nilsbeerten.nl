@@ -18,5 +18,9 @@ export default defineConfig({
     output: "hybrid",
     adapter: cloudflare({
         imageService: "passthrough",
+        runtime: {
+            mode: "local",
+            type: "pages",
+        },
     }),
 });
