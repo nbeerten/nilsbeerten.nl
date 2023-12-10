@@ -4,14 +4,19 @@ import Navigation from "@components/Navigation.astro";
 
 interface Props {
     title: string;
+    description?: string;
     class?: string;
 }
 
-const { title, class: className } = Astro.props;
+const {
+    title,
+    description = "Personal website of Nils Beerten, aka nbeerten, nbert.",
+    class: className,
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -21,7 +26,7 @@ const { title, class: className } = Astro.props;
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
-        <meta name="description" content="Personal website of Nils Beerten, aka nbeerten, nbert." />
+        <meta name="description" content={description} />
 
         <link
             rel="preload"
@@ -38,7 +43,7 @@ const { title, class: className } = Astro.props;
             crossorigin="anonymous"
         />
 
-        <style lang="postcss">
+        <style>
             :root {
                 background-color: theme(colors.stone.950);
                 color: theme(colors.amber.100);
@@ -47,16 +52,17 @@ const { title, class: className } = Astro.props;
 
             /* Satoshi */
             @font-face {
-                font-family: 'Satoshi';
-                src: url(/fonts/Satoshi-Variable.woff2) format('woff2');
+                font-family: "Satoshi";
+                src: url(/fonts/Satoshi-Variable.woff2) format("woff2");
                 font-weight: 300 900;
                 font-display: swap;
                 font-style: normal;
             }
 
             @font-face {
-                font-family: 'Satoshi';
-                src: url(/fonts/Satoshi-VariableItalic.woff2) format('woff2');
+                font-family: "Satoshi";
+                src: url(/fonts/Satoshi-VariableItalic.woff2) format("woff2");
+                font-weight: 300 900;
                 font-display: swap;
                 font-style: italic;
             }
@@ -80,7 +86,7 @@ const { title, class: className } = Astro.props;
         </style>
 
         {/* Fix prettier formatting; without this the <style> gets moved to inside the <body> */}
-        {() => <ViewTransitions />}
+        <ViewTransitions />
     </head>
     <body class={`flex justify-center px-10 py-10 ${className}`}>
         <div class="w-full max-w-2xl">

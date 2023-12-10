@@ -11,12 +11,12 @@ const c = (path: string, className: string) => (pathname === path ? className : 
 ---
 
 <nav class={`${className}`}>
-    <ul class="flex gap-10 text-amber-100/60">
+    <ul class="flex gap-10 text-amber-100/50">
         <li>
             <a
                 href="/"
                 class:list={[
-                    "flex items-center gap-2 border-b border-amber-100/25",
+                    "flex items-center gap-2 border-b border-amber-100/50",
                     c("/", "invisible"),
                 ]}>
                 <ArrowLeft class="-mb-px -ml-[2px] h-4 w-4" /> back

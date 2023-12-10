@@ -4,52 +4,60 @@ import Mail from "~icons/lucide/mail";
 import GitHub from "~icons/simple-icons/github";
 import X from "~icons/simple-icons/x";
 import Discord from "~icons/simple-icons/discord";
+import { getCollection } from "astro:content";
+
+const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.draft);
 ---
 
 <Layout title="Nils Beerten">
-    <hgroup>
-        <h1 class="-ml-[0.075em] font-display text-5xl font-extrabold lg:text-6xl">Nils Beerten</h1>
-        <p class="text-amber-100/60">
-            <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span> - <abbr
-                title="also known as"
-                class="underline-offset-2">a.k.a.</abbr
-            > nbeerten, nbert
-        </p>
-    </hgroup>
-    <div>
-        {
-            /*<p class="max-w-[60ch] [text-wrap:pretty] pt-2">
-            <!-- Future description -->
-        </p>*/
-        }
-        <div
-            class="mt-2 flex flex-col gap-2 [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:underline">
-            <a href="">
-                <Mail />
-                <p class="mb-px" id="mail"></p>
-            </a>
-            <a href="https://github.com/nbeerten">
-                <GitHub />
-                <p class="mb-px">nbeerten</p>
-            </a>
-            <a href="https://twitter.com/nbertn">
-                <X />
-                <p class="mb-px">nbertn</p>
-            </a>
-            <div>
-                <Discord />
-                <p class="mb-px">@nbeerten</p>
+    <section>
+        <hgroup>
+            <h1 class="-ml-[0.075em] font-display text-5xl font-extrabold lg:text-6xl">
+                Nils Beerten
+            </h1>
+            <p class="text-amber-100/60">
+                <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span> -
+
+                <abbr title="also known as" class="underline-offset-2">a.k.a.</abbr> nbeerten, nbert
+            </p>
+        </hgroup>
+        <div>
+            {
+                /*<p class="max-w-[60ch] [text-wrap:pretty] pt-2">
+                    <!-- Future description -->
+                </p>*/
+            }
+            <div
+                class="mt-2 flex flex-col gap-2 text-amber-100/90 [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:x-[underline,underline-offset-2,decoration-amber-100/50]">
+                <a href="">
+                    <Mail />
+                    <p class="mb-px" id="mail"></p>
+                </a>
+                <a href="https://github.com/nbeerten">
+                    <GitHub />
+                    <p class="mb-px">nbeerten</p>
+                </a>
+                <a href="https://twitter.com/nbertn">
+                    <X />
+                    <p class="mb-px">nbertn</p>
+                </a>
+                <div>
+                    <Discord />
+                    <p class="mb-px">@nbeerten</p>
+                </div>
             </div>
         </div>
-    </div>
-    <hr class="my-5 border-amber-100/25" />
+    </section>
+
+    <hr class="my-5 border-amber-100/10" />
+
     <section>
-        <h2 class="-ml-px text-xl text-amber-100/75">Personal projects</h2>
-        <div class="grid grid-cols-1 gap-4 py-4 md:grid-cols-2">
+        <h2 class="-ml-px text-xl font-medium text-amber-100/75">Personal projects</h2>
+        <div class="grid grid-cols-1 gap-4 py-3 md:grid-cols-2">
             <div>
                 <a
                     href="https://github.com/nbeerten/nilsbeerten.nl/"
-                    class="text-lg font-bold underline">
+                    class="text-lg font-medium underline decoration-amber-100/50 underline-offset-2">
                     nilsbeerten.nl
                 </a>
                 <p class="[text-wrap:pretty]">Simple and minimal personal site built with Astro.</p>
@@ -58,7 +66,7 @@ import Discord from "~icons/simple-icons/discord";
             <div>
                 <a
                     href="https://github.com/nbeerten/nilsbeerten.nl/"
-                    class="text-lg font-bold underline">
+                    class="decoration-amber-100/50e text-lg font-medium underline underline-offset-2">
                     tm-refresh-leaderboard
                 </a>
                 <p class="[text-wrap:pretty]">
@@ -67,6 +75,29 @@ import Discord from "~icons/simple-icons/discord";
             </div>
         </div>
     </section>
+
+    {
+        blogEntries.length > 0 && (
+            <section>
+                <h2 class="-ml-px text-xl text-amber-100/75">Blog</h2>
+                <div class="flex flex-col gap-4 py-3">
+                    {blogEntries.map((blogPost) => (
+                        <article class="flex justify-between">
+                            <div>
+                                <a
+                                    href={`/blog/${blogPost.slug}`}
+                                    class="text-lg font-bold underline decoration-amber-100/50 underline-offset-2">
+                                    {blogPost.data.title}
+                                </a>
+                                <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
+                            </div>
+                            <time>{blogPost.data.date.toLocaleDateString("en")}</time>
+                        </article>
+                    ))}
+                </div>
+            </section>
+        )
+    }
 </Layout>
 
 <script is:inline>
