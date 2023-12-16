@@ -1,6 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import Navigation from "@components/Navigation.astro";
+import "src/styles/colors.css";
 
 interface Props {
     title: string;
@@ -45,8 +46,8 @@ const {
 
         <style>
             :root {
-                background-color: theme(colors.stone.950);
-                color: theme(colors.amber.100);
+                background-color: theme(colors.brand.background);
+                color: theme(colors.brand.text);
                 color-scheme: dark;
             }
 

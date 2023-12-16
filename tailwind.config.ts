@@ -34,6 +34,23 @@ export default {
                     },
                 },
             }),
+            colors: {
+                brand: Object.entries({
+                    text: "var(--brand-text)",
+                    muted: "var(--brand-muted)",
+                    background: "var(--brand-background)",
+                    border: "var(--brand-border)",
+                    primary: "var(--brand-primary)",
+                    secondary: "var(--brand-secondary)",
+                    tertiary: "var(--brand-tertiary)",
+                    hover: "var(--brand-hover)",
+                })
+                    .map(([key, value]) => [
+                        key,
+                        `color-mix(in srgb, ${value} calc(<alpha-value> * 100%), transparent)`,
+                    ])
+                    .reduce((acc, [key, value]) => ({ ...acc, [key as string]: value }), {}),
+            },
         },
     },
     plugins: [
