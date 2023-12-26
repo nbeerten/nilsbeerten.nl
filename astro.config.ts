@@ -3,6 +3,7 @@ import tailwind from "@astrojs/tailwind";
 import cloudflare from "@astrojs/cloudflare";
 import Icons from "unplugin-icons/vite";
 import tunnel from "astro-tunnel";
+// @ts-expect-error
 import lighthouse from "astro-lighthouse";
 
 const vesper = async () => {
