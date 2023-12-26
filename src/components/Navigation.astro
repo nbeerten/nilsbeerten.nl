@@ -27,8 +27,8 @@ const navigation = createNavigation(
 ---
 
 <nav class={`${className}`}>
-    <ul class="flex justify-between gap-10 text-brand-border">
-        <li>
+    <div class="flex justify-between gap-10 text-brand-border">
+        <div>
             <a
                 href={back}
                 class:list={[
@@ -37,7 +37,7 @@ const navigation = createNavigation(
                 ]}>
                 <ArrowLeft class="-mb-px -ml-[2px] h-4 w-4" /> back
             </a>
-        </li>
+        </div>
         <ul class="flex gap-10">
             {
                 navigation.map(({ label, path, active }) => (
@@ -51,5 +51,5 @@ const navigation = createNavigation(
                 ))
             }
         </ul>
-    </ul>
+    </div>
 </nav>
