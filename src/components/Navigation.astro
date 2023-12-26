@@ -1,26 +1,55 @@
 ---
 import ArrowLeft from "~icons/lucide/arrow-left";
+import { createNavigation } from "./Navigation";
 
 interface Props {
     class?: string;
+    back?: string;
 }
-const { class: className } = Astro.props;
+const { class: className, back = "/" } = Astro.props;
 
 const pathname = Astro.url.pathname;
 const c = (path: string, className: string) => (pathname === path ? className : "");
+
+const navigation = createNavigation(
+    [
+        {
+            label: "Home",
+            path: "/",
+        },
+        {
+            label: "Blog",
+            path: "/blog",
+        },
+    ],
+    Astro.url
+);
 ---
 
 <nav class={`${className}`}>
-    <ul class="flex gap-10 text-brand-border">
+    <ul class="flex justify-between gap-10 text-brand-border">
         <li>
             <a
-                href="/"
+                href={back}
                 class:list={[
                     "flex items-center gap-2 border-b border-brand-border",
-                    c("/", "invisible"),
+                    [c(back, "hidden")],
                 ]}>
                 <ArrowLeft class="-mb-px -ml-[2px] h-4 w-4" /> back
             </a>
         </li>
+        <ul class="flex gap-10">
+            {
+                navigation.map(({ label, path, active }) => (
+                    <li>
+                        <a
+                            href={path}
+                            class:list={["flex items-center gap-2", active && "text-brand-muted"]}>
+                            {label}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
     </ul>
 </nav>

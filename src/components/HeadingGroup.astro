@@ -1,0 +1,30 @@
+---
+import { twMerge } from "tailwind-merge";
+
+interface Props {
+    title: string;
+    smallTitle?: boolean;
+    subtitle?: string;
+}
+
+const { title, subtitle, smallTitle = false } = Astro.props;
+---
+
+<hgroup>
+    <h1
+        class={twMerge(
+            "-ml-[0.075em] font-display text-5xl font-extrabold lg:text-6xl",
+            smallTitle && "text-4xl lg:text-5xl"
+        )}>
+        {title}
+    </h1>
+    {
+        subtitle ? (
+            <p class="mt-2 text-brand-muted">{subtitle}</p>
+        ) : (
+            <p class="mt-2 text-brand-muted">
+                <slot name="subtitle" />
+            </p>
+        )
+    }
+</hgroup>

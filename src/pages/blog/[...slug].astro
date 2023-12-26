@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
+import HeadingGroup from "@components/HeadingGroup.astro";
 
 export async function getStaticPaths() {
     const posts = (await getCollection("blog")).filter((blog) => !blog.data.draft);
@@ -21,22 +22,18 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Layout title={post.data.title}>
-    <article class="flex flex-col gap-2">
-        <hgroup>
-            <h1 class="-ml-[0.05em] font-display text-5xl font-extrabold lg:text-6xl">
-                {post.data.title}
-            </h1>
-            <p class="text-brand-muted">
-                {
-                    post.data.date.toLocaleDateString("en-UK", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric",
-                    })
-                }
-            </p>
-        </hgroup>
+<Layout title={post.data.title} back="/blog">
+    <article>
+        <HeadingGroup
+            smallTitle
+            title={post.data.title}
+            subtitle={post.data.date.toLocaleDateString("en-UK", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+            })}
+        />
+        <hr class="my-5 border-amber-100/10" />
         <div class="prose prose-amber prose-invert">
             <Content />
         </div>

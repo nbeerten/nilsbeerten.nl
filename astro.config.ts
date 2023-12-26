@@ -2,6 +2,8 @@ import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import cloudflare from "@astrojs/cloudflare";
 import Icons from "unplugin-icons/vite";
+import tunnel from "astro-tunnel";
+import lighthouse from "astro-lighthouse";
 
 const vesper = async () => {
     const response = await fetch(
@@ -17,7 +19,7 @@ const vesper = async () => {
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [tailwind()],
+    integrations: [tailwind(), tunnel(), lighthouse()],
     vite: {
         plugins: [
             Icons({
@@ -34,5 +36,10 @@ export default defineConfig({
             mode: "off",
         },
     }),
-    markdown: { shikiConfig: { theme: await vesper(), wrap: true } },
+    markdown: {
+        shikiConfig: {
+            theme: await vesper(),
+            wrap: true,
+        },
+    },
 });

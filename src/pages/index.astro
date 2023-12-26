@@ -5,13 +5,14 @@ import GitHub from "~icons/simple-icons/github";
 import X from "~icons/simple-icons/x";
 import Discord from "~icons/simple-icons/discord";
 import { getCollection } from "astro:content";
+import HeadingGroup from "@components/HeadingGroup.astro";
 
 const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.draft);
 ---
 
 <Layout title="Nils Beerten">
     <section>
-        <hgroup>
+        <!-- <hgroup>
             <h1 class="-ml-[0.075em] font-display text-5xl font-extrabold lg:text-6xl">
                 Nils Beerten
             </h1>
@@ -20,7 +21,14 @@ const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.dr
 
                 <abbr title="also known as" class="underline-offset-2">a.k.a.</abbr> nbeerten, nbert
             </p>
-        </hgroup>
+        </hgroup> -->
+        <HeadingGroup title="Nils Beerten">
+            <Fragment slot="subtitle">
+                <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span> -
+
+                <abbr title="also known as" class="underline-offset-2">a.k.a.</abbr> nbeerten, nbert
+            </Fragment>
+        </HeadingGroup>
         <div>
             {
                 /*<p class="max-w-[60ch] [text-wrap:pretty] pt-2">
@@ -78,7 +86,7 @@ const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.dr
 
     {
         blogEntries.length > 0 && (
-            <section>
+            <section class="mt-6">
                 <h2 class="-ml-px text-xl text-brand-muted">Blog</h2>
                 <div class="flex flex-col gap-4 py-3">
                     {blogEntries.map((blogPost) => (
@@ -86,7 +94,7 @@ const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.dr
                             <div>
                                 <a
                                     href={`/blog/${blogPost.slug}`}
-                                    class="text-lg font-bold underline decoration-brand-border underline-offset-2">
+                                    class="text-lg font-medium underline decoration-brand-border underline-offset-2">
                                     {blogPost.data.title}
                                 </a>
                                 <p class="[text-wrap:pretty]">{blogPost.data.description}</p>

@@ -7,12 +7,14 @@ interface Props {
     title: string;
     description?: string;
     class?: string;
+    back?: string;
 }
 
 const {
     title,
     description = "Personal website of Nils Beerten, aka nbeerten, nbert.",
     class: className,
+    back = "/",
 } = Astro.props;
 ---
 
@@ -28,6 +30,8 @@ const {
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="theme-color" content="#0c0a09" />
+        <meta name="color-scheme" content="dark" />
 
         <link
             rel="preload"
@@ -91,7 +95,7 @@ const {
     </head>
     <body class={`flex justify-center px-10 py-10 ${className}`}>
         <div class="w-full max-w-2xl">
-            <Navigation class="mb-5" />
+            <Navigation class="mb-5" {back} />
             <slot />
         </div>
     </body>
