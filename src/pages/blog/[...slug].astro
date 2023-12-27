@@ -25,7 +25,6 @@ const { Content } = await post.render();
 <Layout title={post.data.title} back="/blog">
     <article>
         <HeadingGroup
-            smallTitle
             title={post.data.title}
             subtitle={post.data.date.toLocaleDateString("en-UK", {
                 month: "long",

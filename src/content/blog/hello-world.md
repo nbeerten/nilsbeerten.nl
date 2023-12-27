@@ -1,5 +1,5 @@
 ---
-title: "Hello, World!"
+title: "Hello, world!"
 date: 2023-12-26
 draft: false
 description: "New website, new design"

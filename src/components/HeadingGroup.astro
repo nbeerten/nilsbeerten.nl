@@ -3,18 +3,16 @@ import { twMerge } from "tailwind-merge";
 
 interface Props {
     title: string;
-    smallTitle?: boolean;
     subtitle?: string;
 }
 
-const { title, subtitle, smallTitle = false } = Astro.props;
+const { title, subtitle = false } = Astro.props;
 ---
 
 <hgroup>
     <h1
         class={twMerge(
-            "-ml-[0.075em] font-display text-5xl font-extrabold lg:text-6xl",
-            smallTitle && "text-4xl lg:text-5xl"
+            "-ml-[0.075em] font-display text-5xl font-extrabold lg:text-6xl min-h-12 [text-wrap:balance]"
         )}>
         {title}
     </h1>

@@ -108,21 +108,26 @@ const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.dr
     }
 </Layout>
 
-<script is:inline>
-    const parseHex = (str, pos) => parseInt(str.substr(pos, 2), 16);
-    const decode = (href, startPos = 0) => {
-        let r = "",
-            k = parseHex(href, startPos);
-        for (let p = startPos + 2; p < href.length; p += 2)
-            r += String.fromCharCode(parseHex(href, p) ^ k);
-        return r;
-    };
-    const mail = (doc) =>
+<script>
+    const mail = (doc: Document) => {
+        const parseHex = (str: string, pos: number) => parseInt(str.substr(pos, 2), 16);
+        const decode = (href: string, startPos = 0) => {
+            let r = "",
+                k = parseHex(href, startPos);
+            for (let p = startPos + 2; p < href.length; p += 2)
+                r += String.fromCharCode(parseHex(href, p) ^ k);
+            return r;
+        };
+
         doc.documentElement.querySelectorAll("#mail").forEach((el) => {
             const MAIL_ADDRESS = "87e4e8e9f3e6e4f3c7e9eeebf4e5e2e2f5f3e2e9a9e9eb";
             el.textContent = decode(MAIL_ADDRESS);
-            el.parentNode.setAttribute("href", `mailto:${decode(MAIL_ADDRESS)}`);
+            if (!el || !el.parentNode) return;
+            (el.parentNode as HTMLElement).setAttribute("href", `mailto:${decode(MAIL_ADDRESS)}`);
         });
+    };
     mail(window.document);
-    document.addEventListener("astro:before-swap", (e) => mail(e.newDocument));
+    document.addEventListener("astro:before-swap", (e) =>
+        mail((e as Event & { newDocument: Document }).newDocument)
+    );
 </script>
