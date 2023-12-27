@@ -5,6 +5,7 @@ import Icons from "unplugin-icons/vite";
 import tunnel from "astro-tunnel";
 // @ts-expect-error
 import lighthouse from "astro-lighthouse";
+import sitemap from "@astrojs/sitemap";
 
 const vesper = async () => {
     const response = await fetch(
@@ -20,7 +21,7 @@ const vesper = async () => {
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [tailwind(), tunnel(), lighthouse()],
+    integrations: [tailwind(), tunnel(), lighthouse(), sitemap()],
     vite: {
         plugins: [
             Icons({
