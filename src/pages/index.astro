@@ -6,22 +6,15 @@ import X from "~icons/simple-icons/x";
 import Discord from "~icons/simple-icons/discord";
 import { getCollection } from "astro:content";
 import HeadingGroup from "@components/HeadingGroup.astro";
+import { Buffer } from 'buffer';
 
 const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.draft);
+// SSR Mail without including mail straight in source code (prevent scraping). CF Email Obfuscation on client
+const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, 'base64') || atob(s);
 ---
 
 <Layout title="Nils Beerten">
     <section>
-        <!-- <hgroup>
-            <h1 class="-ml-[0.075em] font-display text-5xl font-extrabold lg:text-6xl">
-                Nils Beerten
-            </h1>
-            <p class="text-brand-muted">
-                <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span> -
-
-                <abbr title="also known as" class="underline-offset-2">a.k.a.</abbr> nbeerten, nbert
-            </p>
-        </hgroup> -->
         <HeadingGroup title="Nils Beerten">
             <Fragment slot="subtitle">
                 <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span> -
@@ -37,9 +30,9 @@ const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.dr
             }
             <div
                 class="mt-2 flex flex-col gap-2 text-brand-text [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:x-[underline,underline-offset-2,decoration-brand-border]">
-                <a href="">
+                <a href={`mailto:${mail()}`}>
                     <Mail />
-                    <p class="mb-px" id="mail"></p>
+                    <p class="mb-px" id="mail">{mail()}</p>
                 </a>
                 <a href="https://github.com/nbeerten">
                     <GitHub />
@@ -107,27 +100,3 @@ const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.dr
         )
     }
 </Layout>
-
-<script>
-    const mail = (doc: Document) => {
-        const parseHex = (str: string, pos: number) => parseInt(str.substr(pos, 2), 16);
-        const decode = (href: string, startPos = 0) => {
-            let r = "",
-                k = parseHex(href, startPos);
-            for (let p = startPos + 2; p < href.length; p += 2)
-                r += String.fromCharCode(parseHex(href, p) ^ k);
-            return r;
-        };
-
-        doc.documentElement.querySelectorAll("#mail").forEach((el) => {
-            const MAIL_ADDRESS = "87e4e8e9f3e6e4f3c7e9eeebf4e5e2e2f5f3e2e9a9e9eb";
-            el.textContent = decode(MAIL_ADDRESS);
-            if (!el || !el.parentNode) return;
-            (el.parentNode as HTMLElement).setAttribute("href", `mailto:${decode(MAIL_ADDRESS)}`);
-        });
-    };
-    mail(window.document);
-    document.addEventListener("astro:before-swap", (e) =>
-        mail((e as Event & { newDocument: Document }).newDocument)
-    );
-</script>
