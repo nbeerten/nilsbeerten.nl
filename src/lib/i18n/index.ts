@@ -2,7 +2,7 @@ import { getLocale } from "astro-i18n-aut";
 import { getUrlWithoutLocale, getLocaleUrl } from "astro-i18n-aut";
 
 export function createLocale(url: string | URL) {
-    const locale = getLocale(url);
+    const locale = getLocale(url) as "en" | "nl";
 
     return {
         locale,

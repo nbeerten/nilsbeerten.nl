@@ -8,6 +8,7 @@ interface Props {
     description?: string;
     class?: string;
     back?: string;
+    lang: "en" | "nl";
 }
 
 const {
@@ -15,11 +16,12 @@ const {
     description = "Personal website of Nils Beerten, aka nbeerten, nbert.",
     class: className,
     back = "/",
+    lang,
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang={lang} class="dark">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
