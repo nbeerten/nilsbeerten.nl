@@ -1,6 +1,8 @@
 ---
 import ArrowLeft from "~icons/lucide/arrow-left";
 import { createNavigation } from "./Navigation";
+import { createLocale } from "@lib/i18n";
+import Languages from "~icons/heroicons/language-16-solid";
 
 interface Props {
     class?: string;
@@ -8,34 +10,43 @@ interface Props {
 }
 const { class: className, back = "/" } = Astro.props;
 
-const pathname = Astro.url.pathname;
+const { getLocaleUrl, str, normalizedUrl } = createLocale(Astro.url);
+
+const normalizedBack = getLocaleUrl(back);
+
+
+const pathname = new URL(normalizedUrl, Astro.url).pathname;
 const c = (path: string, className: string) => (pathname === path ? className : "");
+
 
 const navigation = createNavigation(
     [
         {
             label: "Home",
-            path: "/",
+            path: getLocaleUrl("/"),
         },
         {
             label: "Blog",
-            path: "/blog",
+            path: getLocaleUrl("/blog"),
         },
     ],
     Astro.url
 );
+
+;
 ---
 
 <nav class={`${className}`}>
     <div class="flex justify-between gap-10 text-brand-border">
         <div>
             <a
-                href={back}
+                href={normalizedBack}
                 class:list={[
                     "flex items-center gap-2 border-b border-brand-border",
-                    [c(back, "hidden")],
-                ]}>
-                <ArrowLeft class="-mb-px -ml-[2px] h-4 w-4" /> back
+                    [c(back, "invisible")],
+                ]}
+                aria-hidden={pathname === back}>
+                <ArrowLeft class="-mb-px -ml-[2px] h-4 w-4" /> {str("back", "terug")}
             </a>
         </div>
         <ul class="flex gap-10">
@@ -50,6 +61,14 @@ const navigation = createNavigation(
                     </li>
                 ))
             }
+            <li class="flex items-center gap-2 text-sm">
+                <Languages class="h-4 w-4" />
+                <span class="flex items-center gap-1">
+                    <a href={getLocaleUrl(Astro.url, "en")}>en</a>
+                    <span class="text-brand-border/50">/</span>
+                    <a href={getLocaleUrl(Astro.url, "nl")}>nl</a>
+                </span>
+            </li>
         </ul>
     </div>
 </nav>

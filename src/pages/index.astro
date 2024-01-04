@@ -4,13 +4,19 @@ import Mail from "~icons/lucide/mail";
 import GitHub from "~icons/simple-icons/github";
 import X from "~icons/simple-icons/x";
 import Discord from "~icons/simple-icons/discord";
+import Languages from "~icons/heroicons/language-16-solid";
 import { getCollection } from "astro:content";
 import HeadingGroup from "@components/HeadingGroup.astro";
 import { Buffer } from 'buffer';
+import { createLocale } from "@lib/i18n";
+
 
 const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.draft);
 // SSR Mail without including mail straight in source code (prevent scraping). CF Email Obfuscation on client
 const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, 'base64') || atob(s);
+
+const { str, locale, getLocaleUrl } = createLocale(Astro.url);
+
 ---
 
 <Layout title="Nils Beerten">
@@ -19,14 +25,14 @@ const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, 'base64'
             <Fragment slot="subtitle">
                 <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span> -
 
-                <abbr title="also known as" class="underline-offset-2">a.k.a.</abbr> nbeerten, nbert
+                <abbr title={str("also known as", "alias")} class="underline-offset-2">aka</abbr> nbeerten, nbert
             </Fragment>
         </HeadingGroup>
         <div>
             {
-                /*<p class="max-w-[60ch] [text-wrap:pretty] pt-2">
-                    <!-- Future description -->
-                </p>*/
+                <p class="max-w-[60ch] [text-wrap:pretty] pt-2">
+                    {str("Future description", "Toekomstige omschrijving")}
+                </p>
             }
             <div
                 class="mt-2 flex flex-col gap-2 text-brand-text [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:x-[underline,underline-offset-2,decoration-brand-border]">
@@ -53,7 +59,7 @@ const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, 'base64'
     <hr class="my-5 border-amber-100/10" />
 
     <section>
-        <h2 class="-ml-px text-xl font-medium text-brand-muted">Personal projects</h2>
+        <h2 class="-ml-px text-xl font-medium text-brand-muted">{str("Personal projects", "Creaties")}</h2>
         <div class="grid grid-cols-1 gap-4 py-3 md:grid-cols-2">
             <div>
                 <a
@@ -61,7 +67,7 @@ const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, 'base64'
                     class="text-lg font-medium underline decoration-brand-border underline-offset-2">
                     nilsbeerten.nl
                 </a>
-                <p class="[text-wrap:pretty]">Simple and minimal personal site built with Astro.</p>
+                <p class="[text-wrap:pretty]">{str("Simple and minimal personal site built with Astro.", "Eenvoudige en minimalistische persoonlijke site gebouwd met Astro.")}</p>
             </div>
 
             <div>
@@ -71,7 +77,7 @@ const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, 'base64'
                     tm-refresh-leaderboard
                 </a>
                 <p class="[text-wrap:pretty]">
-                    Trackmania plugin to refresh the in-game leaderboards.
+                    {str("Trackmania plugin to refresh the in-game leaderboards.", "Een Trackmania integratie die het in-game scorebord ververst.")}
                 </p>
             </div>
         </div>
@@ -83,16 +89,20 @@ const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, 'base64'
                 <h2 class="-ml-px text-xl text-brand-muted">Blog</h2>
                 <div class="flex flex-col gap-4 py-3">
                     {blogEntries.map((blogPost) => (
-                        <article class="flex justify-between">
-                            <div>
+                        <article>
+                            <div class="flex justify-between">
                                 <a
-                                    href={`/blog/${blogPost.slug}`}
+                                    href={getLocaleUrl(`/blog/${blogPost.slug}`)}
                                     class="text-lg font-medium underline decoration-brand-border underline-offset-2">
                                     {blogPost.data.title}
                                 </a>
-                                <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
+                                <span class="inline-flex items-center gap-1 text-brand-muted">
+                                    <span class="inline-flex gap-1 items-center"><Languages class="h-4 w-4 -mb-0.5" />{blogPost.data.language}</span>
+                                    <span>-</span>
+                                    <span>{blogPost.data.date.toLocaleDateString(`${locale}-NL`)}</span>
+                                </span>
                             </div>
-                            <time>{blogPost.data.date.toLocaleDateString("en")}</time>
+                            <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
                         </article>
                     ))}
                 </div>

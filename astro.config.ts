@@ -6,6 +6,7 @@ import tunnel from "astro-tunnel";
 // @ts-expect-error
 import lighthouse from "astro-lighthouse";
 import sitemap from "@astrojs/sitemap";
+import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 
 const vesper = async () => {
     const response = await fetch(
@@ -19,9 +20,26 @@ const vesper = async () => {
     return JSON.parse(sanitizedText);
 };
 
+const i18nConfig = {
+    defaultLocale: "en",
+    locales: {
+        "en": "en-UK",
+        "nl": "nl-NL",
+    }
+}
+
 // https://astro.build/config
 export default defineConfig({
-    integrations: [tailwind(), tunnel(), lighthouse(), sitemap()],
+    integrations: [
+        i18n(i18nConfig),
+        sitemap({
+            i18n: i18nConfig,
+            filter: filterSitemapByDefaultLocale({ defaultLocale: i18nConfig.defaultLocale }),
+        }),
+        tailwind(), 
+        tunnel(), 
+        lighthouse(), 
+    ],
     vite: {
         plugins: [
             Icons({

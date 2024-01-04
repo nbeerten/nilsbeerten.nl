@@ -3,6 +3,7 @@ title: "Hello, world!"
 date: 2023-12-26
 draft: false
 description: "New website, new design"
+language: "en"
 ---
 
 Hello, world! This is the third, maybe even fourth or fifth, iteration

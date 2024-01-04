@@ -3,6 +3,8 @@ import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import HeadingGroup from "@components/HeadingGroup.astro";
+import { createLocale } from "@lib/i18n";
+import Languages from "~icons/heroicons/language-16-solid";
 
 export async function getStaticPaths() {
     const posts = (await getCollection("blog")).filter((blog) => !blog.data.draft);
@@ -20,18 +22,22 @@ type Props = {
 const { post } = Astro.props;
 
 const { Content } = await post.render();
+
+const { locale } = createLocale(Astro.url);
 ---
 
 <Layout title={post.data.title} back="/blog">
     <article>
         <HeadingGroup
-            title={post.data.title}
-            subtitle={post.data.date.toLocaleDateString("en-UK", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-            })}
-        />
+            title={post.data.title}>
+            <Fragment slot="subtitle">
+                <span class="inline-flex items-center gap-1">
+                    <span class="inline-flex gap-1 items-center"><Languages class="h-4 w-4 -mb-0.5" />{post.data.language}</span>
+                    <span>-</span>
+                    <time>{post.data.date.toLocaleDateString(`${locale}-NL`)}</time>
+                </span>
+            </Fragment>
+        </HeadingGroup>
         <hr class="my-5 border-amber-100/10" />
         <div class="prose prose-amber prose-invert">
             <Content />

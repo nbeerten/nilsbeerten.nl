@@ -2,26 +2,39 @@
 import Layout from "@layouts/Layout.astro";
 import HeadingGroup from "@components/HeadingGroup.astro";
 import { getCollection } from "astro:content";
+import { createLocale } from "@lib/i18n";
+import Languages from "~icons/heroicons/language-16-solid";
 
 const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.draft);
+
+const { str, getLocaleUrl, locale } = createLocale(Astro.url);
 ---
 
 <Layout title="Nils Beerten">
-    <HeadingGroup title="Blog" subtitle="A list of blog posts posted by me" />
+    <HeadingGroup
+        title="Blog"
+        subtitle={str("A list of blog posts posted by me", "Een lijst van posts op mijn blog")}
+    />
     <hr class="my-5 border-amber-100/10" />
     <div class="flex flex-col gap-4 py-3">
         {
             blogEntries.map((blogPost) => (
-                <article class="flex justify-between">
-                    <div>
-                        <a
-                            href={`/blog/${blogPost.slug}`}
-                            class="text-lg font-bold underline decoration-brand-border underline-offset-2">
-                            {blogPost.data.title}
-                        </a>
-                        <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
+                <article>
+                    <div class="flex justify-between">
+                        <div class="flex w-full justify-between gap-2">
+                            <a
+                                href={getLocaleUrl(`/blog/${blogPost.slug}`)}
+                                class="text-lg font-medium underline decoration-brand-border underline-offset-2">
+                                {blogPost.data.title}
+                            </a>
+                            <span class="inline-flex items-center gap-1 text-brand-muted">
+                                <span class="inline-flex gap-1 items-center"><Languages class="h-4 w-4 -mb-0.5" />{blogPost.data.language}</span>
+                                <span>-</span>
+                                <span>{blogPost.data.date.toLocaleDateString(`${locale}-NL`)}</span>
+                            </span>
+                        </div>
                     </div>
-                    <time>{blogPost.data.date.toLocaleDateString("en")}</time>
+                    <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
                 </article>
             ))
         }

@@ -7,6 +7,7 @@ const blogCollection = defineCollection({
         date: z.date(),
         draft: z.boolean().optional().default(false),
         description: z.string().max(160),
+        language: z.enum(["en", "nl"]),
     }),
 });
 
