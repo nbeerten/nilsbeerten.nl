@@ -1,5 +1,4 @@
 ---
-import ArrowLeft from "~icons/lucide/arrow-left";
 import { createNavigation } from "./Navigation";
 import { createLocale } from "@lib/i18n";
 import Languages from "~icons/heroicons/language-16-solid";
@@ -10,7 +9,7 @@ interface Props {
 }
 const { class: className, back = "/" } = Astro.props;
 
-const { getLocaleUrl, str, normalizedUrl } = createLocale(Astro.url);
+const { getLocaleUrl, str, normalizedUrl, locale } = createLocale(Astro.url);
 
 const normalizedBack = getLocaleUrl(back);
 
@@ -35,7 +34,6 @@ const navigation = createNavigation(
 
 ;
 ---
-
 <nav class={`${className}`}>
     <div class="flex justify-between gap-10 text-brand-border items-center">
         <div>
@@ -47,7 +45,7 @@ const navigation = createNavigation(
                 ]}
                 aria-hidden={pathname === back}
                 aria-label={str("back", "terug")}>
-                <ArrowLeft class="-mb-px -ml-[2px] h-5 w-5 md:h-4 md:w-4" /><span class="hidden md:inline">{str("back", "terug")}</span>
+                ← <span class="hidden md:inline">{str("back", "terug")}</span>
             </a>
         </div>
         <ul class="flex gap-10">
@@ -64,11 +62,11 @@ const navigation = createNavigation(
             }
             <li class="flex items-center gap-2 text-sm">
                 <Languages class="h-4 w-4" />
-                <span class="flex items-center gap-1">
-                    <a href={getLocaleUrl(Astro.url, "en")}>en</a>
+                <a href={getLocaleUrl(Astro.url, locale === "en" ? "nl" : "en")} class="flex items-center gap-1">
+                    <span class:list={[locale === "en" && "text-brand-muted"]}>en</span>
                     <span class="text-brand-border/50">/</span>
-                    <a href={getLocaleUrl(Astro.url, "nl")}>nl</a>
-                </span>
+                    <span class:list={[locale === "nl" && "text-brand-muted"]}>nl</span>
+                </a>
             </li>
         </ul>
     </div>

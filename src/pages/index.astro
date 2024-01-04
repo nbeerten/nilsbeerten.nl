@@ -59,7 +59,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
     <hr class="my-5 border-amber-100/10" />
 
     <section>
-        <h2 class="-ml-px text-xl font-medium text-brand-muted">{str("Personal projects", "Creaties")}</h2>
+        <h2 class="-ml-px text-xl font-medium text-brand-muted">{str("Creations", "Creaties")}</h2>
         <div class="grid grid-cols-1 gap-4 py-3 md:grid-cols-2">
             <div>
                 <a
@@ -67,7 +67,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     class="text-lg font-medium underline decoration-brand-border underline-offset-2">
                     nilsbeerten.nl
                 </a>
-                <p class="[text-wrap:pretty]">{str("Simple and minimal personal site built with Astro.", "Eenvoudige en minimalistische persoonlijke site gebouwd met Astro.")}</p>
+                <p class="[text-wrap:pretty]">{str("Simple and minimal personal site built with Astro.", "Een eenvoudige en minimalistische website, gemaakt met Astro.")}</p>
             </div>
 
             <div>
@@ -77,7 +77,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     tm-refresh-leaderboard
                 </a>
                 <p class="[text-wrap:pretty]">
-                    {str("Trackmania plugin to refresh the in-game leaderboards.", "Een Trackmania integratie die het in-game scorebord ververst.")}
+                    {str("Trackmania plugin to refresh the in-game leaderboards.", "Een Trackmania integratie die het in-game ranglijsten te verversen.")}
                 </p>
             </div>
         </div>
@@ -88,7 +88,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
             <section class="mt-6">
                 <h2 class="-ml-px text-xl text-brand-muted">Blog</h2>
                 <div class="flex flex-col gap-4 py-3">
-                    {blogEntries.map((blogPost) => (
+                    {blogEntries.slice(0, 3).map((blogPost) => (
                         <article>
                             <div class="flex justify-between">
                                 <a
@@ -99,12 +99,13 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                                 <span class="inline-flex items-center gap-1 text-brand-muted">
                                     <span class="inline-flex gap-1 items-center"><Languages class="h-4 w-4 -mb-0.5" />{blogPost.data.language}</span>
                                     <span>-</span>
-                                    <span>{blogPost.data.date.toLocaleDateString(`${locale}-NL`)}</span>
+                                    <span class="tabular-nums tracking-tighter">{blogPost.data.date.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" })}</span>
                                 </span>
                             </div>
                             <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
                         </article>
                     ))}
+                    <span> <a href="/blog" class="text-brand-muted">All posts →</a></span>
                 </div>
             </section>
         )

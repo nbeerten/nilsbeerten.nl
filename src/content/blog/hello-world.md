@@ -6,9 +6,9 @@ description: "New website, new design"
 language: "en"
 ---
 
-Hello, world! This is the third, maybe even fourth or fifth, iteration
+Hello, world! This is the third, maybe even fourth or fifth iteration
 of my website. A new website with a fresh, minimal and modern design.
-This time, I made the website with Astro, which has been a joy to work with.
+This time, I made the website with Astro, a Javascript-framework for static and dynamic websites.
 
 For this iteration I’ve chosen a classic dark theme website, but with a slight
 hint of yellow/amber throughout, for example in the text, borders and background.

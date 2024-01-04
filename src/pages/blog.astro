@@ -29,8 +29,8 @@ const { str, getLocaleUrl, locale } = createLocale(Astro.url);
                             </a>
                             <span class="inline-flex items-center gap-1 text-brand-muted">
                                 <span class="inline-flex gap-1 items-center"><Languages class="h-4 w-4 -mb-0.5" />{blogPost.data.language}</span>
-                                <span>-</span>
-                                <span>{blogPost.data.date.toLocaleDateString(`${locale}-NL`)}</span>
+                                    <span>-</span>
+                                    <span class="tabular-nums tracking-tighter">{blogPost.data.date.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" })}</span>
                             </span>
                         </div>
                     </div>
