@@ -45,8 +45,9 @@ const navigation = createNavigation(
                     "flex items-center gap-2 border-b border-brand-border",
                     [c(back, "invisible")],
                 ]}
-                aria-hidden={pathname === back}>
-                <ArrowLeft class="-mb-px -ml-[2px] h-4 w-4" /> {str("back", "terug")}
+                aria-hidden={pathname === back}
+                aria-label={str("back", "terug")}>
+                <ArrowLeft class="-mb-px -ml-[2px] h-4 w-4" /><span class="hidden md:inline">{str("back", "terug")}</span>
             </a>
         </div>
         <ul class="flex gap-10">
