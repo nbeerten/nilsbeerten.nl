@@ -28,11 +28,12 @@ const { locale } = createLocale(Astro.url);
 
 <Layout title={post.data.title} back="/blog" lang={post.data.language}>
     <article>
-        <HeadingGroup
-            title={post.data.title}>
+        <HeadingGroup title={post.data.title}>
             <Fragment slot="subtitle">
                 <span class="inline-flex items-center gap-1">
-                    <span class="inline-flex gap-1 items-center"><Languages class="h-4 w-4 -mb-0.5" />{post.data.language}</span>
+                    <span class="inline-flex items-center gap-1"
+                        ><Languages class="-mb-0.5 h-4 w-4" />{post.data.language}</span
+                    >
                     <span>-</span>
                     <time>{post.data.date.toLocaleDateString(`${locale}-NL`)}</time>
                 </span>

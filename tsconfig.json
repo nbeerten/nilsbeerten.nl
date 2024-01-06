@@ -5,7 +5,7 @@
         "paths": {
             "@components/*": ["src/components/*"],
             "@layouts/*": ["src/layouts/*"],
-            "@lib/*": ["src/lib/*"],
+            "@lib/*": ["src/lib/*"]
         },
         "types": ["unplugin-icons/types/astro"]
     }

@@ -5,7 +5,6 @@ import { createLocale } from "@lib/i18n";
 const { pathname } = Astro.url;
 
 const { str } = createLocale(Astro.url);
-
 ---
 
 <Layout title="Nils Beerten" lang="en">
@@ -14,7 +13,16 @@ const { str } = createLocale(Astro.url);
             404
         </h1>
         <p class="text-brand-muted">
-            {str(<>Page <code class="rounded bg-black px-1">{pathname}</code> not found</>, <>Pagina <code class="rounded bg-black px-1">{pathname}</code> niet gevonden</>)}
+            {
+                str(
+                    <>
+                        Page <code class="rounded bg-black px-1">{pathname}</code> not found
+                    </>,
+                    <>
+                        Pagina <code class="rounded bg-black px-1">{pathname}</code> niet gevonden
+                    </>
+                )
+            }
         </p>
     </hgroup>
 </Layout>

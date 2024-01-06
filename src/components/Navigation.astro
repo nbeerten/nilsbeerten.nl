@@ -2,7 +2,6 @@
 import { createNavigation } from "./Navigation";
 import { createLocale } from "@lib/i18n";
 import Languages from "~icons/heroicons/language-16-solid";
-import { getUrlWithoutLocale } from "astro-i18n-aut";
 
 interface Props {
     class?: string;
@@ -17,7 +16,6 @@ const localizedBack = getLocaleUrl(back);
 const pathname = new URL(normalizedUrl, Astro.url).pathname;
 const c = (path: string, className: string) => (pathname === path ? className : "");
 
-
 const navigation = createNavigation(
     [
         {
@@ -31,16 +29,15 @@ const navigation = createNavigation(
     ],
     Astro.url
 );
-
-const active = (path: string) => pathname === getUrlWithoutLocale(path);
 ---
+
 <nav class={`${className}`}>
-    <div class="flex justify-between gap-10 text-brand-border items-center">
+    <div class="flex items-center justify-between gap-10 text-brand-border">
         <div>
             <a
                 href={localizedBack}
                 class:list={[
-                    "flex items-center gap-2 md:border-b border-brand-border",
+                    "flex items-center gap-2 border-brand-border md:border-b",
                     [c(back, "invisible")],
                 ]}
                 aria-hidden={pathname === back}
@@ -50,11 +47,11 @@ const active = (path: string) => pathname === getUrlWithoutLocale(path);
         </div>
         <ul class="flex gap-10">
             {
-                navigation.map(({ label, path }) => (
+                navigation.map(({ label, path, active }) => (
                     <li>
                         <a
                             href={path}
-                            class:list={["flex items-center gap-2", active(path) && "text-brand-muted"]}>
+                            class:list={["flex items-center gap-2", active && "text-brand-muted"]}>
                             {label}
                         </a>
                     </li>
@@ -62,7 +59,9 @@ const active = (path: string) => pathname === getUrlWithoutLocale(path);
             }
             <li class="flex items-center gap-2 text-sm">
                 <Languages class="h-4 w-4" />
-                <a href={getLocaleUrl(Astro.url, locale === "en" ? "nl" : "en")} class="flex items-center gap-1">
+                <a
+                    href={getLocaleUrl(Astro.url, locale === "en" ? "nl" : "en")}
+                    class="flex items-center gap-1">
                     <span class:list={[locale === "en" && "text-brand-muted"]}>en</span>
                     <span class="text-brand-border/50">/</span>
                     <span class:list={[locale === "nl" && "text-brand-muted"]}>nl</span>

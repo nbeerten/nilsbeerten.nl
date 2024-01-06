@@ -23,10 +23,10 @@ const vesper = async () => {
 const i18nConfig = {
     defaultLocale: "en",
     locales: {
-        "en": "en-UK",
-        "nl": "nl-NL",
-    }
-}
+        en: "en-UK",
+        nl: "nl-NL",
+    },
+};
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,9 +36,9 @@ export default defineConfig({
             i18n: i18nConfig,
             filter: filterSitemapByDefaultLocale({ defaultLocale: i18nConfig.defaultLocale }),
         }),
-        tailwind(), 
-        tunnel(), 
-        lighthouse(), 
+        tailwind(),
+        tunnel(),
+        lighthouse(),
     ],
     vite: {
         plugins: [
@@ -51,7 +51,7 @@ export default defineConfig({
     site: import.meta.env.CF_PAGES_URL || "https://nilsbeerten.nl",
     trailingSlash: "never",
     build: {
-        format: "file"
+        format: "file",
     },
     output: "hybrid",
     adapter: cloudflare({
