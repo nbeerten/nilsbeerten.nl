@@ -49,6 +49,10 @@ export default defineConfig({
         ],
     },
     site: import.meta.env.CF_PAGES_URL || "https://nilsbeerten.nl",
+    trailingSlash: "never",
+    build: {
+        format: "file"
+    },
     output: "hybrid",
     adapter: cloudflare({
         imageService: "passthrough",
