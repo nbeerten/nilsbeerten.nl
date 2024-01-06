@@ -2,6 +2,7 @@
 import { createNavigation } from "./Navigation";
 import { createLocale } from "@lib/i18n";
 import Languages from "~icons/heroicons/language-16-solid";
+import { getUrlWithoutLocale } from "astro-i18n-aut";
 
 interface Props {
     class?: string;
@@ -11,8 +12,7 @@ const { class: className, back = "/" } = Astro.props;
 
 const { getLocaleUrl, str, normalizedUrl, locale } = createLocale(Astro.url);
 
-const normalizedBack = getLocaleUrl(back);
-
+const localizedBack = getLocaleUrl(back);
 
 const pathname = new URL(normalizedUrl, Astro.url).pathname;
 const c = (path: string, className: string) => (pathname === path ? className : "");
@@ -32,13 +32,16 @@ const navigation = createNavigation(
     Astro.url
 );
 
+const active = (path: string) => pathname === getUrlWithoutLocale(path);
+
 ;
 ---
 <nav class={`${className}`}>
+    {normalizedUrl}
     <div class="flex justify-between gap-10 text-brand-border items-center">
         <div>
             <a
-                href={normalizedBack}
+                href={localizedBack}
                 class:list={[
                     "flex items-center gap-2 md:border-b border-brand-border",
                     [c(back, "invisible")],
@@ -50,11 +53,11 @@ const navigation = createNavigation(
         </div>
         <ul class="flex gap-10">
             {
-                navigation.map(({ label, path, active }) => (
+                navigation.map(({ label, path }) => (
                     <li>
                         <a
                             href={path}
-                            class:list={["flex items-center gap-2", active && "text-brand-muted"]}>
+                            class:list={["flex items-center gap-2", active(path) && "text-brand-muted"]}>
                             {label}
                         </a>
                     </li>
