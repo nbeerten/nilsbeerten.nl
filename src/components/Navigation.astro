@@ -19,11 +19,11 @@ const c = (path: string, className: string) => (pathname === path ? className : 
 const navigation = createNavigation(
     [
         {
-            label: "Home",
+            label: str("Home", "Home"),
             path: getLocaleUrl("/"),
         },
         {
-            label: "Blog",
+            label: str("Blog", "Blog"),
             path: getLocaleUrl("/blog"),
         },
     ],
