@@ -26,7 +26,7 @@ It's built with [SvelteKit](https://kit.svelte.dev),
 [Tailwind CSS](https://tailwindcss.com/) and
 of course the privacy-focused Piped backend for interacting with YouTube.
 
-![Sluis screenshot](./sluis_example.png)
+![Example screenshot of Sluis of Google's channel page](./sluis_example.avif)
 
 Current features of Sluis (and piped.video) include:
 
