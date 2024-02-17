@@ -10,7 +10,9 @@ import HeadingGroup from "@components/HeadingGroup.astro";
 import { Buffer } from "buffer";
 import { createLocale } from "@lib/i18n";
 
-const blogEntries = (await getCollection("blog")).filter((blog) => !blog.data.draft);
+const blogEntries = (await getCollection("blog"))
+    .filter((blog) => !blog.data.draft)
+    .sort((a, b) => (a.data.date > b.data.date ? -1 : 1));
 // SSR Mail without including mail straight in source code (prevent scraping). CF Email Obfuscation on client
 const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, "base64") || atob(s);
 
@@ -88,10 +90,25 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     {
                         str(
                             "Trackmania plugin to refresh the in-game leaderboards.",
-                            "Een Trackmania integratie die het in-game ranglijsten te verversen."
+                            "Een Trackmania integratie die de in-game ranglijsten ververst."
                         )
                     }
                 </p>
+            </div>
+
+            <div>
+                <a
+                    href="https://github.com/nbeerten/sluis/"
+                    class="text-lg font-medium underline decoration-brand-border underline-offset-2">
+                    Sluis
+                </a>
+                <p
+                    class="[text-wrap:pretty]"
+                    set:html={str(
+                        `A new desktop-optimised frontend for Piped (<a href="https://piped.video/" class="underline">https://piped.video)</a>.`,
+                        `Een nieuwe desktop-geoptimaliseerde frontend voor Piped (<a href="https://piped.video/" class="underline">https://piped.video)</a>.`
+                    )}
+                />
             </div>
         </div>
     </section>
@@ -129,7 +146,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     ))}
                     <span>
                         {" "}
-                        <a href="/blog" class="text-brand-muted">
+                        <a href={getLocaleUrl("/blog")} class="text-brand-muted">
                             {str("All posts", "Alle posts")} →
                         </a>
                     </span>

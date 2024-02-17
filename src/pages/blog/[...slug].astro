@@ -40,8 +40,28 @@ const { locale } = createLocale(Astro.url);
             </Fragment>
         </HeadingGroup>
         <hr class="my-5 border-amber-100/10" />
-        <div class="prose prose-amber prose-invert">
+        <div class="prose_img prose prose-amber prose-invert">
             <Content />
         </div>
     </article>
 </Layout>
+
+<style>
+    .prose :global(img) {
+        @apply my-0 rounded-md border border-amber-100/10 drop-shadow-md;
+    }
+
+    .prose :global(ul) {
+        list-style-type: "- ";
+        margin-top: -1.25em; /* reduce margin to 0 */
+        @apply py-0;
+    }
+
+    .prose :global(ul) :global(li) {
+        @apply my-0;
+    }
+
+    .prose :global(p:where(p + ul)) {
+        @apply text-red-400;
+    }
+</style>
