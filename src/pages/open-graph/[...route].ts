@@ -19,7 +19,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
         },
         blog: {
             title: "Blog",
-            description: "Description of this page shown in smaller text",
+            description: "A list of blog posts posted by me",
         },
         "404": {
             title: "404",
