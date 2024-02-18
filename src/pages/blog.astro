@@ -12,7 +12,7 @@ const blogEntries = (await getCollection("blog"))
 const { str, getLocaleUrl, locale } = createLocale(Astro.url);
 ---
 
-<Layout title="Nils Beerten" lang={locale}>
+<Layout title="Nils Beerten" lang={locale} image="blog">
     <HeadingGroup
         title="Blog"
         subtitle={str("A list of blog posts posted by me", "Een lijst van posts op mijn blog")}

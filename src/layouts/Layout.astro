@@ -6,6 +6,7 @@ import "src/styles/colors.css";
 interface Props {
     title: string;
     description?: string;
+    image?: string;
     class?: string;
     back?: string;
     lang: "en" | "nl";
@@ -14,6 +15,7 @@ interface Props {
 const {
     title,
     description = "Personal website of Nils Beerten, aka nbeerten, nbert.",
+    image = "home",
     class: className,
     back = "/",
     lang,
@@ -25,15 +27,14 @@ const {
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        
-        
+
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="generator" content={Astro.generator} />
 
@@ -41,6 +42,11 @@ const {
         <meta name="description" content={description} />
         <meta name="theme-color" content="#0c0a09" />
         <meta name="color-scheme" content="dark" />
+
+        <meta property="og:title" content={title} />
+        <meta property="og:type" content={description} />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:image" content={new URL(`/open-graph/${image}.png`, Astro.url)} />
 
         <link
             rel="preload"

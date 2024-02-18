@@ -26,7 +26,7 @@ const { Content } = await post.render();
 const { locale } = createLocale(Astro.url);
 ---
 
-<Layout title={post.data.title} back="/blog" lang={post.data.language}>
+<Layout title={post.data.title} back="/blog" lang={post.data.language} image={`blog-${post.slug}`}>
     <article>
         <HeadingGroup title={post.data.title}>
             <Fragment slot="subtitle">
