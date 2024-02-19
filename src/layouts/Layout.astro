@@ -7,9 +7,11 @@ interface Props {
     title: string;
     description?: string;
     image?: string;
-    article?: false | {
-        published_time: Date;
-    };
+    article?:
+        | false
+        | {
+              published_time: Date;
+          };
     class?: string;
     back?: string;
     lang: "en" | "nl";
@@ -50,19 +52,26 @@ const {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content={article ? "article" : "website"} />
-        {article && <>
-            <meta property="article:published_time" content={article.published_time.toISOString()} />
-            <meta property="article:author" content="Nils Beerten" />
-        </>}
+        {
+            article && (
+                <>
+                    <meta
+                        property="article:published_time"
+                        content={article.published_time.toISOString()}
+                    />
+                    <meta property="article:author" content="Nils Beerten" />
+                </>
+            )
+        }
         <meta property="og:url" content={Astro.url} />
         <meta property="og:image" content={new URL(`/open-graph/${image}.png`, Astro.url)} />
 
-        <meta name="twitter:card" content="summary_large_image">
-        <meta property="twitter:domain" content={Astro.url.host}>
-        <meta property="twitter:url" content="https://nilsbeerten.nl">
-        <meta name="twitter:title" content={title}>
-        <meta name="twitter:description" content={description}>
-        <meta name="twitter:image" content={image}>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content={Astro.url.host} />
+        <meta property="twitter:url" content="https://nilsbeerten.nl" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={image} />
 
         <link
             rel="preload"
@@ -86,6 +95,7 @@ const {
                 background-color: theme(colors.brand.background);
                 color: theme(colors.brand.text);
                 color-scheme: dark;
+                scrollbar-gutter: stable both-edges;
             }
 
             /* Satoshi */

@@ -21,29 +21,52 @@ type Props = {
 
 const { post } = Astro.props;
 
-const { Content } = await post.render();
+const { Content, remarkPluginFrontmatter } = await post.render();
 
-const { locale } = createLocale(Astro.url);
+const { locale, str } = createLocale(Astro.url);
+
+const formatTime = (time: number) => {
+    const minutes = Math.round(time);
+    return `${minutes} ${str("min read", "minuten leestijd")}`;
+};
 ---
 
-<Layout title={post.data.title} back="/blog" lang={post.data.language} image={`blog-${post.slug}`}
-article={{ published_time: post.data.date }}>
+<Layout
+    title={post.data.title}
+    back="/blog"
+    lang={post.data.language}
+    image={`blog-${post.slug}`}
+    article={{ published_time: post.data.date }}>
     <article>
         <HeadingGroup title={post.data.title}>
-            <Fragment slot="subtitle">
-                <span class="inline-flex items-center gap-1">
-                    <span class="inline-flex items-center gap-1"
-                        ><Languages class="-mb-0.5 h-4 w-4" />{post.data.language}</span
-                    >
-                    <span>-</span>
-                    <time>{post.data.date.toLocaleDateString(`${locale}-NL`)}</time>
-                </span>
-            </Fragment>
+            <header
+                slot="subtitle"
+                class="inline-flex items-center gap-1 text-brand-muted"
+                role="contentinfo"
+                aria-label="Article metadata">
+                <Languages class="-mb-0.5 h-4 w-4" />
+                <span>{post.data.language}</span>
+                <span>-</span>
+                <span>{post.data.date.toLocaleDateString(`${locale}-NL`)}</span>
+                <span>-</span>
+                <span>{formatTime(remarkPluginFrontmatter.readingTime)}</span>
+            </header>
         </HeadingGroup>
         <hr class="my-5 border-amber-100/10" />
         <div class="prose_img prose prose-amber prose-invert">
             <Content />
         </div>
+
+        <i class="mt-4 block text-brand-muted"
+            >{str("Last modified", "Laatste aanpassing")}
+            <time data-timestamp={remarkPluginFrontmatter.lastModified}
+                >{
+                    new Date(remarkPluginFrontmatter.lastModified).toLocaleString(`${locale}-NL`, {
+                        timeZone: "UTC",
+                    })
+                } UTC</time
+            ></i
+        >
     </article>
 </Layout>
 
@@ -66,3 +89,18 @@ article={{ published_time: post.data.date }}>
         @apply text-red-400;
     }
 </style>
+
+<script>
+    replace();
+    document.addEventListener("astro:after-swap", replace);
+
+    function replace() {
+        document.querySelectorAll("[data-timestamp]").forEach((el) => {
+            const timestamp = el.getAttribute("data-timestamp");
+            if (!timestamp) return;
+            const date = new Date(timestamp);
+
+            el.textContent = date.toLocaleString();
+        });
+    }
+</script>

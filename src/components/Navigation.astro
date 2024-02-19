@@ -32,20 +32,21 @@ const navigation = createNavigation(
 ---
 
 <nav class={`${className}`}>
-    <div class="flex items-center justify-between gap-10 text-brand-border">
+    <div
+        class="flex flex-col items-start justify-between gap-x-10 gap-y-3 text-brand-border md:flex-row md:items-center">
         <div>
             <a
                 href={localizedBack}
                 class:list={[
-                    "flex items-center gap-2 border-brand-border md:border-b",
+                    "flex items-center gap-2 border-brand-border text-sm md:border-b",
                     [c(back, "invisible")],
                 ]}
                 aria-hidden={pathname === back}
                 aria-label={str("back", "terug")}>
-                ← <span class="hidden md:inline">{str("back", "terug")}</span>
+                ← <span>{str("back", "terug")}</span>
             </a>
         </div>
-        <ul class="flex gap-10">
+        <ul class="flex w-full gap-10 md:w-auto">
             {
                 navigation.map(({ label, path, active }) => (
                     <li>
@@ -57,7 +58,7 @@ const navigation = createNavigation(
                     </li>
                 ))
             }
-            <li class="flex items-center gap-2 text-sm">
+            <li class="flex flex-grow items-center justify-end gap-2 text-sm md:justify-normal">
                 <Languages class="h-4 w-4" />
                 <a
                     href={getLocaleUrl(Astro.url, locale === "en" ? "nl" : "en")}

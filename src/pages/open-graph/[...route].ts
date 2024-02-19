@@ -60,8 +60,8 @@ export const { getStaticPaths, GET } = OGImageRoute({
             },
         },
         fonts: [
-            "./src/pages/open-graph/Satoshi-Black.ttf",
-            "./src/pages/open-graph/Inter-Regular.ttf",
+            "./src/pages/open-graph/_Satoshi-Black.ttf",
+            "./src/pages/open-graph/_Inter-Regular.ttf",
         ],
         // There are a bunch more options you can use here!
     }),

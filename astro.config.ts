@@ -6,7 +6,12 @@ import tunnel from "astro-tunnel";
 // @ts-expect-error
 import lighthouse from "astro-lighthouse";
 import sitemap from "@astrojs/sitemap";
-import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
+import {
+    i18n,
+    filterSitemapByDefaultLocale,
+    type UserI18nConfig,
+} from "astro-i18n-aut/integration";
+import { remarkModifiedTime, remarkTimeRead } from "./remark-plugins";
 
 const vesper = async () => {
     const response = await fetch(
@@ -20,12 +25,13 @@ const vesper = async () => {
     return JSON.parse(sanitizedText);
 };
 
-const i18nConfig = {
+const i18nConfig: UserI18nConfig = {
     defaultLocale: "en",
     locales: {
         en: "en-UK",
         nl: "nl-NL",
     },
+    exclude: ["pages/open-graph/**/*", "pages/api/**/*"],
 };
 
 // https://astro.build/config
@@ -65,5 +71,7 @@ export default defineConfig({
             theme: await vesper(),
             wrap: true,
         },
+        // @ts-expect-error Types for plugins are incorrect, wants `() => {}` but needs `() => () => {}`
+        remarkPlugins: [remarkModifiedTime, remarkTimeRead],
     },
 });
