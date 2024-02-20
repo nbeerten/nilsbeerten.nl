@@ -92,6 +92,7 @@ const formatTime = (time: number) => {
 
 <script>
     replace();
+    import { getLocale } from "astro-i18n-aut";
     document.addEventListener("astro:after-swap", replace);
 
     function replace() {
@@ -100,7 +101,7 @@ const formatTime = (time: number) => {
             if (!timestamp) return;
             const date = new Date(timestamp);
 
-            el.textContent = date.toLocaleString();
+            el.textContent = date.toLocaleString(`${getLocale(window.location.toString())}-NL`);
         });
     }
 </script>

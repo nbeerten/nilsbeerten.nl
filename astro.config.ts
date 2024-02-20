@@ -3,8 +3,6 @@ import tailwind from "@astrojs/tailwind";
 import cloudflare from "@astrojs/cloudflare";
 import Icons from "unplugin-icons/vite";
 import tunnel from "astro-tunnel";
-// @ts-expect-error
-import lighthouse from "astro-lighthouse";
 import sitemap from "@astrojs/sitemap";
 import {
     i18n,
@@ -44,7 +42,6 @@ export default defineConfig({
         }),
         tailwind(),
         tunnel(),
-        lighthouse(),
     ],
     vite: {
         plugins: [

@@ -4,9 +4,10 @@ import { twMerge } from "tailwind-merge";
 interface Props {
     title: string;
     subtitle?: string;
+    smallMargin?: boolean;
 }
 
-const { title, subtitle = false } = Astro.props;
+const { title, subtitle = false, smallMargin = false } = Astro.props;
 ---
 
 <hgroup>
@@ -20,9 +21,9 @@ const { title, subtitle = false } = Astro.props;
     </h1>
     {
         subtitle ? (
-            <p class="mt-2 text-brand-muted">{subtitle}</p>
+            <p class={twMerge("mt-2 text-brand-muted", smallMargin && "mt-0")}>{subtitle}</p>
         ) : (
-            <p class="mt-2 text-brand-muted">
+            <p class={twMerge("mt-2 text-brand-muted", smallMargin && "mt-0")}>
                 <slot name="subtitle" />
             </p>
         )

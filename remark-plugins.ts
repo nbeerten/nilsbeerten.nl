@@ -8,7 +8,6 @@ export const remarkModifiedTime =
     (_: unknown, file: VFile & { data: { astro: { frontmatter: Record<string, unknown> } } }) => {
         const filepath = file.history[0];
         const result = execSync(`git log -1 --pretty="format:%cI" "${filepath}"`);
-        console.log(result, result.toString());
         file.data.astro.frontmatter.lastModified = result.toString();
     };
 

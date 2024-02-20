@@ -21,22 +21,21 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
 
 <Layout title="Nils Beerten" lang={locale} image="home">
     <section>
-        <HeadingGroup title="Nils Beerten">
+        <HeadingGroup title="Nils Beerten" smallMargin>
             <Fragment slot="subtitle">
-                <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span> -
-
-                <abbr title={str("also known as", "alias")} class="underline-offset-2">aka</abbr> nbeerten,
-                nbert
+                <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span>
+                <span>-</span>
+                <abbr title={str("also known as", "alias")} class="underline-offset-2">aka</abbr>
+                nbeerten, nbert
             </Fragment>
         </HeadingGroup>
         <div>
-            {
-                /* 
-                <p class="max-w-[60ch] [text-wrap:pretty] pt-2">
-                    {str("Future description", "Toekomstige omschrijving")}
-                </p>
-            */
-            }
+            <!-- <p class="max-w-[60ch] [text-wrap:pretty] pt-2">
+                {str(
+                    "a",
+                    "b"
+                )}
+            </p> -->
             <div
                 class="mt-2 flex flex-col gap-2 text-brand-text [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:x-[underline,underline-offset-2,decoration-brand-border]">
                 <a href={`mailto:${mail()}`}>
