@@ -64,11 +64,11 @@ export default defineConfig({
         },
     }),
     markdown: {
+        // @ts-expect-error Types for plugins are incorrect, wants `() => {}` but needs `() => () => {}`
+        remarkPlugins: [remarkModifiedTime, remarkTimeRead],
         shikiConfig: {
             theme: await vesper(),
             wrap: true,
         },
-        // @ts-expect-error Types for plugins are incorrect, wants `() => {}` but needs `() => () => {}`
-        remarkPlugins: [remarkModifiedTime, remarkTimeRead],
     },
 });

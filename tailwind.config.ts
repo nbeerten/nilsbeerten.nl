@@ -49,6 +49,7 @@ export default {
                         key,
                         `color-mix(in srgb, ${value} calc(<alpha-value> * 100%), transparent)`,
                     ])
+                    // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
                     .reduce((acc, [key, value]) => ({ ...acc, [key as string]: value }), {}),
             },
         },
