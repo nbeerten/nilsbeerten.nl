@@ -10,7 +10,7 @@ import {
     type UserI18nConfig,
 } from "astro-i18n-aut/integration";
 import { remarkModifiedTime, remarkTimeRead } from "./remark-plugins";
-
+import pageInsight from "astro-page-insight";
 const vesper = async () => {
     const response = await fetch(
         "https://raw.githubusercontent.com/raunofreiberg/vesper/main/themes/Vesper-dark-color-theme.json"
@@ -22,7 +22,6 @@ const vesper = async () => {
     );
     return JSON.parse(sanitizedText);
 };
-
 const i18nConfig: UserI18nConfig = {
     defaultLocale: "en",
     locales: {
@@ -38,10 +37,13 @@ export default defineConfig({
         i18n(i18nConfig),
         sitemap({
             i18n: i18nConfig,
-            filter: filterSitemapByDefaultLocale({ defaultLocale: i18nConfig.defaultLocale }),
+            filter: filterSitemapByDefaultLocale({
+                defaultLocale: i18nConfig.defaultLocale,
+            }),
         }),
         tailwind(),
         tunnel(),
+        pageInsight(),
     ],
     vite: {
         plugins: [

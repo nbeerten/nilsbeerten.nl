@@ -141,7 +141,9 @@ const {
     <body class={`flex justify-center px-10 py-10 ${className}`}>
         <div class="w-full max-w-2xl">
             <Navigation class="mb-5" {back} />
-            <slot />
+            <main>
+                <slot />
+            </main>
         </div>
     </body>
 </html>
