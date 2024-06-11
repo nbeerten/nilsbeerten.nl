@@ -60,10 +60,7 @@ export default defineConfig({
     },
     output: "hybrid",
     adapter: cloudflare({
-        imageService: "passthrough",
-        runtime: {
-            mode: "off",
-        },
+        imageService: "passthrough"
     }),
     markdown: {
         // @ts-expect-error Types for plugins are incorrect, wants `() => {}` but needs `() => () => {}`
