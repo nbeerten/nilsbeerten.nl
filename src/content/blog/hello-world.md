@@ -1,7 +1,7 @@
 ---
 title: "Hello, world!"
 date: 2023-12-26
-draft: false
+draft: true
 description: "New website, new design"
 language: "en"
 ---
