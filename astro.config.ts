@@ -52,6 +52,9 @@ export default defineConfig({
                 autoInstall: true,
             }),
         ],
+        ssr: {
+            external: ["node:buffer"],
+        },
     },
     site: import.meta.env.CF_PAGES_URL || "https://nilsbeerten.nl",
     trailingSlash: "never",
