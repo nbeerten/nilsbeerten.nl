@@ -6,7 +6,6 @@ import "src/styles/colors.css";
 interface Props {
     title: string;
     description?: string;
-    image?: string;
     article?:
         | false
         | {
@@ -20,7 +19,6 @@ interface Props {
 const {
     title,
     description = "Personal website of Nils Beerten, aka nbeerten, nbert.",
-    image = "home",
     article = false,
     class: className,
     back = "/",
@@ -64,14 +62,11 @@ const {
             )
         }
         <meta property="og:url" content={Astro.url} />
-        <meta property="og:image" content={new URL(`/open-graph/${image}.png`, Astro.url)} />
 
-        <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content={Astro.url.host} />
         <meta property="twitter:url" content="https://nilsbeerten.nl" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={image} />
 
         <link
             rel="preload"

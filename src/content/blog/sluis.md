@@ -7,12 +7,12 @@ language: "en"
 ---
 
 [Sluis](https://sluis.nilsbeerten.nl) is a new desktop-optimised frontend for Piped.
-For context, Piped is a proxy that allows people to watch videos on YouTube, 
+For context, Piped is a proxy that allows people to watch videos on YouTube,
 without comprising their privacy. You can read more about how Piped
 works on their GitHub: [TeamPiped/Piped](https://github.com/TeamPiped/Piped).
 
 On android various apps like [LibreTube](https://github.com/libre-tube/LibreTube)
-exist, which make using Piped much easier and smoother. 
+exist, which make using Piped much easier and smoother.
 On the web the only "good" option is the Piped
 frontend, like on [piped.video](https://piped.video). This frontend works
 fine, but I wanted to make an alternative that's easier to use while also
