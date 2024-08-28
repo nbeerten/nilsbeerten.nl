@@ -1,0 +1,114 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HeadingGroup from "@components/HeadingGroup.astro";
+import { createLocale } from "@lib/i18n";
+
+const { str, locale } = createLocale(Astro.url);
+---
+
+<Layout
+    title={str("Transform RU-Timetable", "Transformeer RU-Rooster")}
+    noindex
+    lang={locale}
+    description={str(
+        "A tool to make the exported 'ical' from the persoonlijkrooster.ru.nl timetable more readable and usable.",
+        "Een tool die het geexporteerde 'ical'-rooster van persoonlijkrooster.ru.nl leesbaarder maakt."
+    )}>
+    <HeadingGroup
+        title={str("Transform RU-Timetable", "Transformeer RU-Rooster")}
+        subtitle={str(
+            "A tool to make the exported 'ical' from the persoonlijkrooster.ru.nl timetable more readable and usable.",
+            "Een tool die het geexporteerde 'ical'-rooster van persoonlijkrooster.ru.nl leesbaarder maakt."
+        )}
+    />
+    <hr class="my-5 border-amber-100/10" />
+    <div
+        class="flex flex-col gap-2"
+        x-data="{ url: '', transformed_url: '', base: 'https://ru-rooster.nilsbeerten.nl/ical', hccolor: 'red', wgcolor: 'darkorange', ttcolor: 'purple', wccolor: 'chocolate' }"
+        x-effect="transformed_url = base + '?' + new URL(url).searchParams.toString() + '&hccolor=' + hccolor + '&wgcolor=' + wgcolor + '&ttcolor=' + ttcolor + '&wccolor=' + wccolor">
+        <label for="url">{str("RU-Timetable iCal URL", "RU-Rooster iCal URL")}</label>
+        <input
+            type="text"
+            id="url"
+            x-model="url"
+            class="border border-brand-text bg-inherit px-4 py-2 text-white"
+            placeholder="https://persoonlijkrooster.ru.nl/ical?eu=***********=&h=*****************************="
+        />
+        <hr class="my-2 border-amber-100/10" />
+
+        <div class="flex flex-col">
+            <h3 class="text-xl">{str("Event Colors", "Kleuren van de afspraken")}</h3>
+            <p class="italic text-brand-muted">Only CSS named colors are supported</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col gap-1">
+                <label for="hccolor" class="text-brand-muted"
+                    >{str("Hoorcollege color", "Hoorcollege kleur")}</label
+                >
+                <input
+                    type="text"
+                    id="hccolor"
+                    placeholder={str("(optional)", "(optioneel)")}
+                    x-model="hccolor"
+                    class="border border-brand-text bg-inherit px-4 py-2 text-white"
+                />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label for="wgcolor" class="text-brand-muted"
+                    >{str("Werkgroep color", "Werkgroep kleur")}</label
+                >
+                <input
+                    type="text"
+                    id="wgcolor"
+                    placeholder={str("(optional)", "(optioneel)")}
+                    x-model="wgcolor"
+                    class="border border-brand-text bg-inherit px-4 py-2 text-white"
+                />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label for="ttcolor" class="text-brand-muted"
+                    >{str("Tentamen color", "Tentamen kleur")}</label
+                >
+                <input
+                    type="text"
+                    id="ttcolor"
+                    placeholder={str("(optional)", "(optioneel)")}
+                    x-model="ttcolor"
+                    class="border border-brand-text bg-inherit px-4 py-2 text-white"
+                />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label for="wccolor" class="text-brand-muted"
+                    >{str("Werkcollege color", "Werkcollege kleur")}</label
+                >
+                <input
+                    type="text"
+                    id="wccolor"
+                    placeholder={str("(optional)", "(optioneel)")}
+                    x-model="wccolor"
+                    class="border border-brand-text bg-inherit px-4 py-2 text-white"
+                />
+            </div>
+        </div>
+
+        <hr class="my-2 border-amber-100/10" />
+
+        <div class="flex flex-col border border-brand-border bg-black px-4 py-6">
+            <label class="pb-3 text-lg" for="transformed_url"
+                >{str("URL of transformed iCal", "URL van geconverteerd iCal")}</label
+            >
+            <input
+                <input
+                type="text"
+                id="transformed_url"
+                readonly
+                x-model="transformed_url"
+                class="border border-brand-text bg-inherit px-4 py-2 text-white"
+            />
+        </div>
+    </div>
+</Layout>
