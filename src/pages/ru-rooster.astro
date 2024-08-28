@@ -24,7 +24,7 @@ const { str, locale } = createLocale(Astro.url);
     <hr class="my-5 border-amber-100/10" />
     <div
         class="flex flex-col gap-2"
-        x-data="{ url: '', transformed_url: '', base: 'https://ru-rooster.nilsbeerten.nl/ical', hccolor: 'red', wgcolor: 'darkorange', ttcolor: 'purple', wccolor: 'chocolate' }"
+        x-data="{ url: '', transformed_url: '', base: 'https://ru-rooster.nilsbeerten.nl/ical', hccolor: 'red', wgcolor: 'darkorange', ttcolor: 'purple', wccolor: 'yellow' }"
         x-effect="transformed_url = base + '?' + new URL(url).searchParams.toString() + '&hccolor=' + hccolor + '&wgcolor=' + wgcolor + '&ttcolor=' + ttcolor + '&wccolor=' + wccolor">
         <label for="url">{str("RU-Timetable iCal URL", "RU-Rooster iCal URL")}</label>
         <input
