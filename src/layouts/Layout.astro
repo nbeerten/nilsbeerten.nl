@@ -29,7 +29,7 @@ const {
 ---
 
 <!doctype html>
-<html lang={lang} class="dark">
+<html lang={lang} class="light">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -49,7 +49,6 @@ const {
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="theme-color" content="#0c0a09" />
-        <meta name="color-scheme" content="dark" />
 
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
@@ -89,11 +88,30 @@ const {
             transition:persist
         />
 
+        <script>
+            function applyColorScheme(document: Document) {
+                const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                document.documentElement.classList.toggle("dark", prefersDarkScheme);
+                document.documentElement.classList.toggle("light", !prefersDarkScheme);
+            }
+
+            applyColorScheme(document);
+
+            document.addEventListener("astro:before-swap", (event) => {
+                // Pass the incoming document to set the theme on it
+                applyColorScheme(event.newDocument);
+            });
+
+            window
+                .matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", () => applyColorScheme(document));
+        </script>
+
         <style>
             :root {
                 background-color: theme(colors.brand.background);
                 color: theme(colors.brand.text);
-                color-scheme: dark;
+                /* color-scheme: dark; */
                 scrollbar-gutter: stable both-edges;
 
                 font-feature-settings: "cv05", "cv07", "cv11", "ss01";
@@ -129,6 +147,22 @@ const {
                 font-family: "Inter";
                 src: url(/fonts/Inter-VariableItalic.woff2) format("woff2");
                 font-weight: 100 900;
+                font-display: swap;
+                font-style: italic;
+            }
+
+            @font-face {
+                font-family: "Erode";
+                src: url(/fonts/Erode-Variable.woff2) format("woff2");
+                font-weight: 300 700;
+                font-display: swap;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: "Erode";
+                src: url(/fonts/Erode-VariableItalic.woff2) format("woff2");
+                font-weight: 300 700;
                 font-display: swap;
                 font-style: italic;
             }

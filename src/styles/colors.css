@@ -1,15 +1,22 @@
+@import "@radix-ui/colors/amber.css";
 @import "@radix-ui/colors/amber-dark.css";
 
-:root {
-    --brand-text: var(--amber-12);
-    --brand-muted: color-mix(in srgb, var(--brand-text) 65%, transparent);
-    /* Amber-ish, fully saturated, almost completely dark */
-    --brand-background: #0c0a09;
-    --brand-border: color-mix(in srgb, var(--brand-text) 50%, transparent);
+@media (prefers-color-scheme: light) {
+    :root {
+        --brand-text: #212427;
+        --brand-muted: color-mix(in srgb, var(--brand-text) 75%, transparent);
+        /* Amber-ish, fully saturated, almost completely dark */
+        --brand-background: var(--amber-1);
+        --brand-border: color-mix(in srgb, var(--brand-text) 50%, transparent);
+    }
+}
 
-    --brand-primary: var(--amber-9);
-    --brand-secondary: var(--amber-6);
-    --brand-tertiary: var(--amber-12);
-
-    --brand-hover: var(--amber-7);
+@media (prefers-color-scheme: dark) {
+    :root {
+        --brand-text: var(--amber-12);
+        --brand-muted: color-mix(in srgb, var(--brand-text) 65%, transparent);
+        /* Amber-ish, fully saturated, almost completely dark */
+        --brand-background: #0c0a09;
+        --brand-border: color-mix(in srgb, var(--brand-text) 50%, transparent);
+    }
 }

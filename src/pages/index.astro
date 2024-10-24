@@ -58,7 +58,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         </div>
     </section>
 
-    <hr class="my-5 border-amber-100/10" />
+    <hr class="my-5 border-brand-border/20" />
 
     <section>
         <h2 class="-ml-px text-xl font-medium text-brand-muted">{str("Creations", "Creaties")}</h2>
@@ -80,6 +80,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 </p>
             </div>
 
+            {/* Not actively maintained anymore; so removed from the website
             <div>
                 <a
                     href="https://github.com/nbeerten/tm-refresh-leaderboard/"
@@ -95,7 +96,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                         )
                     }
                 </p>
-            </div>
+            </div> */}
 
             <div>
                 <a
@@ -118,7 +119,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
     {
         blogEntries.length > 0 && (
             <section class="mt-6">
-                <h2 class="-ml-px text-xl text-brand-muted">Blog</h2>
+                <h2 class="-ml-px text-xl font-medium text-brand-muted">Blog</h2>
                 <div class="flex flex-col gap-4 py-3">
                     {blogEntries.slice(0, 3).map((blogPost) => (
                         <article>
