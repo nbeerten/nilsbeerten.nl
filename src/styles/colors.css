@@ -1,5 +1,6 @@
-@import "@radix-ui/colors/amber.css";
-@import "@radix-ui/colors/amber-dark.css";
+@import "@radix-ui/colors/amber.css" (prefers-color-scheme: light);
+@import "@radix-ui/colors/amber-dark.css" (prefers-color-scheme: dark);
+
 
 @media (prefers-color-scheme: light) {
     :root {
