@@ -92,92 +92,95 @@ const {
         <script>
             declare global {
                 interface Window {
-                    setColorScheme: (scheme: "light" | "dark") => void;
+                    setColorScheme: (scheme: "light" | "dark" | "auto") => void;
                 }
             }
 
             const localStorage = window.localStorage;
 
-            function applyColorScheme(document: Document) {
-                const colorScheme = localStorage.getItem("color-scheme");
-                let prefersDarkScheme: boolean | null = null;
-                if(colorScheme) {
-                    prefersDarkScheme = colorScheme === "dark";
-                } else {
-                    prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                }
+            function getStoredColorScheme(): "light" | "dark" | "auto" | null {
+                return localStorage.getItem("color-scheme") as "light" | "dark" | "auto" | null;
+            }
 
-                // variable that checks if document.documentElement has a .dark or .light class
+            function setStoredColorScheme(colorScheme: "light" | "dark" | "auto") {
+                if (colorScheme === "auto") {
+                    localStorage.removeItem("color-scheme");
+                } else {
+                    localStorage.setItem("color-scheme", colorScheme);
+                }
+            }
+
+            function detectPrefersDarkScheme(): boolean {
+                return window.matchMedia("(prefers-color-scheme: dark)").matches;
+            }
+
+            function applyTransition(document: Document) {
+                document.documentElement.style.transition = "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out";
+                setTimeout(() => {
+                    document.documentElement.style.transition = "";
+                }, 1000);
+            }
+
+            function applyColorScheme(document: Document) {
+                const colorScheme = getStoredColorScheme();
+                const prefersDarkScheme = colorScheme ? colorScheme === "dark" : detectPrefersDarkScheme();
                 const hasColorSchemeClass = document.documentElement.classList.contains("dark") || document.documentElement.classList.contains("light");
 
-                if(hasColorSchemeClass) {
-                    document.documentElement.style.transition = "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out";
-
-                    setTimeout(() => {
-                        document.documentElement.style.transition = "";
-                    }, 1000);
-                }
+                if (hasColorSchemeClass) applyTransition(document);
 
                 document.documentElement.classList.toggle("dark", prefersDarkScheme);
                 document.documentElement.classList.toggle("light", !prefersDarkScheme);
             }
 
-            function setColorScheme(scheme: "light" | "dark" | "auto") {
-                if(scheme === "auto") {
-                    localStorage.removeItem("color-scheme");
-                } else {
-                    localStorage.setItem("color-scheme", scheme);
-                }
+            function setColorScheme(colorScheme: "light" | "dark" | "auto") {
+                setStoredColorScheme(colorScheme);
                 applyColorScheme(document);
             }
 
-            window.setColorScheme = setColorScheme;
-
-            applyColorScheme(document);
-
-            document.addEventListener("astro:before-swap", (event) => {
-                // Pass the incoming document to set the theme on it
-                applyColorScheme(event.newDocument);
-            });
-
-            window
-                .matchMedia("(prefers-color-scheme: dark)")
-                .addEventListener("change", () => applyColorScheme(document));
-
-            function colorSchemeToggler(document: Document = window.document) {
+            function initializeColorSchemeToggler(document: Document) {
                 const colorSchemeToggle = document.querySelector("#themeToggle") as HTMLDivElement;
-                const colorScheme = localStorage.getItem("color-scheme") as "light" | "dark" | "auto" | null;
+                const currentColorScheme = getStoredColorScheme() || "auto";
+                const colorSchemeInput = colorSchemeToggle.querySelector(`input[value="${currentColorScheme}"]`) as HTMLInputElement;
 
-                if (colorScheme) {
-                    console.log(colorScheme);
-                    const colorSchemeInput = colorSchemeToggle.querySelector(`input[value="${colorScheme}"]`) as HTMLInputElement;
-                    colorSchemeInput.checked = true;
-                } else {
-                    const colorSchemeInputAuto = colorSchemeToggle.querySelector(`input[value="auto"]`) as HTMLInputElement;
-                    colorSchemeInputAuto.checked = true;
-                }
+                if (colorSchemeInput) colorSchemeInput.checked = true;
 
                 colorSchemeToggle.addEventListener("change", (event) => {
-                    const theme = (event.target as HTMLInputElement).value;
+                    const selectedColorScheme = (event.target as HTMLInputElement).value;
+                    applyTransitionToLabels(document);
 
-                    document.querySelectorAll("#themeToggle > label").forEach((label) => (label as HTMLLabelElement).style.transition = "all 0.3s ease-in-out");
-
-                    setTimeout(() => {
-                        document.querySelectorAll("#themeToggle > label").forEach((label) => (label as HTMLLabelElement).style.transition = "");
-                    }, 1000);
-
-                    if(theme === "light" || theme === "auto" || theme === "dark") {
-                        setColorScheme(theme);
-                        console.log(theme);
+                    if (selectedColorScheme === "light" || selectedColorScheme === "dark" || selectedColorScheme === "auto") {
+                        setColorScheme(selectedColorScheme);
                     } else {
                         setColorScheme("auto");
                     }
                 });
             }
 
-            colorSchemeToggler();
+            function applyTransitionToLabels(document: Document) {
+                document.querySelectorAll("#themeToggle > label").forEach((label) => {
+                    (label as HTMLLabelElement).style.transition = "all 0.3s ease-in-out";
+                });
 
-            document.addEventListener("astro:before-swap", (event) => colorSchemeToggler(event.newDocument));
+                setTimeout(() => {
+                    document.querySelectorAll("#themeToggle > label").forEach((label) => {
+                        (label as HTMLLabelElement).style.transition = "";
+                    });
+                }, 1000);
+            }
+
+            window.setColorScheme = setColorScheme;
+            applyColorScheme(document);
+
+            document.addEventListener("astro:before-swap", (event) => {
+                applyColorScheme(event.newDocument);
+                initializeColorSchemeToggler(event.newDocument);
+            });
+
+            window
+                .matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", () => applyColorScheme(document));
+
+            initializeColorSchemeToggler(document);
         </script>
 
         <style>
