@@ -115,7 +115,8 @@ const {
             }
 
             function applyTransition(document: Document) {
-                document.documentElement.style.transition = "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out";
+                document.documentElement.style.transition =
+                    "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out";
                 setTimeout(() => {
                     document.documentElement.style.transition = "";
                 }, 1000);
@@ -123,8 +124,12 @@ const {
 
             function applyColorScheme(document: Document) {
                 const colorScheme = getStoredColorScheme();
-                const prefersDarkScheme = colorScheme ? colorScheme === "dark" : detectPrefersDarkScheme();
-                const hasColorSchemeClass = document.documentElement.classList.contains("dark") || document.documentElement.classList.contains("light");
+                const prefersDarkScheme = colorScheme
+                    ? colorScheme === "dark"
+                    : detectPrefersDarkScheme();
+                const hasColorSchemeClass =
+                    document.documentElement.classList.contains("dark") ||
+                    document.documentElement.classList.contains("light");
 
                 if (hasColorSchemeClass) applyTransition(document);
 
@@ -140,7 +145,9 @@ const {
             function initializeColorSchemeToggler(document: Document) {
                 const colorSchemeToggle = document.querySelector("#themeToggle") as HTMLDivElement;
                 const currentColorScheme = getStoredColorScheme() || "auto";
-                const colorSchemeInput = colorSchemeToggle.querySelector(`input[value="${currentColorScheme}"]`) as HTMLInputElement;
+                const colorSchemeInput = colorSchemeToggle.querySelector(
+                    `input[value="${currentColorScheme}"]`
+                ) as HTMLInputElement;
 
                 if (colorSchemeInput) colorSchemeInput.checked = true;
 
@@ -148,7 +155,11 @@ const {
                     const selectedColorScheme = (event.target as HTMLInputElement).value;
                     applyTransitionToLabels(document);
 
-                    if (selectedColorScheme === "light" || selectedColorScheme === "dark" || selectedColorScheme === "auto") {
+                    if (
+                        selectedColorScheme === "light" ||
+                        selectedColorScheme === "dark" ||
+                        selectedColorScheme === "auto"
+                    ) {
                         setColorScheme(selectedColorScheme);
                     } else {
                         setColorScheme("auto");
