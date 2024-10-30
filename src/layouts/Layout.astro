@@ -157,9 +157,14 @@ const {
                     colorSchemeInputAuto.checked = true;
                 }
 
-                document.querySelectorAll("#themeToggle > label").forEach((label) => (label as HTMLLabelElement).style.transition = "all 0.3s ease-in-out");
                 colorSchemeToggle.addEventListener("change", (event) => {
                     const theme = (event.target as HTMLInputElement).value;
+
+                    document.querySelectorAll("#themeToggle > label").forEach((label) => (label as HTMLLabelElement).style.transition = "all 0.3s ease-in-out");
+
+                    setTimeout(() => {
+                        document.querySelectorAll("#themeToggle > label").forEach((label) => (label as HTMLLabelElement).style.transition = "");
+                    }, 1000);
 
                     if(theme === "light" || theme === "auto" || theme === "dark") {
                         setColorScheme(theme);
