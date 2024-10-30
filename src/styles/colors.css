@@ -1,6 +1,5 @@
-@import "@radix-ui/colors/amber.css" (prefers-color-scheme: light);
-@import "@radix-ui/colors/amber-dark.css" (prefers-color-scheme: dark);
-
+@import "@radix-ui/colors/amber.css";
+@import "@radix-ui/colors/amber-dark.css";
 
 :root.light {
     --brand-text: #212427;

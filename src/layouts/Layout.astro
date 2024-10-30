@@ -29,7 +29,7 @@ const {
 ---
 
 <!doctype html>
-<html lang={lang} class="light">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
@@ -90,11 +90,48 @@ const {
         />
 
         <script>
+            declare global {
+                interface Window {
+                    setColorScheme: (scheme: "light" | "dark") => void;
+                }
+            }
+
+            const localStorage = window.localStorage;
+
             function applyColorScheme(document: Document) {
-                const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                const colorScheme = localStorage.getItem("color-scheme");
+                let prefersDarkScheme: boolean | null = null;
+                if(colorScheme) {
+                    prefersDarkScheme = colorScheme === "dark";
+                } else {
+                    prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                }
+
+                // variable that checks if document.documentElement has a .dark or .light class
+                const hasColorSchemeClass = document.documentElement.classList.contains("dark") || document.documentElement.classList.contains("light");
+
+                if(hasColorSchemeClass) {
+                    document.documentElement.style.transition = "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out";
+
+                    setTimeout(() => {
+                        document.documentElement.style.transition = "";
+                    }, 1000);
+                }
+
                 document.documentElement.classList.toggle("dark", prefersDarkScheme);
                 document.documentElement.classList.toggle("light", !prefersDarkScheme);
             }
+
+            function setColorScheme(scheme: "light" | "dark" | "auto") {
+                if(scheme === "auto") {
+                    localStorage.removeItem("color-scheme");
+                } else {
+                    localStorage.setItem("color-scheme", scheme);
+                }
+                applyColorScheme(document);
+            }
+
+            window.setColorScheme = setColorScheme;
 
             applyColorScheme(document);
 
@@ -106,6 +143,34 @@ const {
             window
                 .matchMedia("(prefers-color-scheme: dark)")
                 .addEventListener("change", () => applyColorScheme(document));
+
+            function colorSchemeToggler(document: Document = window.document) {
+                const colorSchemeToggle = document.querySelector("#themeToggle") as HTMLDivElement;
+                const colorScheme = localStorage.getItem("color-scheme") as "light" | "dark" | "auto" | null;
+
+                if (colorScheme) {
+                    console.log(colorScheme);
+                    const colorSchemeInput = colorSchemeToggle.querySelector(`input[value="${colorScheme}"]`) as HTMLInputElement;
+                    colorSchemeInput.checked = true;
+                } else {
+                    const colorSchemeInputAuto = colorSchemeToggle.querySelector(`input[value="auto"]`) as HTMLInputElement;
+                    colorSchemeInputAuto.checked = true;
+                }
+
+                colorSchemeToggle.addEventListener("change", (event) => {
+                    const theme = (event.target as HTMLInputElement).value;
+                    if(theme === "light" || theme === "auto" || theme === "dark") {
+                        setColorScheme(theme);
+                        console.log(theme);
+                    } else {
+                        setColorScheme("auto");
+                    }
+                });
+            }
+
+            colorSchemeToggler();
+
+            document.addEventListener("astro:before-swap", (event) => colorSchemeToggler(event.newDocument));
         </script>
 
         <style>
