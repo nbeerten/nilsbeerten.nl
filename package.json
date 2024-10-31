@@ -19,7 +19,7 @@
         "@tailwindcss/typography": "^0.5.15",
         "@types/alpinejs": "^3.13.10",
         "alpinejs": "^3.14.3",
-        "astro": "^4.16.7",
+        "astro": "^4.16.8",
         "astro-i18n-aut": "^0.7.0",
         "astro-page-insight": "^0.8.7",
         "astro-tunnel": "^0.1.6",
