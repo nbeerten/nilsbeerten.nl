@@ -5,7 +5,7 @@ import Moon from "~icons/heroicons/moon-16-solid";
 
 <div
     id="themeToggle"
-    class="theme-toggle"
+    class="theme-toggle swipe-area"
     role="radiogroup"
     aria-label="Theme toggle"
     aria-labelledby="themeToggleLabel">
@@ -44,11 +44,94 @@ import Moon from "~icons/heroicons/moon-16-solid";
     });
 </script>
 
+<script>
+    declare global {
+        interface Window {
+            setColorScheme: (scheme: "light" | "dark" | "auto") => void;
+        }
+    }
+
+    import TouchSweep from "touchsweep";
+
+    const sortedSchemes = ["light", "auto", "dark"] as const;
+
+    function initializeSwipeArea(document: Document) {
+        if (!window.matchMedia("(pointer: coarse)").matches) return;
+
+        const area = document.querySelector(".swipe-area") as HTMLElement;
+        const data = {
+            value: 1,
+        };
+        const touchThreshold = 20;
+
+        new TouchSweep(area, data, touchThreshold);
+
+        const [lightInput, autoInput, darkInput] = Array.from(
+            document.querySelectorAll("#themeToggle > input")
+        ) as HTMLInputElement[];
+        const getCurrentColorScheme = () => {
+            let currentColorScheme: string | null = null;
+            document.querySelectorAll("#themeToggle > input").forEach((input) => {
+                if ((input as HTMLInputElement).checked) {
+                    currentColorScheme = (input as HTMLInputElement).value;
+                } else {
+                    return;
+                }
+            });
+
+            return currentColorScheme;
+        };
+
+        area.addEventListener("swipeleft", () => {
+            const currentColorScheme =
+                getCurrentColorScheme() as unknown as (typeof sortedSchemes)[number];
+            const index = sortedSchemes.indexOf(currentColorScheme);
+            const prevIndex = index - 1;
+            const nextColorScheme = sortedSchemes[prevIndex] || sortedSchemes[0];
+
+            if (nextColorScheme === "auto" && autoInput) {
+                autoInput.click();
+            } else if (nextColorScheme === "light" && lightInput) {
+                lightInput.click();
+            } else if (nextColorScheme === "dark" && darkInput) {
+                darkInput.click();
+            }
+        });
+
+        area.addEventListener("swiperight", () => {
+            const currentColorScheme =
+                getCurrentColorScheme() as unknown as (typeof sortedSchemes)[number];
+            const index = sortedSchemes.indexOf(currentColorScheme);
+            const nextIndex = index + 1;
+            const nextColorScheme = sortedSchemes[nextIndex] || sortedSchemes.at(-1);
+
+            if (nextColorScheme === "auto" && autoInput) {
+                autoInput.click();
+            } else if (nextColorScheme === "light" && lightInput) {
+                lightInput.click();
+            } else if (nextColorScheme === "dark" && darkInput) {
+                darkInput.click();
+            }
+        });
+
+        area.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+        });
+    }
+
+    initializeSwipeArea(document);
+
+    document.addEventListener("astro:after-swap", () => initializeSwipeArea(document));
+</script>
+
 <style>
     .theme-toggle {
         --base-size: 1.3rem;
         --icon-size: 0.9rem;
         --gap-size: 0.125rem;
+        --padding-left: 0.5rem;
+
+        padding: 0.25rem 0.25rem 0.25rem var(--padding-left);
 
         display: grid;
         grid-template-columns: repeat(3, var(--base-size));
@@ -57,6 +140,7 @@ import Moon from "~icons/heroicons/moon-16-solid";
         justify-content: center;
         position: relative;
         gap: var(--gap-size);
+        border-radius: 0 9999px 9999px 0;
 
         label {
             position: relative;
@@ -99,13 +183,13 @@ import Moon from "~icons/heroicons/moon-16-solid";
             color: var(--brand-background) !important;
         }
         input[value="light"]:checked ~ span {
-            left: 0;
+            left: var(--padding-left);
         }
         input[value="auto"]:checked ~ span {
-            left: calc(var(--base-size) + var(--gap-size));
+            left: calc(var(--padding-left) + var(--base-size) + var(--gap-size));
         }
         input[value="dark"]:checked ~ span {
-            left: calc(var(--base-size) * 2 + var(--gap-size) * 2);
+            left: calc(var(--padding-left) + var(--base-size) * 2 + var(--gap-size) * 2);
         }
     }
 </style>

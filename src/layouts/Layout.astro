@@ -184,18 +184,21 @@ const {
             }
 
             window.setColorScheme = setColorScheme;
-            applyColorScheme(document);
 
-            document.addEventListener("astro:before-swap", (event) => {
-                applyColorScheme(event.newDocument);
-                initializeColorSchemeToggler(event.newDocument);
-            });
+            applyColorScheme(document);
+            initializeColorSchemeToggler(document);
 
             window
                 .matchMedia("(prefers-color-scheme: dark)")
                 .addEventListener("change", () => applyColorScheme(document));
 
-            initializeColorSchemeToggler(document);
+            document.addEventListener("astro:before-swap", (event) => {
+                applyColorScheme(event.newDocument);
+            });
+
+            document.addEventListener("astro:after-swap", () => {
+                initializeColorSchemeToggler(document);
+            });
         </script>
 
         <style>
