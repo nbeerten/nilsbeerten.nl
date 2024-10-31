@@ -115,7 +115,7 @@ const {
             }
 
             function applyTransition(document: Document) {
-                if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+                if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
                 document.documentElement.style.transition =
                     "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out";
@@ -170,10 +170,10 @@ const {
             }
 
             function applyTransitionToLabels(document: Document) {
-                if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+                if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
                 document.querySelectorAll("#themeToggle > label").forEach((label) => {
-                        (label as HTMLLabelElement).style.transition = "all 0.3s ease-in-out";
+                    (label as HTMLLabelElement).style.transition = "all 0.3s ease-in-out";
                 });
 
                 setTimeout(() => {

@@ -13,7 +13,7 @@ import Moon from "~icons/heroicons/moon-16-solid";
     <input id="light" type="radio" name="theme" value="light" aria-labelledby="lightThemeLabel" />
     <label for="light" id="lightThemeLabel" aria-label="Light theme" tabindex="0">
         <span class="sr-only">Light theme</span>
-        <Sun class="h-4 w-4" />
+        <Sun />
     </label>
     <input id="auto" type="radio" name="theme" value="auto" aria-labelledby="autoThemeLabel" />
     <label for="auto" id="autoThemeLabel" aria-label="Automatic theme switching" tabindex="0">
@@ -23,7 +23,7 @@ import Moon from "~icons/heroicons/moon-16-solid";
     <input id="dark" type="radio" name="theme" value="dark" aria-labelledby="darkThemeLabel" />
     <label for="dark" id="darkThemeLabel" aria-label="Dark theme" tabindex="0">
         <span class="sr-only">Dark theme</span>
-        <Moon class="h-4 w-4" />
+        <Moon />
     </label>
     <span></span>
 </div>
@@ -35,7 +35,7 @@ import Moon from "~icons/heroicons/moon-16-solid";
             if (event.key === " ") {
                 event.preventDefault();
                 let forAttr: string | null;
-                if(forAttr = label.getAttribute("for")) {
+                if ((forAttr = label.getAttribute("for"))) {
                     const input = document.getElementById(forAttr) as HTMLInputElement;
                     input.checked = true;
                 }
@@ -46,23 +46,35 @@ import Moon from "~icons/heroicons/moon-16-solid";
 
 <style>
     .theme-toggle {
+        --base-size: 1.3rem;
+        --icon-size: 0.9rem;
+        --gap-size: 0.125rem;
+
         display: grid;
-        grid-template-columns: repeat(3, 1.5rem);
-        grid-template-rows: 1.5rem;
+        grid-template-columns: repeat(3, var(--base-size));
+        grid-template-rows: var(--base-size);
         align-items: center;
         justify-content: center;
         position: relative;
+        gap: var(--gap-size);
 
         label {
             position: relative;
-            width: 1.5rem;
-            height: 1.5rem;
+            width: var(--base-size);
+            height: var(--base-size);
             border-radius: 50%;
             z-index: 2;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            user-select: none;
+            font-size: var(--icon-size);
+
+            svg {
+                width: var(--icon-size);
+                height: var(--icon-size);
+            }
         }
 
         input {
@@ -70,8 +82,8 @@ import Moon from "~icons/heroicons/moon-16-solid";
         }
 
         span {
-            height: 1.5rem;
-            width: 1.5rem;
+            height: var(--base-size);
+            width: var(--base-size);
             border-radius: 50%;
             background-color: currentColor;
             display: block;
@@ -90,10 +102,10 @@ import Moon from "~icons/heroicons/moon-16-solid";
             left: 0;
         }
         input[value="auto"]:checked ~ span {
-            left: 1.5rem;
+            left: calc(var(--base-size) + var(--gap-size));
         }
         input[value="dark"]:checked ~ span {
-            left: 3rem;
+            left: calc(var(--base-size) * 2 + var(--gap-size) * 2);
         }
     }
 </style>

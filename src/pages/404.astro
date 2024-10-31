@@ -4,10 +4,10 @@ import { createLocale } from "@lib/i18n";
 
 const { pathname } = Astro.url;
 
-const { str } = createLocale(Astro.url);
+const { str, locale } = createLocale(Astro.url);
 ---
 
-<Layout title="404" lang="en">
+<Layout title={"404" + " - " + str("Page not found", "Pagina niet gevonden")} lang={locale}>
     <hgroup>
         <h1 class="-ml-[0.3vh] font-display text-4xl font-extrabold md:text-5xl lg:text-6xl">
             404
@@ -16,24 +16,15 @@ const { str } = createLocale(Astro.url);
             {
                 str(
                     <>
-                        Page <code class="rounded bg-black px-1">{pathname}</code> not found
+                        Page <code class="rounded bg-black px-1 text-white">{pathname}</code> not
+                        found
                     </>,
                     <>
-                        Pagina <code class="rounded bg-black px-1">{pathname}</code> niet gevonden
+                        Pagina <code class="rounded bg-black px-1 text-white">{pathname}</code> niet
+                        gevonden
                     </>
                 )
             }
         </p>
     </hgroup>
 </Layout>
-
-<script is:inline>
-    document.querySelectorAll("#mail").forEach((el) => {
-        const mail = "Y29udGFjdA==@nilsbeerten.nl"
-            .split("@")
-            .map((part) => (part.endsWith("==") ? window.atob(part) : part))
-            .join("@");
-        el.textContent = mail;
-        el.parentNode.setAttribute("href", `mailto:${mail}`);
-    });
-</script>
