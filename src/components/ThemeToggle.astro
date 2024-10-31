@@ -1,0 +1,99 @@
+---
+import Sun from "~icons/heroicons/sun-16-solid";
+import Moon from "~icons/heroicons/moon-16-solid";
+---
+
+<div
+    id="themeToggle"
+    class="theme-toggle"
+    role="radiogroup"
+    aria-label="Theme toggle"
+    aria-labelledby="themeToggleLabel">
+    <span id="themeToggleLabel" class="sr-only">Choose your color-scheme preference:</span>
+    <input id="light" type="radio" name="theme" value="light" aria-labelledby="lightThemeLabel" />
+    <label for="light" id="lightThemeLabel" aria-label="Light theme" tabindex="0">
+        <span class="sr-only">Light theme</span>
+        <Sun class="h-4 w-4" />
+    </label>
+    <input id="auto" type="radio" name="theme" value="auto" aria-labelledby="autoThemeLabel" />
+    <label for="auto" id="autoThemeLabel" aria-label="Automatic theme switching" tabindex="0">
+        <span class="sr-only">Automatic theme switching</span>
+        A
+    </label>
+    <input id="dark" type="radio" name="theme" value="dark" aria-labelledby="darkThemeLabel" />
+    <label for="dark" id="darkThemeLabel" aria-label="Dark theme" tabindex="0">
+        <span class="sr-only">Dark theme</span>
+        <Moon class="h-4 w-4" />
+    </label>
+    <span></span>
+</div>
+
+<script>
+    document.querySelectorAll(".theme-toggle > label").forEach((_label) => {
+        let label = _label as HTMLLabelElement;
+        label.addEventListener("keydown", (event) => {
+            if (event.key === " ") {
+                event.preventDefault();
+                let forAttr: string | null;
+                if(forAttr = label.getAttribute("for")) {
+                    const input = document.getElementById(forAttr) as HTMLInputElement;
+                    input.checked = true;
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+    .theme-toggle {
+        display: grid;
+        grid-template-columns: repeat(3, 1.5rem);
+        grid-template-rows: 1.5rem;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        label {
+            position: relative;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            z-index: 2;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            display: none;
+        }
+
+        span {
+            height: 1.5rem;
+            width: 1.5rem;
+            border-radius: 50%;
+            background-color: currentColor;
+            display: block;
+            position: absolute;
+
+            transition: left 0.3s ease-in-out;
+            @media (prefers-reduced-motion) {
+                transition: none;
+            }
+        }
+
+        input:checked + label {
+            color: var(--brand-background) !important;
+        }
+        input[value="light"]:checked ~ span {
+            left: 0;
+        }
+        input[value="auto"]:checked ~ span {
+            left: 1.5rem;
+        }
+        input[value="dark"]:checked ~ span {
+            left: 3rem;
+        }
+    }
+</style>
