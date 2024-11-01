@@ -1,0 +1,173 @@
+---
+import Sun from "~icons/heroicons/sun-16-solid";
+import Moon from "~icons/heroicons/moon-16-solid";
+
+const colorschemes = [
+    { id: "light", value: "light", label: "Light color-scheme", icon: "Sun" }, // Placeholder for the Sun icon
+    { id: "auto", value: "auto", label: "Automatic color-scheme switching", icon: "Auto" }, // Placeholder for auto icon
+    { id: "dark", value: "dark", label: "Dark color-scheme", icon: "Moon" }, // Placeholder for the Moon icon
+];
+---
+
+<div
+    class="colorscheme-toggle swipe-area"
+    role="radiogroup"
+    aria-label="Color-scheme switcher"
+    aria-labelledby="colorschemeToggleLabel">
+    <span id="colorschemeToggleLabel" class="sr-only">Choose your color-scheme preference:</span>
+
+    {
+        colorschemes.map(({ id, value, label, icon }) => (
+            <>
+                <input
+                    id={id}
+                    type="radio"
+                    name="colorscheme"
+                    value={value}
+                    aria-labelledby={`${id}Label`}
+                />
+                <label for={id} tabindex="0">
+                    <span class="sr-only" id={`${id}Label`}>
+                        {label}
+                    </span>
+                    {icon === "Sun" && <Sun />}
+                    {icon === "Auto" && <>A</>}
+                    {icon === "Moon" && <Moon />}
+                </label>
+            </>
+        ))
+    }
+
+    <span></span>
+</div>
+
+<script>
+    document.querySelectorAll(".colorscheme-toggle > label").forEach((label) => {
+        (label as HTMLLabelElement).addEventListener("keydown", (event) => {
+            if (event.key === " ") {
+                event.preventDefault();
+                (label as HTMLLabelElement).click();
+            }
+        });
+    });
+</script>
+
+<script>
+    import TouchSweep from "touchsweep";
+
+    const sortedSchemes = ["light", "auto", "dark"] as const;
+
+    function initializeSwipeArea(document: Document) {
+        if (!window.matchMedia("(pointer: coarse)").matches) return;
+
+        const area = document.querySelector(".swipe-area") as HTMLElement;
+        new TouchSweep(area, { value: 1 }, 20);
+
+        const [lightInput, autoInput, darkInput] = Array.from(
+            document.querySelectorAll(".colorscheme-toggle > input")
+        ) as HTMLInputElement[];
+
+        const getCurrentColorscheme = () => {
+            return (
+                Array.from(document.querySelectorAll(".colorscheme-toggle > input"))
+                    .find((input) => (input as HTMLInputElement).checked)
+                    ?.getAttribute("value") || null
+            );
+        };
+
+        const handleSwipe = (direction: "left" | "right") => {
+            const currentScheme =
+                getCurrentColorscheme() as unknown as (typeof sortedSchemes)[number];
+            const index = sortedSchemes.indexOf(currentScheme);
+            const newIndex = direction === "left" ? index - 1 : index + 1;
+            const nextScheme =
+                sortedSchemes[newIndex] ||
+                (direction === "left" ? sortedSchemes[0] : sortedSchemes.at(-1));
+
+            if (nextScheme === "auto" && autoInput) autoInput.click();
+            else if (nextScheme === "light" && lightInput) lightInput.click();
+            else if (nextScheme === "dark" && darkInput) darkInput.click();
+        };
+
+        area.addEventListener("swipeleft", () => handleSwipe("left"));
+        area.addEventListener("swiperight", () => handleSwipe("right"));
+
+        area.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+        });
+    }
+
+    initializeSwipeArea(document);
+
+    document.addEventListener("astro:after-swap", () => initializeSwipeArea(document));
+</script>
+
+<style>
+    .colorscheme-toggle {
+        --base-size: 1.3rem;
+        --icon-size: 0.9rem;
+        --gap-size: 0.125rem;
+        --padding-left: 0.5rem;
+
+        padding: 0.25rem 0.25rem 0.25rem var(--padding-left);
+
+        display: grid;
+        grid-template-columns: repeat(3, var(--base-size));
+        grid-template-rows: var(--base-size);
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        gap: var(--gap-size);
+        border-radius: 0 9999px 9999px 0;
+
+        label {
+            position: relative;
+            width: var(--base-size);
+            height: var(--base-size);
+            border-radius: 50%;
+            z-index: 2;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            font-size: var(--icon-size);
+
+            svg {
+                width: var(--icon-size);
+                height: var(--icon-size);
+            }
+        }
+
+        input {
+            display: none;
+        }
+
+        span {
+            height: var(--base-size);
+            width: var(--base-size);
+            border-radius: 50%;
+            background-color: currentColor;
+            display: block;
+            position: absolute;
+
+            transition: left 0.3s ease-in-out;
+        }
+
+        input:checked + label {
+            color: var(--brand-background);
+        }
+
+        input:nth-of-type(1):checked ~ span {
+            left: var(--padding-left);
+        }
+
+        input:nth-of-type(2):checked ~ span {
+            left: calc(var(--padding-left) + var(--base-size) + var(--gap-size));
+        }
+
+        input:nth-of-type(3):checked ~ span {
+            left: calc(var(--padding-left) + var(--base-size) * 2 + var(--gap-size) * 2);
+        }
+    }
+</style>

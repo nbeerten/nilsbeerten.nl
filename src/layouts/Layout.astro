@@ -103,11 +103,9 @@ const {
             }
 
             function setStoredColorScheme(colorScheme: "light" | "dark" | "auto") {
-                if (colorScheme === "auto") {
-                    localStorage.removeItem("color-scheme");
-                } else {
-                    localStorage.setItem("color-scheme", colorScheme);
-                }
+                colorScheme === "auto"
+                    ? localStorage.removeItem("color-scheme")
+                    : localStorage.setItem("color-scheme", colorScheme);
             }
 
             function detectPrefersDarkScheme(): boolean {
@@ -116,14 +114,9 @@ const {
 
             let previousTransitionTimeout: NodeJS.Timeout | number | null = null;
             function applyTransition(document: Document) {
-                let transitionDuration = 0.3; // seconds
-
-                if (previousTransitionTimeout) {
-                    clearTimeout(previousTransitionTimeout);
-                }
-
+                const transitionDuration = 0.3;
+                if (previousTransitionTimeout) clearTimeout(previousTransitionTimeout);
                 document.documentElement.style.transition = `background-color ${transitionDuration}s ease-in-out, color ${transitionDuration}s ease-in-out, border-color ${transitionDuration}s ease-in-out`;
-
                 previousTransitionTimeout = setTimeout(() => {
                     document.documentElement.style.transition = "";
                     previousTransitionTimeout = null;
@@ -140,7 +133,6 @@ const {
                     document.documentElement.classList.contains("light");
 
                 if (hasColorSchemeClass) applyTransition(document);
-
                 document.documentElement.classList.toggle("dark", prefersDarkScheme);
                 document.documentElement.classList.toggle("light", !prefersDarkScheme);
             }
@@ -151,7 +143,9 @@ const {
             }
 
             function initializeColorSchemeToggler(document: Document) {
-                const colorSchemeToggle = document.querySelector("#themeToggle") as HTMLDivElement;
+                const colorSchemeToggle = document.querySelector(
+                    ".colorscheme-toggle"
+                ) as HTMLDivElement;
                 const currentColorScheme = getStoredColorScheme() || "auto";
                 const colorSchemeInput = colorSchemeToggle.querySelector(
                     `input[value="${currentColorScheme}"]`
@@ -162,34 +156,25 @@ const {
                 colorSchemeToggle.addEventListener("change", (event) => {
                     const selectedColorScheme = (event.target as HTMLInputElement).value;
                     applyTransitionToLabels(document);
-
-                    if (
-                        selectedColorScheme === "light" ||
-                        selectedColorScheme === "dark" ||
-                        selectedColorScheme === "auto"
-                    ) {
-                        setColorScheme(selectedColorScheme);
-                    } else {
-                        setColorScheme("auto");
-                    }
+                    setColorScheme(
+                        selectedColorScheme === "light" || selectedColorScheme === "dark"
+                            ? selectedColorScheme
+                            : "auto"
+                    );
                 });
             }
 
             let previousLabelTransitionTimeout: NodeJS.Timeout | number | null = null;
-
             function applyTransitionToLabels(document: Document) {
-                let transitionDuration = 0.3; // seconds
-
-                if (previousLabelTransitionTimeout) {
-                    clearTimeout(previousLabelTransitionTimeout);
-                }
-
-                document.querySelectorAll("#themeToggle > label").forEach((label) => {
-                    (label as HTMLLabelElement).style.transition = `all ${transitionDuration}s ease-in-out`;
+                const transitionDuration = 0.3;
+                if (previousLabelTransitionTimeout) clearTimeout(previousLabelTransitionTimeout);
+                document.querySelectorAll(".colorscheme-toggle > label").forEach((label) => {
+                    (label as HTMLLabelElement).style.transition =
+                        `all ${transitionDuration}s ease-in-out`;
                 });
 
                 previousLabelTransitionTimeout = setTimeout(() => {
-                    document.querySelectorAll("#themeToggle > label").forEach((label) => {
+                    document.querySelectorAll(".colorscheme-toggle > label").forEach((label) => {
                         (label as HTMLLabelElement).style.transition = "";
                     });
                     previousLabelTransitionTimeout = null;

@@ -2,7 +2,7 @@
 import { createNavigation } from "./Navigation";
 import { createLocale } from "@lib/i18n";
 import Languages from "~icons/heroicons/language-16-solid";
-import ThemeToggle from "./ThemeToggle.astro";
+import ColorschemeToggle from "./ColorschemeToggle.astro";
 
 interface Props {
     class?: string;
@@ -72,7 +72,7 @@ const navigation = createNavigation(
                 </a>
                 <div class="h-4 border-r border-brand-border"></div>
                 <div>
-                    <ThemeToggle />
+                    <ColorschemeToggle />
                 </div>
             </li>
         </ul>

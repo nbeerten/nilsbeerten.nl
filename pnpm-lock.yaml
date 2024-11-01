@@ -75,7 +75,7 @@ importers:
                 version: 5.6.3
             unplugin-icons:
                 specifier: ^0.20.0
-                version: 0.20.0(webpack-sources@3.2.3)
+                version: 0.20.0(svelte@5.1.9)(webpack-sources@3.2.3)
             vfile:
                 specifier: ^6.0.3
                 version: 6.0.3
@@ -1665,6 +1665,14 @@ packages:
                 integrity: sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow==,
             }
 
+    acorn-typescript@1.4.13:
+        resolution:
+            {
+                integrity: sha512-xsc9Xv0xlVfwp2o7sQ+GCQ1PgbkdcpWdTzrwXxO3xDMTAywVS3oXVOcOHuRjAPkS4P9b+yc/qNF15460v+jp4Q==,
+            }
+        peerDependencies:
+            acorn: ">=8.9.0"
+
     acorn-walk@8.3.4:
         resolution:
             {
@@ -2546,6 +2554,12 @@ packages:
         engines: { node: ">=6.0" }
         hasBin: true
 
+    esm-env@1.1.4:
+        resolution:
+            {
+                integrity: sha512-oO82nKPHKkzIj/hbtuDYy/JHqBHFlMIW36SDiPCVsj87ntDLcWN+sJ1erdVryd4NxODacFTsdrIE3b7IamqbOg==,
+            }
+
     esprima@4.0.1:
         resolution:
             {
@@ -2553,6 +2567,12 @@ packages:
             }
         engines: { node: ">=4" }
         hasBin: true
+
+    esrap@1.2.2:
+        resolution:
+            {
+                integrity: sha512-F2pSJklxx1BlQIQgooczXCPHmcWpn6EsP5oo73LQfonG9fIlIENQ8vMmfGXeojP9MrkzUNAfyU5vdFlR9shHAw==,
+            }
 
     estraverse@5.3.0:
         resolution:
@@ -3095,6 +3115,12 @@ packages:
             }
         engines: { node: ">=12" }
 
+    is-reference@3.0.2:
+        resolution:
+            {
+                integrity: sha512-v3rht/LgVcsdZa3O2Nqs+NMowLOxeOm7Ay9+/ARQ2F+qEoANRcqrjAZKGN0v8ymUetZGgkp26LTnGT7H0Qo9Pg==,
+            }
+
     is-typedarray@1.0.0:
         resolution:
             {
@@ -3319,6 +3345,12 @@ packages:
                 integrity: sha512-ok6z3qlYyCDS4ZEU27HaU6x/xZa9Whf8jD4ptH5UZTQYZVYeb9bnZ3ojVhiJNLiXK1Hfc0GNbLXcmZ5plLDDBg==,
             }
         engines: { node: ">=14" }
+
+    locate-character@3.0.0:
+        resolution:
+            {
+                integrity: sha512-SW13ws7BjaeJ6p7Q6CO2nchbYEc3X3J6WrmTTDto7yMPqVSZTUyY5Tjbid+Ab8gLnATtygYtiDIJGQRRn2ZOiA==,
+            }
 
     locate-path@5.0.0:
         resolution:
@@ -4849,6 +4881,13 @@ packages:
             }
         engines: { node: ">= 0.4" }
 
+    svelte@5.1.9:
+        resolution:
+            {
+                integrity: sha512-nzq+PPKGS2PoEWDjAcXSrKSbXmmmOAxd6dAz1IhRusUpVkFS6DMELWPyBPGwu6TpO/gsgtFXwX0M4+pAR5gzKw==,
+            }
+        engines: { node: ">=18" }
+
     tailwind-merge@2.5.4:
         resolution:
             {
@@ -5651,6 +5690,12 @@ packages:
         resolution:
             {
                 integrity: sha512-UeVBXie8cA35DS6+nBkls68xaBBXCye0CNznrhszZjTbRVnJKQuNsyLKBTTL4ln1o1rh2PKtv35twV7irj5SEg==,
+            }
+
+    zimmerframe@1.1.2:
+        resolution:
+            {
+                integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==,
             }
 
     zod-to-json-schema@3.23.5:
@@ -6611,6 +6656,11 @@ snapshots:
 
     "@webgpu/types@0.1.21": {}
 
+    acorn-typescript@1.4.13(acorn@8.14.0):
+        dependencies:
+            acorn: 8.14.0
+        optional: true
+
     acorn-walk@8.3.4:
         dependencies:
             acorn: 8.14.0
@@ -7193,7 +7243,16 @@ snapshots:
         optionalDependencies:
             source-map: 0.6.1
 
+    esm-env@1.1.4:
+        optional: true
+
     esprima@4.0.1: {}
+
+    esrap@1.2.2:
+        dependencies:
+            "@jridgewell/sourcemap-codec": 1.5.0
+            "@types/estree": 1.0.6
+        optional: true
 
     estraverse@5.3.0: {}
 
@@ -7529,6 +7588,11 @@ snapshots:
 
     is-plain-obj@4.1.0: {}
 
+    is-reference@3.0.2:
+        dependencies:
+            "@types/estree": 1.0.6
+        optional: true
+
     is-typedarray@1.0.0: {}
 
     is-unicode-supported@1.3.0: {}
@@ -7659,6 +7723,9 @@ snapshots:
         dependencies:
             mlly: 1.7.2
             pkg-types: 1.2.1
+
+    locate-character@3.0.0:
+        optional: true
 
     locate-path@5.0.0:
         dependencies:
@@ -8751,6 +8818,23 @@ snapshots:
 
     supports-preserve-symlinks-flag@1.0.0: {}
 
+    svelte@5.1.9:
+        dependencies:
+            "@ampproject/remapping": 2.3.0
+            "@jridgewell/sourcemap-codec": 1.5.0
+            "@types/estree": 1.0.6
+            acorn: 8.14.0
+            acorn-typescript: 1.4.13(acorn@8.14.0)
+            aria-query: 5.3.2
+            axobject-query: 4.1.0
+            esm-env: 1.1.4
+            esrap: 1.2.2
+            is-reference: 3.0.2
+            locate-character: 3.0.0
+            magic-string: 0.30.12
+            zimmerframe: 1.1.2
+        optional: true
+
     tailwind-merge@2.5.4: {}
 
     tailwindcss@3.4.14:
@@ -8937,7 +9021,7 @@ snapshots:
 
     universalify@2.0.1: {}
 
-    unplugin-icons@0.20.0(webpack-sources@3.2.3):
+    unplugin-icons@0.20.0(svelte@5.1.9)(webpack-sources@3.2.3):
         dependencies:
             "@antfu/install-pkg": 0.4.1
             "@antfu/utils": 0.7.10
@@ -8946,6 +9030,8 @@ snapshots:
             kolorist: 1.8.0
             local-pkg: 0.5.0
             unplugin: 1.15.0(webpack-sources@3.2.3)
+        optionalDependencies:
+            svelte: 5.1.9
         transitivePeerDependencies:
             - supports-color
             - webpack-sources
@@ -9253,6 +9339,9 @@ snapshots:
             cookie: 0.7.2
             mustache: 4.2.0
             stacktracey: 2.1.8
+
+    zimmerframe@1.1.2:
+        optional: true
 
     zod-to-json-schema@3.23.5(zod@3.23.8):
         dependencies:
