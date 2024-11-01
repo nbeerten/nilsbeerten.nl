@@ -114,14 +114,20 @@ const {
                 return window.matchMedia("(prefers-color-scheme: dark)").matches;
             }
 
+            let previousTransitionTimeout: NodeJS.Timeout | number | null = null;
             function applyTransition(document: Document) {
-                // if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+                let transitionDuration = 0.3; // seconds
 
-                document.documentElement.style.transition =
-                    "background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out";
-                setTimeout(() => {
+                if (previousTransitionTimeout) {
+                    clearTimeout(previousTransitionTimeout);
+                }
+
+                document.documentElement.style.transition = `background-color ${transitionDuration}s ease-in-out, color ${transitionDuration}s ease-in-out, border-color ${transitionDuration}s ease-in-out`;
+
+                previousTransitionTimeout = setTimeout(() => {
                     document.documentElement.style.transition = "";
-                }, 1000);
+                    previousTransitionTimeout = null;
+                }, transitionDuration * 1000);
             }
 
             function applyColorScheme(document: Document) {
@@ -169,18 +175,25 @@ const {
                 });
             }
 
+            let previousLabelTransitionTimeout: NodeJS.Timeout | number | null = null;
+
             function applyTransitionToLabels(document: Document) {
-                // if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+                let transitionDuration = 0.3; // seconds
+
+                if (previousLabelTransitionTimeout) {
+                    clearTimeout(previousLabelTransitionTimeout);
+                }
 
                 document.querySelectorAll("#themeToggle > label").forEach((label) => {
-                    (label as HTMLLabelElement).style.transition = "all 0.3s ease-in-out";
+                    (label as HTMLLabelElement).style.transition = `all ${transitionDuration}s ease-in-out`;
                 });
 
-                setTimeout(() => {
+                previousLabelTransitionTimeout = setTimeout(() => {
                     document.querySelectorAll("#themeToggle > label").forEach((label) => {
                         (label as HTMLLabelElement).style.transition = "";
                     });
-                }, 1000);
+                    previousLabelTransitionTimeout = null;
+                }, transitionDuration * 1000);
             }
 
             window.setColorScheme = setColorScheme;
@@ -194,11 +207,12 @@ const {
 
             document.addEventListener("astro:before-swap", (event) => {
                 applyColorScheme(event.newDocument);
-            });
-
-            document.addEventListener("astro:after-swap", () => {
                 initializeColorSchemeToggler(document);
             });
+
+            // document.addEventListener("astro:after-swap", () => {
+            //     initializeColorSchemeToggler(document);
+            // });
         </script>
 
         <style>
