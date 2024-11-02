@@ -57,6 +57,9 @@ export default defineConfig({
         ssr: {
             external: ["node:buffer"],
         },
+        build: {
+            sourcemap: true,
+        }
     },
     site: import.meta.env.CF_PAGES_URL || "https://nilsbeerten.nl",
     trailingSlash: "never",
