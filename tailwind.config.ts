@@ -35,19 +35,13 @@ export default {
                 },
             }),
             colors: {
-                brand: Object.entries({
+                brand: {
                     text: "var(--brand-text)",
                     muted: "var(--brand-muted)",
                     background: "var(--brand-background)",
                     border: "var(--brand-border)",
                     hr: "var(--brand-hr)",
-                })
-                    .map(([key, value]) => [
-                        key,
-                        `color-mix(in srgb, ${value} calc(<alpha-value> * 100%), transparent)`,
-                    ])
-                    // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
-                    .reduce((acc, [key, value]) => ({ ...acc, [key as string]: value }), {}),
+                }
             },
         },
     },
