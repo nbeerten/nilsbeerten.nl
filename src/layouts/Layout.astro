@@ -48,8 +48,8 @@ const {
 
         <title>{title}</title>
         <meta name="description" content={description} />
-        <meta name="theme-color" content="#0c0a09" media="(prefers-color-scheme: dark)" />
-        <meta name="theme-color" content="#fefdfb" media="(prefers-color-scheme: light)" />
+
+        <meta name="theme-color" content="#ffffff" />
 
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
@@ -114,7 +114,7 @@ const {
 
             let previousTransitionTimeout: NodeJS.Timeout | number | null = null;
             function applyTransition(document: Document) {
-                const transitionDuration = 0.3;
+                const transitionDuration = 0.2;
                 if (previousTransitionTimeout) clearTimeout(previousTransitionTimeout);
                 document.documentElement.style.transition = `background-color ${transitionDuration}s ease-in-out, color ${transitionDuration}s ease-in-out, border-color ${transitionDuration}s ease-in-out`;
                 previousTransitionTimeout = setTimeout(() => {
@@ -135,6 +135,10 @@ const {
                 if (hasColorSchemeClass) applyTransition(document);
                 document.documentElement.classList.toggle("dark", prefersDarkScheme);
                 document.documentElement.classList.toggle("light", !prefersDarkScheme);
+
+                const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--brand-background');
+
+                document.querySelector("meta[name='theme-color']")?.setAttribute("content", themeColor);
             }
 
             function setColorScheme(colorScheme: "light" | "dark" | "auto") {
@@ -166,7 +170,7 @@ const {
 
             let previousLabelTransitionTimeout: NodeJS.Timeout | number | null = null;
             function applyTransitionToLabels(document: Document) {
-                const transitionDuration = 0.3;
+                const transitionDuration = 0.2;
                 if (previousLabelTransitionTimeout) clearTimeout(previousLabelTransitionTimeout);
                 document.querySelectorAll(".colorscheme-toggle > label").forEach((label) => {
                     (label as HTMLLabelElement).style.transition =
