@@ -1,18 +1,23 @@
 @import "@radix-ui/colors/amber.css";
 @import "@radix-ui/colors/amber-dark.css";
+@import "@radix-ui/colors/sand.css";
+@import "@radix-ui/colors/sand-dark.css";
 
 :root.light {
-    --brand-text: #212427;
-    --brand-muted: color-mix(in srgb, var(--brand-text) 75%, transparent);
+    color-scheme: light;
+
+    --brand-text: var(--sand-12);
+    --brand-muted: var(--sand-11);
     /* Amber-ish, fully saturated, almost completely dark */
     --brand-background: var(--amber-1);
-    --brand-border: color-mix(in srgb, var(--brand-text) 50%, transparent);
+    --brand-border: var(--sand-7);
 }
 
 :root.dark {
+    color-scheme: dark;
+
     --brand-text: var(--amber-12);
-    --brand-muted: color-mix(in srgb, var(--brand-text) 65%, transparent);
-    /* Amber-ish, fully saturated, almost completely dark */
-    --brand-background: #0c0a09;
-    --brand-border: color-mix(in srgb, var(--brand-text) 50%, transparent);
+    --brand-muted: color-mix(in oklab, var(--brand-text) 65%, var(--brand-background));
+    --brand-background: var(--sand-1);
+    --brand-border: color-mix(in oklab, var(--brand-text) 50%, var(--brand-background));
 }

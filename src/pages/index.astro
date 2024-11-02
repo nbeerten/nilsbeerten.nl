@@ -36,7 +36,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 )}
             </p> -->
             <div
-                class="mt-2 flex flex-col gap-2 text-brand-text [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:x-[underline,underline-offset-2,decoration-brand-border]">
+                class="mt-2 flex flex-col gap-2 text-brand-text [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:x-[underline,decoration-brand-border,underline-offset-1]">
                 <a href={`mailto:${mail()}`}>
                     <Mail />
                     <p class="mb-px" id="mail">{mail()}</p>
@@ -53,7 +53,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         </div>
     </section>
 
-    <hr class="my-5 border-brand-border/20" />
+    <hr class="my-5 border-brand-border" />
 
     <section>
         <h2 class="-ml-px font-display text-xl font-medium text-brand-muted">
@@ -64,7 +64,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 <a
                     href="https://github.com/nbeerten/nilsbeerten.nl/"
                     target="_blank"
-                    class="text-lg font-medium underline decoration-brand-border underline-offset-2">
+                    class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                     nilsbeerten.nl
                 </a>
                 <p class="[text-wrap:pretty]">
@@ -83,7 +83,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 <a
                     href="https://github.com/nbeerten/tm-refresh-leaderboard/"
                     target="_blank"
-                    class="text-lg font-medium underline decoration-brand-border underline-offset-2">
+                    class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                     tm-refresh-leaderboard
                 </a>
                 <p class="[text-wrap:pretty]">
@@ -101,7 +101,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 <a
                     href="https://github.com/nbeerten/sluis/"
                     target="_blank"
-                    class="text-lg font-medium underline decoration-brand-border underline-offset-2">
+                    class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                     Sluis
                 </a>
                 <p
@@ -125,7 +125,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                             <div class="flex justify-between">
                                 <a
                                     href={getLocaleUrl(`/blog/${blogPost.slug}`)}
-                                    class="text-lg font-medium underline decoration-brand-border underline-offset-2">
+                                    class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                                     {blogPost.data.title}
                                 </a>
                                 <span class="inline-flex items-center gap-1 text-brand-muted">

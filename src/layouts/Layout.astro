@@ -112,33 +112,20 @@ const {
                 return window.matchMedia("(prefers-color-scheme: dark)").matches;
             }
 
-            let previousTransitionTimeout: NodeJS.Timeout | number | null = null;
-            function applyTransition(document: Document) {
-                const transitionDuration = 0.2;
-                if (previousTransitionTimeout) clearTimeout(previousTransitionTimeout);
-                document.documentElement.style.transition = `background-color ${transitionDuration}s ease-in-out, color ${transitionDuration}s ease-in-out, border-color ${transitionDuration}s ease-in-out`;
-                previousTransitionTimeout = setTimeout(() => {
-                    document.documentElement.style.transition = "";
-                    previousTransitionTimeout = null;
-                }, transitionDuration * 1000);
-            }
-
             function applyColorScheme(document: Document) {
                 const colorScheme = getStoredColorScheme();
                 const prefersDarkScheme = colorScheme
                     ? colorScheme === "dark"
                     : detectPrefersDarkScheme();
-                const hasColorSchemeClass =
-                    document.documentElement.classList.contains("dark") ||
-                    document.documentElement.classList.contains("light");
 
-                if (hasColorSchemeClass) applyTransition(document);
                 document.documentElement.classList.toggle("dark", prefersDarkScheme);
                 document.documentElement.classList.toggle("light", !prefersDarkScheme);
 
-                const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--brand-background');
-
-                document.querySelector("meta[name='theme-color']")?.setAttribute("content", themeColor);
+                const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+                if (metaThemeColor) {
+                    const backgroundColor = getComputedStyle(window.document.documentElement).getPropertyValue('--brand-background').trim();
+                    metaThemeColor.setAttribute("content", backgroundColor);
+                }
             }
 
             function setColorScheme(colorScheme: "light" | "dark" | "auto") {
@@ -196,7 +183,6 @@ const {
 
             document.addEventListener("astro:before-swap", (event) => {
                 applyColorScheme(event.newDocument);
-                // initializeColorSchemeToggler(document);
             });
 
             document.addEventListener("astro:after-swap", () => {
@@ -208,7 +194,6 @@ const {
             :root {
                 background-color: theme(colors.brand.background);
                 color: theme(colors.brand.text);
-                color-scheme: light dark;
                 scrollbar-gutter: stable both-edges;
 
                 font-feature-settings: "cv05", "cv07", "cv11", "ss01";
