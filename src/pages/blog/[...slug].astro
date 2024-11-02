@@ -51,8 +51,8 @@ const formatTime = (time: number) => {
                 <span>{formatTime(remarkPluginFrontmatter.readingTime)}</span>
             </header>
         </HeadingGroup>
-        <hr class="my-5 border-amber-100/10" />
-        <div class="prose_img prose prose-amber prose-invert">
+        <hr class="my-5 border-brand-hr" />
+        <div class="prose_img prose prose-amber">
             <Content />
         </div>
 
@@ -86,6 +86,10 @@ const formatTime = (time: number) => {
 
     .prose :global(p:where(p + ul)) {
         @apply text-red-400;
+    }
+
+    .prose :global(a) {
+        @apply underline decoration-brand-border underline-offset-1;
     }
 </style>
 

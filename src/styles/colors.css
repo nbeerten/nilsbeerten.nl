@@ -11,6 +11,7 @@
     /* Amber-ish, fully saturated, almost completely dark */
     --brand-background: var(--amber-1);
     --brand-border: var(--sand-7);
+    --brand-hr: var(--sand-6);
 }
 
 :root.dark {
@@ -20,4 +21,5 @@
     --brand-muted: color-mix(in oklab, var(--brand-text) 65%, var(--brand-background));
     --brand-background: var(--sand-1);
     --brand-border: color-mix(in oklab, var(--brand-text) 50%, var(--brand-background));
+    --brand-hr: color-mix(in oklab, var(--brand-text) 25%, var(--brand-background));
 }
