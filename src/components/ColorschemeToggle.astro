@@ -169,5 +169,15 @@ const colorschemes = [
         input:nth-of-type(3):checked ~ span.active-indicator {
             left: calc(var(--padding-left) + var(--base-size) * 2 + var(--gap-size) * 2);
         }
+
+        &:not(:has(input:checked)) {
+            span.active-indicator {
+                left: calc(var(--padding-left) + var(--base-size) + var(--gap-size));
+            }
+
+            input:nth-of-type(2) + label {
+                color: var(--brand-background);
+            }
+        }
     }
 </style>
