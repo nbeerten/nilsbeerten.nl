@@ -163,13 +163,12 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                             </article>
                         </li>
                     ))}
-                    <span>
-                        {" "}
-                        <a href={getLocaleUrl("/blog")} class="text-brand-muted">
-                            {str("All posts", "Alle posts")} →
-                        </a>
-                    </span>
                 </ul>
+                <div class="pt-1">
+                    <a href={getLocaleUrl("/blog")} class="text-brand-muted">
+                        {str("All posts", "Alle posts")} →
+                    </a>
+                </div>
             </section>
         )
     }
