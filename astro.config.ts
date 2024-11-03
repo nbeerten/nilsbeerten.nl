@@ -45,7 +45,7 @@ export default defineConfig({
         tailwind(),
         tunnel(),
         pageInsight(),
-        alpinejs(),
+        // alpinejs(),
     ],
     vite: {
         plugins: [
