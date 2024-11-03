@@ -11,7 +11,7 @@ import {
 } from "astro-i18n-aut/integration";
 import { remarkModifiedTime, remarkTimeRead } from "./remark-plugins";
 import pageInsight from "astro-page-insight";
-import alpinejs from "@astrojs/alpinejs";
+// import alpinejs from "@astrojs/alpinejs";
 const vesper = async () => {
     const response = await fetch(
         "https://raw.githubusercontent.com/raunofreiberg/vesper/main/themes/Vesper-dark-color-theme.json"
