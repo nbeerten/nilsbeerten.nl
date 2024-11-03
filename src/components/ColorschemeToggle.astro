@@ -1,11 +1,29 @@
 ---
 import Sun from "~icons/heroicons/sun-16-solid";
 import Moon from "~icons/heroicons/moon-16-solid";
+import { createLocale } from "@lib/i18n";
+
+const { str } = createLocale(Astro.url);
 
 const colorschemes = [
-    { id: "light", value: "light", label: "Light color-scheme", icon: "Sun" }, // Placeholder for the Sun icon
-    { id: "auto", value: "auto", label: "Automatic color-scheme switching", icon: "Auto" }, // Placeholder for auto icon
-    { id: "dark", value: "dark", label: "Dark color-scheme", icon: "Moon" }, // Placeholder for the Moon icon
+    {
+        id: "light",
+        value: "light",
+        label: str("Light color-scheme", "Licht kleurenschema"),
+        icon: "Sun",
+    }, // Placeholder for the Sun icon
+    {
+        id: "auto",
+        value: "auto",
+        label: str("Automatic color-scheme", "Automatisch kleurenschema"),
+        icon: "Auto",
+    }, // Placeholder for auto icon
+    {
+        id: "dark",
+        value: "dark",
+        label: str("Dark color-scheme", "Donker kleurenschema"),
+        icon: "Moon",
+    }, // Placeholder for the Moon icon
 ];
 ---
 
@@ -14,7 +32,9 @@ const colorschemes = [
     role="radiogroup"
     aria-label="Color-scheme switcher"
     aria-labelledby="colorschemeToggleLabel">
-    <span id="colorschemeToggleLabel" class="sr-only">Choose your color-scheme preference:</span>
+    <span id="colorschemeToggleLabel" class="sr-only"
+        >{str("Choose your color-scheme:", "Kies uw kleurenschema:")}</span
+    >
 
     {
         colorschemes.map(({ id, value, label, icon }) => (
@@ -31,7 +51,7 @@ const colorschemes = [
                         {label}
                     </span>
                     {icon === "Sun" && <Sun />}
-                    {icon === "Auto" && <>A</>}
+                    {icon === "Auto" && <span aria-hidden="true">A</span>}
                     {icon === "Moon" && <Moon />}
                 </label>
             </>
@@ -42,22 +62,20 @@ const colorschemes = [
 </div>
 
 <script>
-    document.querySelectorAll(".colorscheme-toggle > label").forEach((label) => {
-        (label as HTMLLabelElement).addEventListener("keydown", (event) => {
-            if (event.key === " ") {
-                event.preventDefault();
-                (label as HTMLLabelElement).click();
-            }
-        });
-    });
-</script>
-
-<script>
     import TouchSweep from "touchsweep";
 
     const sortedSchemes = ["light", "auto", "dark"] as const;
 
     function initializeSwipeArea(document: Document) {
+        document.querySelectorAll(".colorscheme-toggle > label").forEach((label) => {
+            (label as HTMLLabelElement).addEventListener("keydown", (event) => {
+                if (event.key === " ") {
+                    event.preventDefault();
+                    (label as HTMLLabelElement).click();
+                }
+            });
+        });
+
         if (!window.matchMedia("(pointer: coarse)").matches) return;
 
         const area = document.querySelector(".swipe-area") as HTMLElement;

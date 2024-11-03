@@ -38,16 +38,25 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
             <div
                 class="mt-2 flex flex-col gap-2 text-brand-text [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:x-[underline,decoration-brand-border,underline-offset-1]">
                 <a href={`mailto:${mail()}`}>
+                    <span class="sr-only">Email:</span>
                     <Mail />
                     <p class="mb-px" id="mail">{mail()}</p>
                 </a>
                 <a href="https://github.com/nbeerten">
                     <GitHub />
-                    <p class="mb-px">nbeerten</p>
+                    <p
+                        class="mb-px"
+                        aria-label={`GitHub ${str("username", "gebruikersnaam")}: nbeerten`}>
+                        nbeerten
+                    </p>
                 </a>
                 <div>
                     <Discord />
-                    <p class="mb-px">@nbeerten</p>
+                    <p
+                        class="mb-px"
+                        aria-label={`Discord ${str("username", "gebruikersnaam")}: @nbeerten`}>
+                        @nbeerten
+                    </p>
                 </div>
             </div>
         </div>
@@ -59,8 +68,8 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         <h2 class="-ml-px font-display text-xl font-medium text-brand-muted">
             {str("Creations", "Creaties")}
         </h2>
-        <div class="grid grid-cols-1 gap-4 py-3 md:grid-cols-2">
-            <div>
+        <ul class="grid grid-cols-1 gap-4 py-3 md:grid-cols-2">
+            <li>
                 <a
                     href="https://github.com/nbeerten/nilsbeerten.nl/"
                     target="_blank"
@@ -75,7 +84,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                         )
                     }
                 </p>
-            </div>
+            </li>
 
             {
                 /* Not actively maintained anymore; so removed from the website
@@ -97,7 +106,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
             </div> */
             }
 
-            <div>
+            <li>
                 <a
                     href="https://github.com/nbeerten/sluis/"
                     target="_blank"
@@ -107,44 +116,52 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 <p
                     class="[text-wrap:pretty]"
                     set:html={str(
-                        `A new desktop-optimised frontend for Piped (<a href="https://piped.video/" class="underline">https://piped.video)</a>.`,
-                        `Een nieuwe desktop-geoptimaliseerde frontend voor Piped (<a href="https://piped.video/" class="underline">https://piped.video)</a>.`
+                        `A new desktop-optimised frontend for <a href="https://piped.video/" class="underline inline">Piped</a>.`,
+                        `Een nieuwe desktop-geoptimaliseerde frontend voor <a href="https://piped.video/" class="underline">Piped</a>.`
                     )}
                 />
-            </div>
-        </div>
+            </li>
+        </ul>
     </section>
 
     {
         blogEntries.length > 0 && (
             <section class="mt-6">
                 <h2 class="-ml-px font-display text-xl font-medium text-brand-muted">Blog</h2>
-                <div class="flex flex-col gap-4 py-3">
+                <ul class="flex flex-col gap-4 py-3">
                     {blogEntries.slice(0, 3).map((blogPost) => (
-                        <article>
-                            <div class="flex justify-between">
-                                <a
-                                    href={getLocaleUrl(`/blog/${blogPost.slug}`)}
-                                    class="text-lg font-medium underline decoration-brand-border underline-offset-1">
-                                    {blogPost.data.title}
-                                </a>
-                                <span class="inline-flex items-center gap-1 text-brand-muted">
-                                    <span class="inline-flex items-center gap-1">
-                                        <Languages class="-mb-0.5 h-4 w-4" />
-                                        {blogPost.data.language}
+                        <li class="contents">
+                            <article>
+                                <div class="flex justify-between">
+                                    <a
+                                        href={getLocaleUrl(`/blog/${blogPost.slug}`)}
+                                        class="text-lg font-medium underline decoration-brand-border underline-offset-1">
+                                        {blogPost.data.title}
+                                    </a>
+                                    <span class="inline-flex items-center gap-1 text-brand-muted">
+                                        <p class="inline-flex items-center gap-1">
+                                            <Languages class="-mb-0.5 h-4 w-4" />
+                                            <span
+                                                aria-label={`${str("Language", "Taal")}: ${blogPost.data.language}`}>
+                                                {blogPost.data.language}
+                                            </span>
+                                        </p>
+                                        <span aria-hidden="true">-</span>
+                                        <p class="tabular-nums tracking-tighter">
+                                            <span class="sr-only">
+                                                {str("Posted on", "Gepubliceerd op")}
+                                            </span>
+                                            {blogPost.data.date.toLocaleDateString(locale, {
+                                                month: "short",
+                                                day: "numeric",
+                                                year: "numeric",
+                                            })}
+                                        </p>
                                     </span>
-                                    <span>-</span>
-                                    <span class="tabular-nums tracking-tighter">
-                                        {blogPost.data.date.toLocaleDateString(locale, {
-                                            month: "short",
-                                            day: "numeric",
-                                            year: "numeric",
-                                        })}
-                                    </span>
-                                </span>
-                            </div>
-                            <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
-                        </article>
+                                </div>
+                                <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
+                            </article>
+                        </li>
                     ))}
                     <span>
                         {" "}
@@ -152,7 +169,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                             {str("All posts", "Alle posts")} →
                         </a>
                     </span>
-                </div>
+                </ul>
             </section>
         )
     }

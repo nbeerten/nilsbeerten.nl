@@ -41,7 +41,7 @@ export default {
                     background: "var(--brand-background)",
                     border: "var(--brand-border)",
                     hr: "var(--brand-hr)",
-                }
+                },
             },
         },
     },

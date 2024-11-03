@@ -20,37 +20,43 @@ const { str, getLocaleUrl, locale } = createLocale(Astro.url);
         title="Blog"
         subtitle={str("A list of blog posts posted by me", "Een lijst van posts op mijn blog")}
     />
-    <hr class="my-5 border-amber-100/10" />
-    <div class="flex flex-col gap-4 py-3">
+    <hr class="my-5 border-brand-hr" />
+    <ul class="flex flex-col gap-4 py-3">
         {
             blogEntries.map((blogPost) => (
-                <article>
-                    <div class="flex justify-between">
-                        <div class="flex w-full justify-between gap-2">
+                <li class="contents">
+                    <article>
+                        <div class="flex justify-between">
                             <a
                                 href={getLocaleUrl(`/blog/${blogPost.slug}`)}
-                                class="text-lg font-medium underline decoration-brand-border underline-offset-2">
+                                class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                                 {blogPost.data.title}
                             </a>
                             <span class="inline-flex items-center gap-1 text-brand-muted">
-                                <span class="inline-flex items-center gap-1">
+                                <p class="inline-flex items-center gap-1">
                                     <Languages class="-mb-0.5 h-4 w-4" />
-                                    {blogPost.data.language}
-                                </span>
-                                <span>-</span>
-                                <span class="tabular-nums tracking-tighter">
+                                    <span
+                                        aria-label={`${str("Language", "Taal")}: ${blogPost.data.language}`}>
+                                        {blogPost.data.language}
+                                    </span>
+                                </p>
+                                <span aria-hidden="true">-</span>
+                                <p class="tabular-nums tracking-tighter">
+                                    <span class="sr-only">
+                                        {str("Posted on", "Gepubliceerd op")}
+                                    </span>
                                     {blogPost.data.date.toLocaleDateString(locale, {
                                         month: "short",
                                         day: "numeric",
                                         year: "numeric",
                                     })}
-                                </span>
+                                </p>
                             </span>
                         </div>
-                    </div>
-                    <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
-                </article>
+                        <p class="[text-wrap:pretty]">{blogPost.data.description}</p>
+                    </article>
+                </li>
             ))
         }
-    </div>
+    </ul>
 </Layout>

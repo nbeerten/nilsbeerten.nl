@@ -59,7 +59,7 @@ export default defineConfig({
         },
         build: {
             sourcemap: true,
-        }
+        },
     },
     site: import.meta.env.CF_PAGES_URL || "https://nilsbeerten.nl",
     trailingSlash: "never",
