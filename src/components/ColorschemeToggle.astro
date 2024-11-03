@@ -170,6 +170,10 @@ const colorschemes = [
             display: block;
             position: absolute;
             transition: left 0.2s ease;
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
+            opacity: 1;
         }
 
         input:checked + label {
@@ -190,11 +194,7 @@ const colorschemes = [
 
         &:not(:has(input:checked)) {
             span.active-indicator {
-                left: calc(var(--padding-left) + var(--base-size) + var(--gap-size));
-            }
-
-            input:nth-of-type(2) + label {
-                color: var(--brand-background);
+                opacity: 0;
             }
         }
     }
