@@ -182,7 +182,7 @@ const {
         </style>
 
         {/* Fix prettier formatting; without this the <style> gets moved to inside the <body> */}
-        <ViewTransitions />
+        <ViewTransitions fallback="swap" />
     </head>
     <body class={`flex justify-center px-10 py-10 ${className}`}>
         <div class="w-full max-w-2xl">

@@ -1,5 +1,4 @@
 import defaultTheme from "tailwindcss/defaultTheme";
-import plugin from "tailwindcss/plugin";
 import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
@@ -46,14 +45,6 @@ export default {
         },
     },
     plugins: [
-        // Plugin for grouping tailwind utilities: "x-[h-5,w-5]"
-        plugin(({ matchUtilities }) => {
-            matchUtilities({
-                x: (value) => ({
-                    [`@apply ${value.replaceAll(",", " ")}`]: {},
-                }),
-            });
-        }),
         typography(),
     ],
 } satisfies Config;

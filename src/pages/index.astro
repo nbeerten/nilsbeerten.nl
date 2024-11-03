@@ -23,9 +23,6 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         <HeadingGroup title="Nils Beerten" smallMargin>
             <Fragment slot="subtitle">
                 <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span>
-                <!-- <span>-</span>
-                <abbr title={str("also known as", "alias")} class="underline-offset-2">aka</abbr>
-                nbeerten, nbert -->
             </Fragment>
         </HeadingGroup>
         <div>
@@ -35,34 +32,55 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     "b"
                 )}
             </p> -->
-            <div
-                class="mt-2 flex flex-col gap-2 text-brand-text [&>*>svg]:x-[w-5,h-5] [&>*]:x-[flex,gap-2,items-center,w-max] [&>a]:x-[underline,decoration-brand-border,underline-offset-1]">
-                <a href={`mailto:${mail()}`}>
-                    <span class="sr-only">Email:</span>
-                    <Mail />
-                    <p class="mb-px" id="mail">{mail()}</p>
-                </a>
-                <a href="https://github.com/nbeerten">
-                    <GitHub />
-                    <p
-                        class="mb-px"
-                        aria-label={`GitHub ${str("username", "gebruikersnaam")}: nbeerten`}>
-                        nbeerten
-                    </p>
-                </a>
-                <div>
-                    <Discord />
-                    <p
-                        class="mb-px"
-                        aria-label={`Discord ${str("username", "gebruikersnaam")}: @nbeerten`}>
-                        @nbeerten
-                    </p>
-                </div>
-            </div>
+            <ul
+                class="mt-2 flex flex-col gap-2 text-brand-text social-links" aria-label={str("Social links", "Social links")}>
+                <li class="contents">
+                    <a href={`mailto:${mail()}`}>
+                        <span class="sr-only">Email:</span>
+                        <Mail />
+                        <p class="mb-px" id="mail">{mail()}</p>
+                    </a>
+                </li>
+                <li class="contents">
+                    <a href="https://github.com/nbeerten">
+                        <GitHub />
+                        <p
+                            class="mb-px"
+                            aria-label={`GitHub ${str("username", "gebruikersnaam")}: nbeerten`}>
+                            nbeerten
+                        </p>
+                    </a>
+                </li>
+                <li class="contents">
+                    <div>
+                        <Discord />
+                        <p
+                            class="mb-px"
+                            aria-label={`Discord ${str("username", "gebruikersnaam")}: @nbeerten`}>
+                            @nbeerten
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <style>
+                .social-links {
+                    svg {
+                        @apply w-5 h-5;
+                    }
+
+                    & > li > a, & > li > div {
+                        @apply flex gap-2 items-center w-max;
+                    }
+
+                    a {
+                        @apply underline decoration-brand-border underline-offset-1;
+                    }
+                }
+            </style>
         </div>
     </section>
 
-    <hr class="my-5 border-brand-hr" />
+    <hr class="my-5 border-brand-hr"/>
 
     <section>
         <h2 class="-ml-px font-display text-xl font-medium text-brand-muted">

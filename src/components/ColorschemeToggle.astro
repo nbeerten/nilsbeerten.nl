@@ -57,9 +57,18 @@ const colorschemes = [
             </>
         ))
     }
-
     <span class="active-indicator"></span>
 </div>
+
+<script is:inline>
+    // Set the initial color-scheme so there won't be any layout flashes
+    const storedScheme = localStorage.getItem("color-scheme") || "auto";
+    const colorSchemeToggle = document.querySelector(".colorscheme-toggle");
+    if (colorSchemeToggle) {
+        const input = colorSchemeToggle.querySelector(`input[value="${storedScheme}"]`);
+        if (input) input.checked = true;
+    }
+</script>
 
 <script>
     import TouchSweep from "touchsweep";

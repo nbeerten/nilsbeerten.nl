@@ -35,7 +35,7 @@ const navigation = createNavigation(
 <nav class={`${className}`}>
     <div
         class="flex flex-col items-start justify-between gap-x-10 gap-y-3 md:flex-row md:items-center">
-        <div>
+        <div class="block md:hidden">
             <a
                 href={localizedBack}
                 class:list={[
@@ -47,7 +47,7 @@ const navigation = createNavigation(
                 ← <span>{str("back", "terug")}</span>
             </a>
         </div>
-        <div class="flex w-full items-center gap-10 md:w-auto">
+        <div class="flex w-full items-center gap-10 md:justify-between">
             <ul
                 class="flex items-center gap-10"
                 aria-label={str("Navigation menu", "Navigatiemenu")}>
@@ -71,9 +71,9 @@ const navigation = createNavigation(
                 aria-label={str("Website settings", "Website-instellingen")}>
                 <a
                     href={getLocaleUrl(Astro.url, locale === "en" ? "nl" : "en")}
-                    class="flex items-center justify-center gap-1 rounded-s-full px-3 py-1 pr-2.5">
+                    class="flex items-center j ustify-center gap-1 rounded-s-full px-3 py-1 pr-2.5">
                     <Languages class="-mb-[2px] h-3 w-3" aria-labelledby="languageItem" />
-                    <span class="w-[2ch] text-center">
+                    <span class="w-[1.125rem] text-center">
                         {
                             locale === "en" && (
                                 <span
