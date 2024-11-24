@@ -19,7 +19,7 @@
         "@tailwindcss/typography": "^0.5.15",
         "@types/alpinejs": "^3.13.10",
         "alpinejs": "^3.14.3",
-        "astro": "^4.16.8",
+        "astro": "^4.16.14",
         "astro-i18n-aut": "^0.7.0",
         "astro-page-insight": "^0.8.7",
         "astro-tunnel": "^0.1.6",
@@ -28,19 +28,19 @@
         "mdast-util-to-string": "^4.0.0",
         "prettier": "^3.3.3",
         "reading-time": "^1.5.0",
-        "tailwind-merge": "^2.5.4",
-        "tailwindcss": "^3.4.14",
+        "tailwind-merge": "^2.5.5",
+        "tailwindcss": "^3.4.15",
         "touchsweep": "^2.2.0",
-        "typescript": "^5.6.3",
-        "unplugin-icons": "^0.20.0",
+        "typescript": "^5.7.2",
+        "unplugin-icons": "^0.20.1",
         "vfile": "^6.0.3"
     },
     "devDependencies": {
         "@iconify-json/heroicons": "^1.2.1",
-        "@iconify-json/lucide": "^1.2.11",
-        "@iconify-json/simple-icons": "^1.2.10",
+        "@iconify-json/lucide": "^1.2.15",
+        "@iconify-json/simple-icons": "^1.2.12",
         "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.6.8"
+        "prettier-plugin-tailwindcss": "^0.6.9"
     },
     "packageManager": "pnpm@9.0.6+sha512.f6d863130973207cb7a336d6b439a242a26ac8068077df530d6a86069419853dc1ffe64029ec594a9c505a3a410d19643c870aba6776330f5cfddcf10a9c1617"
 }
