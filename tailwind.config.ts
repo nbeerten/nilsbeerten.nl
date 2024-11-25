@@ -44,7 +44,5 @@ export default {
             },
         },
     },
-    plugins: [
-        typography(),
-    ],
+    plugins: [typography()],
 } satisfies Config;

@@ -44,9 +44,11 @@ const formatTime = (time: number) => {
                 role="contentinfo"
                 aria-label="Article metadata">
                 <Languages class="-mb-0.5 h-4 w-4" />
-                {post.data.language} <span>-</span> {post.data.date.toLocaleDateString(`${locale}-NL`)} <span>-</span> {formatTime(
-                    remarkPluginFrontmatter.readingTime
-                )}
+                {post.data.language}
+                <span>-</span>
+                {post.data.date.toLocaleDateString(`${locale}-NL`)}
+                <span>-</span>
+                {formatTime(remarkPluginFrontmatter.readingTime)}
             </header>
         </HeadingGroup>
         <hr class="my-5 border-brand-hr" />

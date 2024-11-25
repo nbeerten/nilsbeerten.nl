@@ -3,6 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Mail from "~icons/lucide/mail";
 import GitHub from "~icons/simple-icons/github";
 import Discord from "~icons/simple-icons/discord";
+import BlueSky from "~icons/simple-icons/bluesky";
 import Languages from "~icons/heroicons/language-16-solid";
 import { getCollection } from "astro:content";
 import HeadingGroup from "@components/HeadingGroup.astro";
@@ -33,7 +34,8 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 )}
             </p> -->
             <ul
-                class="mt-2 flex flex-col gap-2 text-brand-text social-links" aria-label={str("Social links", "Social links")}>
+                class="social-links mt-2 flex flex-col gap-2 text-brand-text"
+                aria-label={str("Social links", "Social links")}>
                 <li class="contents">
                     <a href={`mailto:${mail()}`}>
                         <span class="sr-only">Email:</span>
@@ -52,6 +54,16 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     </a>
                 </li>
                 <li class="contents">
+                    <a href="https://bsky.app/profile/nilsbeerten.nl">
+                        <BlueSky />
+                        <p
+                            class="mb-px"
+                            aria-label={`Bluesky ${str("username", "gebruikersnaam")}: @nilsbeerten.nl`}>
+                            @nilsbeerten.nl
+                        </p>
+                    </a>
+                </li>
+                <li class="contents">
                     <div>
                         <Discord />
                         <p
@@ -65,11 +77,12 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
             <style>
                 .social-links {
                     svg {
-                        @apply w-5 h-5;
+                        @apply h-5 w-5;
                     }
 
-                    & > li > a, & > li > div {
-                        @apply flex gap-2 items-center w-max;
+                    & > li > a,
+                    & > li > div {
+                        @apply flex w-max items-center gap-2;
                     }
 
                     a {
@@ -80,7 +93,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         </div>
     </section>
 
-    <hr class="my-5 border-brand-hr"/>
+    <hr class="my-5 border-brand-hr" />
 
     <section>
         <h2 class="-ml-px font-display text-xl font-medium text-brand-muted">
