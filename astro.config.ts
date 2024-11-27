@@ -61,7 +61,7 @@ export default defineConfig({
             sourcemap: true,
         },
     },
-    site: import.meta.env.CF_PAGES_URL || "https://nilsbeerten.nl",
+    site: import.meta.env.CF_PAGES_URL || "https://www.nilsbeerten.nl",
     trailingSlash: "never",
     build: {
         format: "file",
