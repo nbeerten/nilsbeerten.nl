@@ -52,8 +52,8 @@ const {
         <title>{title}</title>
         <meta name="description" content={description} />
 
-        <link rel="alternate" hreflang="en" href={new URL(getLocaleUrl(Astro.url, "en"), Astro.url)} />
-        <link rel="alternate" hreflang="nl" href={new URL(getLocaleUrl(Astro.url, "nl"), Astro.url)} />
+        <link rel="alternate" hreflang="en" href={new URL(getLocaleUrl(Astro.url, "en"), Astro.site)} />
+        <link rel="alternate" hreflang="nl" href={new URL(getLocaleUrl(Astro.url, "nl"), Astro.site)} />
 
         {/* Theme color, later overriden by color scheme logic */}
         <meta name="theme-color" content="#ffffff" />
