@@ -34,9 +34,9 @@ const formatTime = (time: number) => {
 <Layout
     title={post.data.title}
     back="/blog"
-    lang={post.data.language}
+    lang={locale}
     article={{ published_time: post.data.date }}>
-    <article>
+    <article lang={post.data.language}>
         <HeadingGroup title={post.data.title}>
             <header
                 slot="subtitle"

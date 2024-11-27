@@ -2,6 +2,9 @@
 import { ViewTransitions } from "astro:transitions";
 import Navigation from "@components/Navigation.astro";
 import "src/styles/colors.css";
+import { createLocale } from "@lib/i18n";
+
+const { getLocaleUrl } = createLocale(Astro.url);
 
 interface Props {
     title: string;
@@ -41,14 +44,18 @@ const {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
+        {/* SEO */}
         {noindex && <meta name="robots" content="noindex" />}
-
         <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="generator" content={Astro.generator} />
 
         <title>{title}</title>
         <meta name="description" content={description} />
 
+        <link rel="alternate" hreflang="en" href={new URL(getLocaleUrl(Astro.url, "en"), Astro.url)} />
+        <link rel="alternate" hreflang="nl" href={new URL(getLocaleUrl(Astro.url, "nl"), Astro.url)} />
+
+        {/* Theme color, later overriden by color scheme logic */}
         <meta name="theme-color" content="#ffffff" />
 
         <meta property="og:title" content={title} />
