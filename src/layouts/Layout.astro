@@ -66,6 +66,7 @@ const {
             Astro.url.pathname === "/" && (
                 <script
                     type="application/ld+json"
+                    is:inline
                     set:html={`{
                     "@context": "https://schema.org",
                     "@type": "WebSite",
@@ -94,6 +95,7 @@ const {
             article && article.language === locale && (
                 <script
                     type="application/ld+json"
+                    is:inline
                     set:html={`{
                         "@context": "https://schema.org",
                         "@type": "BlogPosting",
@@ -167,7 +169,7 @@ const {
             });
         </script>
 
-        <style>
+        <style is:inline>
             :root {
                 background-color: theme(colors.brand.background);
                 color: theme(colors.brand.text);
@@ -186,12 +188,10 @@ const {
             h6 {
                 text-decoration-color: theme(colors.brand.border);
             }
-        </style>
 
-        <style is:inline>
             @font-face {
                 font-family: "Satoshi";
-                src: url(/fonts/Satoshi-Variable.woff2) format("woff2");
+                src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
                 font-weight: 300 900;
                 font-display: swap;
                 font-style: normal;
@@ -199,7 +199,7 @@ const {
 
             @font-face {
                 font-family: "Satoshi";
-                src: url(/fonts/Satoshi-VariableItalic.woff2) format("woff2");
+                src: url("/fonts/Satoshi-VariableItalic.woff2") format("woff2");
                 font-weight: 300 900;
                 font-display: swap;
                 font-style: italic;
@@ -207,7 +207,7 @@ const {
 
             @font-face {
                 font-family: "Inter";
-                src: url(/fonts/Inter-Variable.woff2) format("woff2");
+                src: url("/fonts/Inter-Variable.woff2") format("woff2");
                 font-weight: 100 900;
                 font-display: swap;
                 font-style: normal;
@@ -215,7 +215,7 @@ const {
 
             @font-face {
                 font-family: "Inter";
-                src: url(/fonts/Inter-VariableItalic.woff2) format("woff2");
+                src: url("/fonts/Inter-VariableItalic.woff2") format("woff2");
                 font-weight: 100 900;
                 font-display: swap;
                 font-style: italic;

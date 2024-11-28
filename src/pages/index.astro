@@ -1,5 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import MapPin from "~icons/heroicons/map-pin-20-solid";
 import Mail from "~icons/lucide/mail";
 import GitHub from "~icons/simple-icons/github";
 import Discord from "~icons/simple-icons/discord";
@@ -26,16 +27,30 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span>
             </Fragment>
         </HeadingGroup>
+        <!-- <div class="flex gap-10 w-full border-red-500 border justify-between"> -->
         <div>
             <!-- <p class="max-w-[60ch] [text-wrap:pretty] pt-2">
-                {str(
-                    "a",
-                    "b"
-                )}
-            </p> -->
+                    {str(
+                        "a",
+                        "b"
+                    )}
+                </p> -->
             <ul
                 class="social-links mt-2 flex flex-col gap-2 text-brand-text"
-                aria-label={str("Social links", "Social links")}>
+                aria-label={str(
+                    "Social links and other information",
+                    "Social links en andere informatie"
+                )}>
+                <li class="contents">
+                    <div class="mb-1">
+                        <MapPin />
+                        <p
+                            class="mb-px"
+                            aria-label={str("Location: The Netherlands", "Locatie: Nederland")}>
+                            {str("Netherlands", "Nederland")}
+                        </p>
+                    </div>
+                </li>
                 <li class="contents">
                     <a href={`mailto:${mail()}`}>
                         <span class="sr-only">Email:</span>
@@ -91,6 +106,10 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 }
             </style>
         </div>
+        <!-- <div>
+                <div class="aspect-square bg-black h-full max-h-40 max-w-40 rounded-sm overflow-clip"><img src="/pfp.jpg" alt="Nils Beerten" /></div>
+            </div>
+        </div> -->
     </section>
 
     <hr class="my-5 border-brand-hr" />
