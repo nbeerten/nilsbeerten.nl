@@ -31,11 +31,7 @@ const formatTime = (time: number) => {
 };
 ---
 
-<Layout
-    title={post.data.title}
-    back="/blog"
-    lang={locale}
-    article={{ published_time: post.data.date }}>
+<Layout title={post.data.title} back="/blog" lang={locale} article={post.data}>
     <article lang={post.data.language}>
         <HeadingGroup title={post.data.title}>
             <header

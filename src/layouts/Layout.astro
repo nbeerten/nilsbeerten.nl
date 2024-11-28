@@ -3,17 +3,14 @@ import { ViewTransitions } from "astro:transitions";
 import Navigation from "@components/Navigation.astro";
 import "src/styles/colors.css";
 import { createLocale } from "@lib/i18n";
+import type { CollectionEntry } from "astro:content";
 
-const { getLocaleUrl } = createLocale(Astro.url);
+const { getLocaleUrl, locale } = createLocale(Astro.url);
 
 interface Props {
     title: string;
     description?: null | string;
-    article?:
-        | false
-        | {
-              published_time: Date;
-          };
+    article?: false | CollectionEntry<"blog">["data"];
     class?: string;
     back?: string;
     lang: "en" | "nl";
@@ -52,8 +49,32 @@ const {
         <title>{title}</title>
         <meta name="description" content={description} />
 
-        <link rel="alternate" hreflang="en" href={new URL(getLocaleUrl(Astro.url, "en"), Astro.site)} />
-        <link rel="alternate" hreflang="nl" href={new URL(getLocaleUrl(Astro.url, "nl"), Astro.site)} />
+        <link
+            rel="alternate"
+            hreflang="en"
+            href={new URL(getLocaleUrl(Astro.url, "en"), Astro.site)}
+        />
+        <link
+            rel="alternate"
+            hreflang="nl"
+            href={new URL(getLocaleUrl(Astro.url, "nl"), Astro.site)}
+        />
+
+        <slot name="schema" />
+
+        {
+            Astro.url.pathname === "/" && (
+                <script
+                    type="application/ld+json"
+                    set:html={`{
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "name": "Nils Beerten",
+                    "url": "https://www.nilsbeerten.nl"
+                }`}
+                />
+            )
+        }
 
         {/* Theme color, later overriden by color scheme logic */}
         <meta name="theme-color" content="#ffffff" />
@@ -64,12 +85,25 @@ const {
         {
             article && (
                 <>
-                    <meta
-                        property="article:published_time"
-                        content={article.published_time.toISOString()}
-                    />
+                    <meta property="article:published_time" content={article.date.toISOString()} />
                     <meta property="article:author" content="Nils Beerten" />
                 </>
+            )
+        }
+        {
+            article && article.language === locale && (
+                <script
+                    type="application/ld+json"
+                    set:html={`{
+                        "@context": "https://schema.org",
+                        "@type": "BlogPosting",
+                        "headline": "${article.title}",
+                        "datePublished": "${article.date.toISOString()}",
+                        "description": "${article.description}",
+                        "url": "${new URL(getLocaleUrl(Astro.url, article.language), Astro.site)}",
+                        "author": { "@type": "Person", "name": "Nils Beerten" }
+                    }`}
+                />
             )
         }
         <meta property="og:url" content={Astro.url} />
