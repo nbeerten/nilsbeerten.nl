@@ -20,7 +20,7 @@ const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, "base64"
 const { str, locale, getLocaleUrl } = createLocale(Astro.url);
 ---
 
-<Layout title="Nils Beerten" lang={locale}>
+<Layout title="Nils Beerten" lang={locale} description={str("I'm Nils Beerten. This is my personal website where I show my creations and occasionally write posts.", "Persoonlijke website van Nils Beerten waarop ik mijn creaties toon en af en toe blogposts schrijf.")}>
     <section>
         <HeadingGroup title="Nils Beerten" smallMargin>
             <Fragment slot="subtitle">
