@@ -17,7 +17,7 @@ const blogEntries = (await getCollection("blog"))
 const { str, locale, getLocaleUrl } = createLocale(Astro.url);
 ---
 
-<script>
+<!-- <script>
     const emaildecode = (e: HTMLAnchorElement) => {
         let email = atob(e.dataset.mail || '');
         e.href = 'mailto:'+email;
@@ -29,7 +29,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
     document.addEventListener('astro:after-swap', () => {
         document.querySelectorAll('a[data-mail]').forEach(x => emaildecode(x as HTMLAnchorElement));
     });
-</script>
+</script> -->
 
 <Layout title="Nils Beerten" lang={locale} description={str("I'm Nils Beerten. This is my personal website where I show my creations and occasionally write posts.", "Persoonlijke website van Nils Beerten waarop ik mijn creaties toon en af en toe blogposts schrijf.")}>
     <section>
@@ -62,13 +62,13 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                         </p>
                     </div>
                 </li>
-                <li class="contents">
+                <!-- <li class="contents">
                     <a href="#" data-mail="Y29udGFjdEBuaWxzYmVlcnRlbi5ubAo=">
                         <span class="sr-only">Email:</span>
                         <Mail />
                         <p class="mb-px" id="mail-display">{str("Contact", "Contact")}</p>
                     </a>
-                </li>
+                </li> -->
                 <li class="contents">
                     <a href="https://github.com/nbeerten">
                         <GitHub />
