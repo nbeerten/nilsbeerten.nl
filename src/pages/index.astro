@@ -8,17 +8,28 @@ import BlueSky from "~icons/simple-icons/bluesky";
 import Languages from "~icons/heroicons/language-16-solid";
 import { getCollection } from "astro:content";
 import HeadingGroup from "@components/HeadingGroup.astro";
-import { Buffer } from "node:buffer";
 import { createLocale } from "@lib/i18n";
 
 const blogEntries = (await getCollection("blog"))
     .filter((blog) => !blog.data.draft)
     .sort((a, b) => (a.data.date > b.data.date ? -1 : 1));
-// SSR Mail without including mail straight in source code (prevent scraping). CF Email Obfuscation on client.
-const mail = (s = "Y29udGFjdEBuaWxzYmVlcnRlbi5ubA==") => Buffer.from(s, "base64") || atob(s);
 
 const { str, locale, getLocaleUrl } = createLocale(Astro.url);
 ---
+
+<script>
+    const emaildecode = (e: HTMLAnchorElement) => {
+        let email = atob(e.dataset.mail || '');
+        e.href = 'mailto:'+email;
+        const mailDisplay = e.querySelector('#mail-display');
+        if (mailDisplay) mailDisplay.textContent = email;
+    }
+
+    document.querySelectorAll('a[data-mail]').forEach(x => emaildecode(x as HTMLAnchorElement));
+    document.addEventListener('astro:after-swap', () => {
+        document.querySelectorAll('a[data-mail]').forEach(x => emaildecode(x as HTMLAnchorElement));
+    });
+</script>
 
 <Layout title="Nils Beerten" lang={locale} description={str("I'm Nils Beerten. This is my personal website where I show my creations and occasionally write posts.", "Persoonlijke website van Nils Beerten waarop ik mijn creaties toon en af en toe blogposts schrijf.")}>
     <section>
@@ -52,10 +63,10 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     </div>
                 </li>
                 <li class="contents">
-                    <a href={`mailto:${mail()}`}>
+                    <a href="#" data-mail="Y29udGFjdEBuaWxzYmVlcnRlbi5ubAo=">
                         <span class="sr-only">Email:</span>
                         <Mail />
-                        <p class="mb-px" id="mail">{mail()}</p>
+                        <p class="mb-px" id="mail-display">{str("Contact", "Contact")}</p>
                     </a>
                 </li>
                 <li class="contents">
