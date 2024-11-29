@@ -34,6 +34,23 @@ const {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
 
+        <link
+            rel="preload"
+            href="/fonts/Satoshi-Variable.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+            transition:persist
+        />
+        <link
+            rel="preload"
+            href="/fonts/Inter-Variable.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+            transition:persist
+        />
+
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -115,23 +132,6 @@ const {
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
 
-        <link
-            rel="preload"
-            href="/fonts/Satoshi-Variable.woff2"
-            as="font"
-            type="font/woff2"
-            crossorigin="anonymous"
-            transition:persist
-        />
-        <link
-            rel="preload"
-            href="/fonts/Inter-Variable.woff2"
-            as="font"
-            type="font/woff2"
-            crossorigin="anonymous"
-            transition:persist
-        />
-
         <script is:inline>
             (function () {
                 const storedScheme = localStorage.getItem("color-scheme");
@@ -193,7 +193,7 @@ const {
         <style is:inline>
             @font-face {
                 font-family: "Satoshi";
-                src: url("/fonts/Satoshi-Variable.woff2") format("woff2");
+                src: local("Satoshi"), url("/fonts/Satoshi-Variable.woff2") format("woff2");
                 font-weight: 300 900;
                 font-display: swap;
                 font-style: normal;
@@ -201,7 +201,7 @@ const {
 
             @font-face {
                 font-family: "Satoshi";
-                src: url("/fonts/Satoshi-VariableItalic.woff2") format("woff2");
+                src: local("Satoshi"), url("/fonts/Satoshi-VariableItalic.woff2") format("woff2");
                 font-weight: 300 900;
                 font-display: swap;
                 font-style: italic;
@@ -209,7 +209,7 @@ const {
 
             @font-face {
                 font-family: "Inter";
-                src: url("/fonts/Inter-Variable.woff2") format("woff2");
+                src: local("Inter"), url("/fonts/Inter-Variable.woff2") format("woff2");
                 font-weight: 100 900;
                 font-display: swap;
                 font-style: normal;
@@ -217,7 +217,7 @@ const {
 
             @font-face {
                 font-family: "Inter";
-                src: url("/fonts/Inter-VariableItalic.woff2") format("woff2");
+                src: local("Inter"), url("/fonts/Inter-VariableItalic.woff2") format("woff2");
                 font-weight: 100 900;
                 font-display: swap;
                 font-style: italic;
