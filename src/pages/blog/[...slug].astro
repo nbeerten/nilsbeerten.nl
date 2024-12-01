@@ -31,7 +31,13 @@ const formatTime = (time: number) => {
 };
 ---
 
-<Layout title={post.data.title} back="/blog" lang={locale} article={post.data}>
+<Layout
+    title={post.data.title}
+    back="/blog"
+    lang={locale}
+    article={post.data}
+    noindex={locale !== post.data.language}
+    breadcrumbs={[["Blog", "/blog"], [post.data.title]]}>
     <article lang={post.data.language}>
         <HeadingGroup title={post.data.title}>
             <header

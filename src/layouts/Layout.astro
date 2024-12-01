@@ -15,6 +15,7 @@ interface Props {
     back?: string;
     lang: "en" | "nl";
     noindex?: boolean;
+    breadcrumbs?: [string, string?][];
 }
 
 const {
@@ -25,7 +26,31 @@ const {
     back = "/",
     lang,
     noindex = false,
+    breadcrumbs = [],
 } = Astro.props;
+
+function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
+    return JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            breadcrumbs.map(([label, path]) => {
+                const ListItem = {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: label,
+                };
+                if (path) {
+                    return {
+                        ...ListItem,
+                        item: new URL(getLocaleUrl(path, locale), Astro.site).toString(),
+                    };
+                }
+                return ListItem;
+            }),
+        ],
+    });
+}
 ---
 
 <!doctype html>
@@ -76,8 +101,15 @@ const {
             hreflang="nl"
             href={new URL(getLocaleUrl(Astro.url, "nl"), Astro.site)}
         />
-
-        <slot name="schema" />
+        {
+            breadcrumbs.length > 0 && (
+                <script
+                    type="application/ld+json"
+                    is:inline
+                    set:html={breadcrumbsToJson(breadcrumbs)}
+                />
+            )
+        }
 
         {
             Astro.url.pathname === "/" && (
@@ -88,6 +120,7 @@ const {
                     "@context": "https://schema.org",
                     "@type": "WebSite",
                     "name": "Nils Beerten",
+                    "alternateName": ["NB", "Nils"],
                     "url": "https://www.nilsbeerten.nl"
                 }`}
                 />
@@ -193,7 +226,9 @@ const {
         <style is:inline>
             @font-face {
                 font-family: "Satoshi";
-                src: local("Satoshi"), url("/fonts/Satoshi-Variable.woff2") format("woff2");
+                src:
+                    local("Satoshi"),
+                    url("/fonts/Satoshi-Variable.woff2") format("woff2");
                 font-weight: 300 900;
                 font-display: swap;
                 font-style: normal;
@@ -201,7 +236,9 @@ const {
 
             @font-face {
                 font-family: "Satoshi";
-                src: local("Satoshi"), url("/fonts/Satoshi-VariableItalic.woff2") format("woff2");
+                src:
+                    local("Satoshi"),
+                    url("/fonts/Satoshi-VariableItalic.woff2") format("woff2");
                 font-weight: 300 900;
                 font-display: swap;
                 font-style: italic;
@@ -209,7 +246,9 @@ const {
 
             @font-face {
                 font-family: "Inter";
-                src: local("Inter"), url("/fonts/Inter-Variable.woff2") format("woff2");
+                src:
+                    local("Inter"),
+                    url("/fonts/Inter-Variable.woff2") format("woff2");
                 font-weight: 100 900;
                 font-display: swap;
                 font-style: normal;
@@ -217,7 +256,9 @@ const {
 
             @font-face {
                 font-family: "Inter";
-                src: local("Inter"), url("/fonts/Inter-VariableItalic.woff2") format("woff2");
+                src:
+                    local("Inter"),
+                    url("/fonts/Inter-VariableItalic.woff2") format("woff2");
                 font-weight: 100 900;
                 font-display: swap;
                 font-style: italic;

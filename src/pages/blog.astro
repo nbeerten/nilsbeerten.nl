@@ -15,7 +15,8 @@ const { str, getLocaleUrl, locale } = createLocale(Astro.url);
 <Layout
     title="Blog"
     lang={locale}
-    description={str("A list of blog posts posted by me", "Een lijst van posts op mijn blog")}>
+    description={str("A list of blog posts posted by me", "Een lijst van posts op mijn blog")}
+    breadcrumbs={[["Blog", "/blog"]]}>
     <HeadingGroup
         title="Blog"
         subtitle={str("A list of blog posts posted by me", "Een lijst van posts op mijn blog")}

@@ -30,8 +30,13 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         document.querySelectorAll('a[data-mail]').forEach(x => emaildecode(x as HTMLAnchorElement));
     });
 </script> -->
-
-<Layout title="Nils Beerten" lang={locale} description={str("I'm Nils Beerten. This is my personal website where I show my creations and occasionally write posts.", "Persoonlijke website van Nils Beerten waarop ik mijn creaties toon en af en toe blogposts schrijf.")}>
+<Layout
+    title="Nils Beerten"
+    lang={locale}
+    description={str(
+        "I'm Nils Beerten. This is my personal website where I show my creations and occasionally write posts.",
+        "Persoonlijke website van Nils Beerten waarop ik mijn creaties toon en af en toe blogposts schrijf."
+    )}>
     <section>
         <HeadingGroup title="Nils Beerten" smallMargin>
             <Fragment slot="subtitle">
