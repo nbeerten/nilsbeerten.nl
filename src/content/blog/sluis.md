@@ -2,7 +2,7 @@
 title: "Sluis"
 date: 2024-02-17
 draft: false
-description: "A new desktop-optimised frontend for Piped"
+description: "A new desktop-optimised frontend for Piped, that allows you to watch YouTube videos without compromising privacy."
 language: "en"
 ---
 
