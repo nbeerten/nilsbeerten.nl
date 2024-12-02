@@ -30,12 +30,12 @@ of course the privacy-focused Piped backend for interacting with YouTube.
 
 Current features of Sluis include:
 
--   Video player built-in Sponsorblock
--   Comments
--   Subscriptions with feed
--   Trending
--   Search
--   Watch history
+- Video player built-in Sponsorblock
+- Comments
+- Subscriptions with feed
+- Trending
+- Search
+- Watch history
 
 Source code is available on [GitHub](https://github.com/nbeerten/sluis).
 
