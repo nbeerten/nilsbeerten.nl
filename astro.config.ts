@@ -66,7 +66,7 @@ export default defineConfig({
     build: {
         format: "file",
     },
-    output: "static", // Astro 5.0 removed "hybrid", which is now "static", which essentially is still "hybrid".
+    output: "server", // Astro 5.0 removed "hybrid", which is now "static", which essentially is still "hybrid".
     adapter: cloudflare({
         imageService: "passthrough",
     }),
