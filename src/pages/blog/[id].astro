@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import HeadingGroup from "@components/HeadingGroup.astro";
 import { createLocale } from "@lib/i18n";
@@ -10,7 +10,7 @@ export async function getStaticPaths() {
     const posts = (await getCollection("blog")).filter((blog) => !blog.data.draft);
 
     return posts.map((post) => ({
-        params: { slug: post.slug },
+        params: { id: post.id },
         props: { post },
     }));
 }
@@ -21,7 +21,7 @@ type Props = {
 
 const { post } = Astro.props;
 
-const { Content, remarkPluginFrontmatter } = await post.render();
+const { Content, remarkPluginFrontmatter } = await render(post);
 
 const { locale, str } = createLocale(Astro.url);
 

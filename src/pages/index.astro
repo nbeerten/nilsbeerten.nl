@@ -215,7 +215,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                             <article>
                                 <div class="flex justify-between">
                                     <a
-                                        href={getLocaleUrl(`/blog/${blogPost.slug}`)}
+                                        href={getLocaleUrl(`/blog/${blogPost.id}`)}
                                         class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                                         {blogPost.data.title}
                                     </a>
