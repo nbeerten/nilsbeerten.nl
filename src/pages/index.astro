@@ -21,15 +21,17 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
 
 <script>
     const emaildecode = (e: HTMLAnchorElement) => {
-        let email = atob(e.dataset.mail || '');
-        e.href = 'mailto:'+email;
-        const mailDisplay = e.querySelector('#mail-display');
+        let email = atob(e.dataset.mail || "");
+        e.href = "mailto:" + email;
+        const mailDisplay = e.querySelector("#mail-display");
         if (mailDisplay) mailDisplay.textContent = email;
-    }
+    };
 
-    document.querySelectorAll('a[data-mail]').forEach(x => emaildecode(x as HTMLAnchorElement));
-    document.addEventListener('astro:after-swap', () => {
-        document.querySelectorAll('a[data-mail]').forEach(x => emaildecode(x as HTMLAnchorElement));
+    document.querySelectorAll("a[data-mail]").forEach((x) => emaildecode(x as HTMLAnchorElement));
+    document.addEventListener("astro:after-swap", () => {
+        document
+            .querySelectorAll("a[data-mail]")
+            .forEach((x) => emaildecode(x as HTMLAnchorElement));
     });
 </script>
 
@@ -40,14 +42,14 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         "I'm Nils Beerten, also known as nbeerten or nbert. This is my personal website where I show my creations and occasionally write posts.",
         "Persoonlijke website van Nils Beerten — ook bekend als nbeerten of nbert — waarop ik mijn creaties toon en af en toe blogposts schrijf."
     )}>
-
     <section>
         <HeadingGroup title="Nils Beerten" smallMargin>
             <Fragment slot="subtitle">
                 <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span>
                 <span>•</span>
-                </style>
-                <span><abbr title={str("also known as", "ook bekend als")}>aka</abbr> nbeerten, nbert</span>
+                <span
+                    ><abbr title={str("also known as", "ook bekend als")}>aka</abbr> nbeerten, nbert</span
+                >
             </Fragment>
         </HeadingGroup>
         <div>
@@ -136,7 +138,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         <h2 class="-ml-px font-display text-xl font-medium text-brand-muted">
             {str("Creations", "Creaties")}
         </h2>
-        <ul class="grid grid-cols-1 gap-y-6 gap-x-8 py-3 md:grid-cols-2">
+        <ul class="grid grid-cols-1 gap-x-8 gap-y-6 py-3 md:grid-cols-2">
             <li>
                 <a
                     href="https://github.com/nbeerten/nilsbeerten.nl/"
@@ -144,14 +146,17 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                     nilsbeerten.nl
                 </a>
-                <p class="[text-wrap:pretty]" set:html={str(
-                    "Simple, minimal and handcrafted personal website and blog built using Astro and Tailwind CSS.",
-                    "Eenvoudige, minimalistische en zelf ontworpen persoonlijke website en blog, gebouwd met Astro en Tailwind CSS."
-                )} />
+                <p
+                    class="[text-wrap:pretty]"
+                    set:html={str(
+                        "Simple, minimal and handcrafted personal website and blog built using Astro and Tailwind CSS.",
+                        "Eenvoudige, minimalistische en zelf ontworpen persoonlijke website en blog, gebouwd met Astro en Tailwind CSS."
+                    )}
+                />
             </li>
 
             <li>
-                <span class="flex gap-2 items-center justify-between">
+                <span class="flex items-center justify-between gap-2">
                     <a
                         href="https://github.com/nbeerten/sluis/"
                         target="_blank"
@@ -168,11 +173,12 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     set:html={str(
                         `A new desktop-optimised frontend for <a href="https://piped.video/" class="underline inline">Piped</a>, that allows you to watch YouTube videos without compromising privacy.`,
                         `Een desktop-geoptimaliseerde frontend voor <a href="https://piped.video/" class="underline">Piped</a>, die de mogelijkheid geeft om YouTube te kijken zonder privacyverlies.`
-                    )}/>
+                    )}
+                />
             </li>
 
             <li>
-                <span class="flex gap-2 items-center justify-between">
+                <span class="flex items-center justify-between gap-2">
                     <a
                         href="https://github.com/nbeerten/tm-refresh-leaderboard/"
                         target="_blank"
@@ -184,10 +190,13 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                         {str("Archived", "Gearchiveerd")}
                     </div>
                 </span>
-                <p class="[text-wrap:pretty]" set:html={str(
-                    "Trackmania plugin for Openplanet that allows the user to refresh the in-game leaderboards.",
-                    "Trackmania integratie voor Openplanet die de speler de mogelijkheid geeft de in-game ranglijsten te verversen."
-                )} />
+                <p
+                    class="[text-wrap:pretty]"
+                    set:html={str(
+                        "Trackmania plugin for Openplanet that allows the user to refresh the in-game leaderboards.",
+                        "Trackmania integratie voor Openplanet die de speler de mogelijkheid geeft de in-game ranglijsten te verversen."
+                    )}
+                />
             </li>
 
             <li>
@@ -197,10 +206,13 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                     Fleetrouter
                 </a>
-                <p class="[text-wrap:pretty]" set:html={str(
-                    "Ultra-minimal URLPattern-based (proof of concept) router for fleet-footed server-side routing.",
-                    "Minimalistische (proof of concept) router gebaseerd op URLPattern voor razendsnelle server-side routing."
-                )} />
+                <p
+                    class="[text-wrap:pretty]"
+                    set:html={str(
+                        "Ultra-minimal URLPattern-based (proof of concept) router for fleet-footed server-side routing.",
+                        "Minimalistische (proof of concept) router gebaseerd op URLPattern voor razendsnelle server-side routing."
+                    )}
+                />
             </li>
         </ul>
     </section>
@@ -215,7 +227,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                             <article>
                                 <div class="flex justify-between">
                                     <a
-                                        href={getLocaleUrl(`/blog/${blogPost.slug}`)}
+                                        href={getLocaleUrl(`/blog/${blogPost.id}`)}
                                         class="text-lg font-medium underline decoration-brand-border underline-offset-1">
                                         {blogPost.data.title}
                                     </a>
@@ -240,7 +252,9 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                                         </p>
                                     </span>
                                 </div>
-                                <p class="[text-wrap:pretty] max-w-[50ch]">{blogPost.data.description}</p>
+                                <p class="max-w-[50ch] [text-wrap:pretty]">
+                                    {blogPost.data.description}
+                                </p>
                             </article>
                         </li>
                     ))}
