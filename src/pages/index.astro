@@ -66,10 +66,10 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     "Social links en andere informatie"
                 )}>
                 <li class="contents">
-                    <div class="mb-1">
+                    <div class="flex items-center">
                         <MapPin />
                         <p
-                            class="mb-px"
+                            class="-mb-[2px]"
                             aria-label={str("Location: The Netherlands", "Locatie: Nederland")}>
                             {str("Netherlands", "Nederland")}
                         </p>
@@ -165,7 +165,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     </a>
                     <div class="flex gap-2 text-sm text-brand-muted">
                         <ArchiveBoxCrossMark class="h-5 w-5" />
-                        {str("Broken", "Niet werkend")}
+                        {str("Out of service", "Buiten werking")}
                     </div>
                 </span>
                 <p
