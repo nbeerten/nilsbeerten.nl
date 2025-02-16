@@ -1,7 +1,7 @@
 ---
+import "src/styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import Navigation from "@components/Navigation.astro";
-import "src/styles/colors.css";
 import { createLocale } from "@lib/i18n";
 import type { CollectionEntry } from "astro:content";
 
@@ -204,8 +204,8 @@ function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
 
         <style is:global>
             :root {
-                background-color: theme(colors.brand.background);
-                color: theme(colors.brand.text);
+                background-color: var(--brand-background);
+                color: var(--brand-text);
                 scrollbar-gutter: stable both-edges;
 
                 font-feature-settings: "cv05", "cv07", "cv11", "ss01";
@@ -219,7 +219,7 @@ function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
             h4,
             h5,
             h6 {
-                text-decoration-color: theme(colors.brand.border);
+                text-decoration-color: var(--brand-border);
             }
         </style>
 

@@ -60,7 +60,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     )}
                 </p> -->
             <ul
-                class="social-links mt-2 flex flex-col gap-2 text-brand-text"
+                class="social-links text-brand-text mt-2 flex flex-col gap-2"
                 aria-label={str(
                     "Social links and other information",
                     "Social links en andere informatie"
@@ -114,6 +114,8 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 </li>
             </ul>
             <style>
+                @reference "../styles/global.css";
+
                 .social-links {
                     svg {
                         @apply h-5 w-5;
@@ -125,17 +127,17 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     }
 
                     a {
-                        @apply underline decoration-brand-border underline-offset-1;
+                        @apply underline underline-offset-1;
                     }
                 }
             </style>
         </div>
     </section>
 
-    <hr class="my-5 border-brand-hr" />
+    <hr class="border-brand-hr my-5" />
 
     <section>
-        <h2 class="-ml-px font-display text-xl font-medium text-brand-muted">
+        <h2 class="font-display text-brand-muted -ml-px text-xl font-medium">
             {str("Creations", "Creaties")}
         </h2>
         <ul class="grid grid-cols-1 gap-x-8 gap-y-6 py-3 md:grid-cols-2">
@@ -143,7 +145,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 <a
                     href="https://github.com/nbeerten/nilsbeerten.nl/"
                     target="_blank"
-                    class="text-lg font-medium underline decoration-brand-border underline-offset-1">
+                    class="decoration-brand-border text-lg font-medium underline underline-offset-1">
                     nilsbeerten.nl
                 </a>
                 <p
@@ -160,10 +162,10 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     <a
                         href="https://github.com/nbeerten/sluis/"
                         target="_blank"
-                        class="text-lg font-medium underline decoration-brand-border underline-offset-1">
+                        class="decoration-brand-border text-lg font-medium underline underline-offset-1">
                         Sluis
                     </a>
-                    <div class="flex gap-2 text-sm text-brand-muted">
+                    <div class="text-brand-muted flex gap-2 text-sm">
                         <ArchiveBoxCrossMark class="h-5 w-5" />
                         {str("Out of service", "Buiten werking")}
                     </div>
@@ -185,7 +187,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                         class={`text-lg font-medium underline decoration-brand-border underline-offset-1 ${locale === "nl" ? "tracking-[-0.05em]" : ""}`}>
                         tm-refresh-leaderboard
                     </a>
-                    <div class="flex gap-2 text-sm text-brand-muted">
+                    <div class="text-brand-muted flex gap-2 text-sm">
                         <Archive class="h-5 w-5" />
                         {str("Archived", "Gearchiveerd")}
                     </div>
@@ -203,7 +205,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                 <a
                     href="https://github.com/nbeerten/fleetrouter/"
                     target="_blank"
-                    class="text-lg font-medium underline decoration-brand-border underline-offset-1">
+                    class="decoration-brand-border text-lg font-medium underline underline-offset-1">
                     Fleetrouter
                 </a>
                 <p
@@ -220,7 +222,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
     {
         blogEntries.length > 0 && (
             <section class="mt-6">
-                <h2 class="-ml-px font-display text-xl font-medium text-brand-muted">Blog</h2>
+                <h2 class="font-display text-brand-muted -ml-px text-xl font-medium">Blog</h2>
                 <ul class="flex flex-col gap-6 py-3">
                     {blogEntries.slice(0, 3).map((blogPost) => (
                         <li class="contents">
@@ -228,10 +230,10 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                                 <div class="flex justify-between">
                                     <a
                                         href={getLocaleUrl(`/blog/${blogPost.id}`)}
-                                        class="text-lg font-medium underline decoration-brand-border underline-offset-1">
+                                        class="decoration-brand-border text-lg font-medium underline underline-offset-1">
                                         {blogPost.data.title}
                                     </a>
-                                    <span class="inline-flex items-center gap-1 text-brand-muted">
+                                    <span class="text-brand-muted inline-flex items-center gap-1">
                                         <p class="inline-flex items-center gap-1">
                                             <Languages class="-mb-0.5 h-4 w-4" />
                                             <span
@@ -240,7 +242,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                                             </span>
                                         </p>
                                         <span aria-hidden="true">-</span>
-                                        <p class="tabular-nums tracking-tighter">
+                                        <p class="tracking-tighter tabular-nums">
                                             <span class="sr-only">
                                                 {str("Posted on", "Gepubliceerd op")}
                                             </span>
