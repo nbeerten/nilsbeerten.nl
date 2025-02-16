@@ -44,7 +44,7 @@ const formatTime = (time: number) => {
         <HeadingGroup title={post.data.title}>
             <header
                 slot="subtitle"
-                class="inline-flex items-center gap-1 text-brand-muted"
+                class="text-brand-muted inline-flex items-center gap-1"
                 role="contentinfo"
                 aria-label="Article metadata">
                 <Languages class="-mb-0.5 h-4 w-4" />
@@ -55,12 +55,12 @@ const formatTime = (time: number) => {
                 {formatTime(remarkPluginFrontmatter.readingTime)}
             </header>
         </HeadingGroup>
-        <hr class="my-5 border-brand-hr" />
+        <hr class="border-brand-hr my-5" />
         <div class="prose_img prose prose-amber">
             <Content />
         </div>
 
-        <i class="mt-4 block text-brand-muted"
+        <i class="text-brand-muted mt-4 block"
             >{str("Last modified", "Laatste aanpassing")}
             <time data-timestamp={remarkPluginFrontmatter.lastModified}
                 >{
@@ -74,6 +74,8 @@ const formatTime = (time: number) => {
 </Layout>
 
 <style>
+    @reference "src/styles/global.css";
+
     .prose :global(img) {
         @apply my-0 rounded-md border border-amber-100/10 drop-shadow-md;
     }
@@ -93,7 +95,7 @@ const formatTime = (time: number) => {
     }
 
     .prose :global(a) {
-        @apply underline decoration-brand-border underline-offset-1;
+        @apply decoration-brand-border underline underline-offset-1;
     }
 </style>
 

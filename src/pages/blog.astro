@@ -21,7 +21,7 @@ const { str, getLocaleUrl, locale } = createLocale(Astro.url);
         title="Blog"
         subtitle={str("A list of blog posts posted by me", "Een lijst van posts op mijn blog")}
     />
-    <hr class="my-5 border-brand-hr" />
+    <hr class="border-brand-hr my-5" />
     <ul class="flex flex-col gap-4 py-3">
         {
             blogEntries.map((blogPost) => (
@@ -30,10 +30,10 @@ const { str, getLocaleUrl, locale } = createLocale(Astro.url);
                         <div class="flex justify-between">
                             <a
                                 href={getLocaleUrl(`/blog/${blogPost.id}`)}
-                                class="text-lg font-medium underline decoration-brand-border underline-offset-1">
+                                class="decoration-brand-border text-lg font-medium underline underline-offset-1">
                                 {blogPost.data.title}
                             </a>
-                            <span class="inline-flex items-center gap-1 text-brand-muted">
+                            <span class="text-brand-muted inline-flex items-center gap-1">
                                 <p class="inline-flex items-center gap-1">
                                     <Languages class="-mb-0.5 h-4 w-4" />
                                     <span
@@ -42,7 +42,7 @@ const { str, getLocaleUrl, locale } = createLocale(Astro.url);
                                     </span>
                                 </p>
                                 <span aria-hidden="true">-</span>
-                                <p class="tabular-nums tracking-tighter">
+                                <p class="tracking-tighter tabular-nums">
                                     <span class="sr-only">
                                         {str("Posted on", "Gepubliceerd op")}
                                     </span>

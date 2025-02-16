@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
+import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import Icons from "unplugin-icons/vite";
 import tunnel from "astro-tunnel";
@@ -42,13 +42,13 @@ export default defineConfig({
                 defaultLocale: i18nConfig.defaultLocale,
             }),
         }),
-        tailwind(),
         tunnel(),
         pageInsight(),
         // alpinejs(),
     ],
     vite: {
         plugins: [
+            tailwindcss(),
             Icons({
                 compiler: "astro",
                 autoInstall: true,
@@ -71,7 +71,7 @@ export default defineConfig({
         imageService: "passthrough",
     }),
     markdown: {
-        // @ts-expect-error Types for plugins are incorrect, wants `() => {}` but needs `() => () => {}`
+        // @ts-expect-error
         remarkPlugins: [remarkModifiedTime, remarkTimeRead],
         shikiConfig: {
             theme: await vesper(),

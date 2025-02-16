@@ -21,9 +21,9 @@ const { title, subtitle = false, smallMargin = false } = Astro.props;
     </h1>
     {
         subtitle ? (
-            <p class={twMerge("mt-2 text-brand-muted", smallMargin && "mt-0")}>{subtitle}</p>
+            <p class={twMerge("text-brand-muted mt-2", smallMargin && "mt-0")}>{subtitle}</p>
         ) : (
-            <div class={twMerge("mt-2 text-brand-muted", smallMargin && "mt-0")}>
+            <div class={twMerge("text-brand-muted mt-2", smallMargin && "mt-0")}>
                 <slot name="subtitle" />
             </div>
         )
