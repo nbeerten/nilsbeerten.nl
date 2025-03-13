@@ -59,17 +59,6 @@ const formatTime = (time: number) => {
         <div class="prose_img prose prose-amber">
             <Content />
         </div>
-
-        <i class="text-brand-muted mt-4 block"
-            >{str("Last modified", "Laatste aanpassing")}
-            <time data-timestamp={remarkPluginFrontmatter.lastModified}
-                >{
-                    new Date(remarkPluginFrontmatter.lastModified).toLocaleString(`${locale}-NL`, {
-                        timeZone: "UTC",
-                    })
-                } UTC</time
-            ></i
-        >
     </article>
 </Layout>
 
@@ -98,19 +87,3 @@ const formatTime = (time: number) => {
         @apply decoration-brand-border underline underline-offset-1;
     }
 </style>
-
-<script>
-    replace();
-    import { getLocale } from "astro-i18n-aut";
-    document.addEventListener("astro:after-swap", replace);
-
-    function replace() {
-        document.querySelectorAll("[data-timestamp]").forEach((el) => {
-            const timestamp = el.getAttribute("data-timestamp");
-            if (!timestamp) return;
-            const date = new Date(timestamp);
-
-            el.textContent = date.toLocaleString(`${getLocale(window.location.toString())}-NL`);
-        });
-    }
-</script>

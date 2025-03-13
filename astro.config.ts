@@ -9,7 +9,7 @@ import {
     filterSitemapByDefaultLocale,
     type UserI18nConfig,
 } from "astro-i18n-aut/integration";
-import { remarkModifiedTime, remarkTimeRead } from "./remark-plugins";
+import { remarkTimeRead } from "./remark-plugins";
 import pageInsight from "astro-page-insight";
 // import alpinejs from "@astrojs/alpinejs";
 const vesper = async () => {
@@ -72,7 +72,7 @@ export default defineConfig({
     }),
     markdown: {
         // @ts-expect-error
-        remarkPlugins: [remarkModifiedTime, remarkTimeRead],
+        remarkPlugins: [remarkTimeRead],
         shikiConfig: {
             theme: await vesper(),
             wrap: true,
