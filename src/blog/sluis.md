@@ -40,3 +40,5 @@ Current features of Sluis include:
 Source code is available on [GitHub](https://github.com/nbeerten/sluis).
 
 Check Sluis out here: [sluis.nilsbeerten.nl](https://sluis.nilsbeerten.nl)
+
+**Update:** as of 19-3-2025 the project has been archived. Due to changes in the API of Piped the website was returning errors for a few months already. 
