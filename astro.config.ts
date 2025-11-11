@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import Icons from "unplugin-icons/vite";
@@ -44,8 +44,34 @@ export default defineConfig({
         }),
         tunnel(),
         pageInsight(),
-        // alpinejs(),
     ],
+    experimental: {
+        fonts: [
+            {
+                provider: fontProviders.fontshare(),
+                name: "Satoshi",
+                cssVariable: "--font-satoshi",
+                weights: ["300 900"],
+            },
+            {
+                provider: "local",
+                name: "Inter",
+                cssVariable: "--font-inter",
+                variants: [
+                    {
+                        weight: "100 900",
+                        style: "normal",
+                        src: ["./src/assets/InterVariable.woff2"],
+                    },
+                    {
+                        weight: "100 900",
+                        style: "italic",
+                        src: ["./src/assets/InterVariable-Italic.woff2"],
+                    },
+                ],
+            },
+        ],
+    },
     vite: {
         plugins: [
             tailwindcss(),

@@ -13,7 +13,7 @@ const { title, subtitle = false, smallMargin = false } = Astro.props;
 <hgroup>
     <h1
         class={twMerge(
-            "font-display text-5xl font-extrabold lg:text-6xl min-h-12 [text-wrap:balance]",
+            "font-display text-5xl font-bold lg:text-6xl min-h-12 text-balance",
             /^B|D|E|F|H|I|K|L|M|N|P|R|U/.test(title) && "-ml-[0.075em]",
             /^C|G|O|Q/.test(title) && "-ml-[0.05em]"
         )}>

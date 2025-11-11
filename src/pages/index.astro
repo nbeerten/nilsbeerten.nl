@@ -39,17 +39,17 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
     title="Nils Beerten"
     lang={locale}
     description={str(
-        "I'm Nils Beerten, also known as nbeerten or nbert. This is my personal website where I show my creations and occasionally write posts.",
-        "Persoonlijke website van Nils Beerten — ook bekend als nbeerten of nbert — waarop ik mijn creaties toon en af en toe blogposts schrijf."
+        "I'm Nils Beerten. This is my personal website where I show my creations and occasionally write posts.",
+        "Persoonlijke website van Nils Beerten waarop ik mijn creaties toon en af en toe blogposts schrijf."
     )}>
     <section>
         <HeadingGroup title="Nils Beerten" smallMargin>
             <Fragment slot="subtitle">
                 <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span>
-                <span>•</span>
+                <!-- <span>•</span>
                 <span
                     ><abbr title={str("also known as", "ook bekend als")}>aka</abbr> nbeerten, nbert</span
-                >
+                > -->
             </Fragment>
         </HeadingGroup>
         <div>
@@ -69,7 +69,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     <div class="flex items-center">
                         <MapPin />
                         <p
-                            class="-mb-[2px]"
+                            class="-mb-0.5"
                             aria-label={str("Location: The Netherlands", "Locatie: Nederland")}>
                             {str("Netherlands", "Nederland")}
                         </p>
@@ -149,7 +149,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     nilsbeerten.nl
                 </a>
                 <p
-                    class="[text-wrap:pretty]"
+                    class="text-pretty"
                     set:html={str(
                         "Simple, minimal and handcrafted personal website and blog built using Astro and Tailwind CSS.",
                         "Eenvoudige, minimalistische en zelf ontworpen persoonlijke website en blog, gebouwd met Astro en Tailwind CSS."
@@ -171,7 +171,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     </div>
                 </span>
                 <p
-                    class="[text-wrap:pretty]"
+                    class="text-pretty"
                     set:html={str(
                         `A new desktop-optimised frontend for <a href="https://piped.video/" target="_blank" class="underline inline">Piped</a>, that allows you to watch YouTube videos without compromising privacy.`,
                         `Een desktop-geoptimaliseerde frontend voor <a href="https://piped.video/" target="_blank" class="underline">Piped</a>, die de mogelijkheid geeft om YouTube te kijken zonder privacyverlies.`
@@ -193,7 +193,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     </div>
                 </span>
                 <p
-                    class="[text-wrap:pretty]"
+                    class="text-pretty"
                     set:html={str(
                         `Trackmania plugin for Openplanet that allows the user to refresh the in-game leaderboards. The plugin is now maintained by <a href="https://github.com/ezio416/tm-refresh-leaderboard" target="_blank" class="underline inline">Ezio</a>.`,
                         `Trackmania plugin voor Openplanet die de speler de in-game ranglijsten laat verversen. Inmiddels wordt deze plugin onderhouden door <a href="https://github.com/ezio416/tm-refresh-leaderboard" target="_blank" class="underline">Ezio</a>.`
@@ -209,7 +209,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     Fleetrouter
                 </a>
                 <p
-                    class="[text-wrap:pretty]"
+                    class="text-pretty"
                     set:html={str(
                         "Ultra-minimal URLPattern-based (proof of concept) router for fleet-footed server-side routing.",
                         "Minimalistische (proof of concept) router gebaseerd op URLPattern voor razendsnelle server-side routing."
@@ -254,9 +254,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                                         </p>
                                     </span>
                                 </div>
-                                <p class="max-w-[50ch] [text-wrap:pretty]">
-                                    {blogPost.data.description}
-                                </p>
+                                <p class="max-w-[50ch] text-pretty">{blogPost.data.description}</p>
                             </article>
                         </li>
                     ))}

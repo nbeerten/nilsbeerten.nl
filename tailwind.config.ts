@@ -7,8 +7,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Inter", ...defaultTheme.fontFamily.sans],
-                display: ["Satoshi", ...defaultTheme.fontFamily.sans],
+                sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+                display: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
             },
             typography: () => ({
                 amber: {

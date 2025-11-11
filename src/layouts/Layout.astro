@@ -4,6 +4,7 @@ import { ClientRouter } from "astro:transitions";
 import Navigation from "@components/Navigation.astro";
 import { createLocale } from "@lib/i18n";
 import type { CollectionEntry } from "astro:content";
+import { Font } from "astro:assets";
 
 const { getLocaleUrl, locale } = createLocale(Astro.url);
 
@@ -59,22 +60,14 @@ function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
 
-        <link
-            rel="preload"
-            href="/fonts/Satoshi-Variable.woff2"
-            as="font"
-            type="font/woff2"
-            crossorigin
-            transition:persist
+        <Font
+            cssVariable="--font-satoshi"
+            preload={[
+                { subset: "latin", style: "normal", weight: "500" },
+                { subset: "latin", style: "normal", weight: "700" },
+            ]}
         />
-        <link
-            rel="preload"
-            href="/fonts/Inter-Variable.woff2"
-            as="font"
-            type="font/woff2"
-            crossorigin
-            transition:persist
-        />
+        <Font cssVariable="--font-inter" preload />
 
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -220,48 +213,6 @@ function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
             h5,
             h6 {
                 text-decoration-color: var(--brand-border);
-            }
-        </style>
-
-        <style is:inline>
-            @font-face {
-                font-family: "Satoshi";
-                src:
-                    local("Satoshi"),
-                    url("/fonts/Satoshi-Variable.woff2") format("woff2");
-                font-weight: 300 900;
-                font-display: swap;
-                font-style: normal;
-            }
-
-            @font-face {
-                font-family: "Satoshi";
-                src:
-                    local("Satoshi"),
-                    url("/fonts/Satoshi-VariableItalic.woff2") format("woff2");
-                font-weight: 300 900;
-                font-display: swap;
-                font-style: italic;
-            }
-
-            @font-face {
-                font-family: "Inter";
-                src:
-                    local("Inter"),
-                    url("/fonts/Inter-Variable.woff2") format("woff2");
-                font-weight: 100 900;
-                font-display: swap;
-                font-style: normal;
-            }
-
-            @font-face {
-                font-family: "Inter";
-                src:
-                    local("Inter"),
-                    url("/fonts/Inter-VariableItalic.woff2") format("woff2");
-                font-weight: 100 900;
-                font-display: swap;
-                font-style: italic;
             }
         </style>
 
