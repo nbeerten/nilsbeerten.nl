@@ -202,12 +202,18 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
             </li>
 
             <li>
-                <a
-                    href="https://github.com/nbeerten/fleetrouter/"
-                    target="_blank"
-                    class="decoration-brand-border text-lg font-medium underline underline-offset-1">
-                    Fleetrouter
-                </a>
+                <span class="flex items-center justify-between gap-2">
+                    <a
+                        href="https://github.com/nbeerten/fleetrouter/"
+                        target="_blank"
+                        class="decoration-brand-border text-lg font-medium underline underline-offset-1">
+                        Fleetrouter
+                    </a>
+                    <div class="text-brand-muted flex gap-2 text-sm">
+                        <Archive class="h-5 w-5" />
+                        {str("Archived", "Gearchiveerd")}
+                    </div>
+                </span>
                 <p
                     class="text-pretty"
                     set:html={str(
