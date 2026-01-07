@@ -3,6 +3,7 @@ import { createNavigation } from "./Navigation";
 import { createLocale } from "@lib/i18n";
 import Languages from "~icons/heroicons/language-16-solid";
 import ColorschemeToggle from "./ColorschemeToggle.astro";
+import { getCollection } from "astro:content";
 
 interface Props {
     class?: string;
@@ -17,19 +18,25 @@ const localizedBack = getLocaleUrl(back);
 const pathname = new URL(normalizedUrl, Astro.url).pathname;
 const c = (path: string, className: string) => (pathname === path ? className : "");
 
-const navigation = createNavigation(
-    [
-        {
-            label: str("Home", "Home"),
-            path: getLocaleUrl("/"),
-        },
-        {
-            label: str("Blog", "Blog"),
-            path: getLocaleUrl("/blog"),
-        },
-    ],
-    Astro.url
-);
+const routes = [
+    {
+        label: str("Home", "Home"),
+        path: getLocaleUrl("/"),
+    }
+];
+
+const blogEntries = (await getCollection("blog"))
+    .filter((blog) => !blog.data.draft)
+    .sort((a, b) => (a.data.date > b.data.date ? -1 : 1));
+
+if (blogEntries.length > 0) {
+    routes.push({
+        label: str("Blog", "Blog"),
+        path: getLocaleUrl("/blog"),
+    });
+}
+
+const navigation = createNavigation(routes, Astro.url);
 ---
 
 <nav class={`${className}`}>
@@ -72,8 +79,8 @@ const navigation = createNavigation(
                 <a
                     href={getLocaleUrl(Astro.url, locale === "en" ? "nl" : "en")}
                     class="j ustify-center flex items-center gap-1 rounded-s-full px-3 py-1 pr-2.5">
-                    <Languages class="-mb-[2px] h-3 w-3" aria-labelledby="languageItem" />
-                    <span class="w-[1.125rem] text-center">
+                    <Languages class="-mb-0.5 h-3 w-3" aria-labelledby="languageItem" />
+                    <span class="w-4.5 text-center">
                         {
                             locale === "en" && (
                                 <span
