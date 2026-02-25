@@ -11,7 +11,7 @@ import {
 } from "astro-i18n-aut/integration";
 import { remarkTimeRead } from "./remark-plugins";
 import pageInsight from "astro-page-insight";
-// import alpinejs from "@astrojs/alpinejs";
+
 const vesper = async () => {
     const response = await fetch(
         "https://raw.githubusercontent.com/raunofreiberg/vesper/main/themes/Vesper-dark-color-theme.json"
@@ -54,21 +54,23 @@ export default defineConfig({
                 weights: ["300 900"],
             },
             {
-                provider: "local",
+                provider: fontProviders.local(),
                 name: "Inter",
                 cssVariable: "--font-inter",
-                variants: [
-                    {
-                        weight: "100 900",
-                        style: "normal",
-                        src: ["./src/assets/InterVariable.woff2"],
-                    },
-                    {
-                        weight: "100 900",
-                        style: "italic",
-                        src: ["./src/assets/InterVariable-Italic.woff2"],
-                    },
-                ],
+                options: {
+                    variants: [
+                        {
+                            weight: "100 900",
+                            style: "normal",
+                            src: ["./src/assets/InterVariable.woff2"],
+                        },
+                        {
+                            weight: "100 900",
+                            style: "italic",
+                            src: ["./src/assets/InterVariable-Italic.woff2"],
+                        },
+                    ],
+                },
             },
         ],
     },

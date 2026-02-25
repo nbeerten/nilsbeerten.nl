@@ -78,7 +78,11 @@ const navigation = createNavigation(routes, Astro.url);
                 aria-label={str("Website settings", "Website-instellingen")}>
                 <a
                     href={getLocaleUrl(Astro.url, locale === "en" ? "nl" : "en")}
-                    class="j ustify-center flex items-center gap-1 rounded-s-full px-3 py-1 pr-2.5">
+                    class="j ustify-center flex items-center gap-1 rounded-s-full px-3 py-1 pr-2.5"
+                    title={str(
+                        "Switch language to Dutch | Verander taal naar Nederlands",
+                        "Switch language to English | Verander taal naar Engels"
+                    )}>
                     <Languages class="-mb-0.5 h-3 w-3" aria-labelledby="languageItem" />
                     <span class="w-4.5 text-center">
                         {
