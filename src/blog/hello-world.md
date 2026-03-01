@@ -1,20 +1,11 @@
 ---
 title: "Hello, world!"
 date: 2023-12-26
-draft: true
+draft: false
 description: "New website, new design"
 language: "en"
 ---
 
-Hello, world! This is the third, maybe even fourth or fifth iteration
-of my website. A new website with a fresh, minimal and modern design.
-This time, I made the website with Astro, a Javascript-framework for static and dynamic websites.
+Welcome to the latest version of this website. It has been through three, four, or maybe even five iterations by now, but here is a fresh, minimal, and modern update. The entire website is built on Astro, a JavaScript framework for static and dynamic sites.
 
-For this iteration I’ve chosen a classic dark theme website, but with a slight
-hint of yellow/amber throughout, for example in the text, borders and background.
-This theme is inspired by [Fontshare](https://fontshare.com/)'s coloured themes,
-which also use similar hints of colours. The general design of the site is
-inspired by [nexxel](https://nexxel.dev/)'s website.
-
-In the future, I hope to post a few blog posts once in a while on here, about
-whatever I’m working on at that time.
+Design-wise, the dark theme has been redesigned to feature subtle amber highlights in the text, borders, and backgrounds. The color scheme took some inspiration from [Fontshare](https://fontshare.com/)'s themes, and the overall look was heavily inspired by the website of [nexxel](https://nexxel.dev/).

@@ -11,6 +11,7 @@ import ArchiveBoxCrossMark from "~icons/heroicons/archive-box-x-mark-20-solid";
 import { getCollection } from "astro:content";
 import HeadingGroup from "@components/HeadingGroup.astro";
 import { createLocale } from "@lib/i18n";
+import Divider from "@components/Divider.astro";
 
 const blogEntries = (await getCollection("blog"))
     .filter((blog) => !blog.data.draft)
@@ -46,10 +47,6 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         <HeadingGroup title="Nils Beerten" smallMargin>
             <Fragment slot="subtitle">
                 <span aria-hidden="true" aria-label="IPA pronunciation">/niːls bɪːrtən/</span>
-                <!-- <span>•</span>
-                <span
-                    ><abbr title={str("also known as", "ook bekend als")}>aka</abbr> nbeerten, nbert</span
-                > -->
             </Fragment>
         </HeadingGroup>
         <div>
@@ -134,7 +131,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         </div>
     </section>
 
-    <hr class="border-brand-hr my-5 nb-wavy-hr" />
+    <Divider class="my-5"  />
 
     <section>
         <h2 class="font-display text-brand -ml-px text-3xl font-bold">
@@ -149,7 +146,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     nilsbeerten.nl
                 </a>
                 <p
-                    class="text-pretty"
+                    class="text-pretty md:text-justify"
                     set:html={str(
                         "Simple, minimal and handcrafted personal website and blog built using Astro and Tailwind CSS.",
                         "Eenvoudige, minimalistische en zelf ontworpen persoonlijke website en blog, gebouwd met Astro en Tailwind CSS."
@@ -171,7 +168,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     </div>
                 </span>
                 <p
-                    class="text-pretty"
+                    class="text-pretty md:text-justify"
                     set:html={str(
                         `A new desktop-optimised frontend for <a href="https://piped.video/" target="_blank" class="underline inline">Piped</a>, that allows you to watch YouTube videos without compromising privacy.`,
                         `Een desktop-geoptimaliseerde frontend voor <a href="https://piped.video/" target="_blank" class="underline">Piped</a>, die de mogelijkheid geeft om YouTube te kijken zonder privacyverlies.`
@@ -193,7 +190,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     </div>
                 </span>
                 <p
-                    class="text-pretty"
+                    class="text-pretty md:text-justify"
                     set:html={str(
                         `Trackmania plugin for Openplanet that allows the user to refresh the in-game leaderboards. The plugin is now maintained by <a href="https://github.com/ezio416/tm-refresh-leaderboard" target="_blank" class="underline inline">Ezio</a>.`,
                         `Trackmania plugin voor Openplanet die de speler de in-game ranglijsten laat verversen. Inmiddels wordt deze plugin onderhouden door <a href="https://github.com/ezio416/tm-refresh-leaderboard" target="_blank" class="underline">Ezio</a>.`
@@ -215,7 +212,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
                     </div>
                 </span>
                 <p
-                    class="text-pretty"
+                    class="text-pretty md:text-justify"
                     set:html={str(
                         "Ultra-minimal URLPattern-based (proof of concept) router for fleet-footed server-side routing.",
                         "Minimalistische (proof of concept) router gebaseerd op URLPattern voor razendsnelle server-side routing."
@@ -227,6 +224,8 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
 
     {
         blogEntries.length > 0 && (
+            <Divider class="my-5" />
+
             <section class="mt-6">
                 <h2 class="font-display text-brand -ml-px text-3xl font-bold">Blog</h2>
                 <ul class="flex flex-col gap-6 py-3">

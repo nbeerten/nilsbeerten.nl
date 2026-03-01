@@ -4,6 +4,7 @@ import HeadingGroup from "@components/HeadingGroup.astro";
 import { getCollection } from "astro:content";
 import { createLocale } from "@lib/i18n";
 import Languages from "~icons/heroicons/language-16-solid";
+import Divider from "@components/Divider.astro";
 
 const blogEntries = (await getCollection("blog"))
     .filter((blog) => !blog.data.draft)
@@ -21,7 +22,7 @@ const { str, getLocaleUrl, locale } = createLocale(Astro.url);
         title="Blog"
         subtitle={str("A list of blog posts posted by me", "Een lijst van posts op mijn blog")}
     />
-    <hr class="border-brand-hr my-5" />
+    <Divider class="my-5" />
     <ul class="flex flex-col gap-4 py-3">
         {
             blogEntries.map((blogPost) => (

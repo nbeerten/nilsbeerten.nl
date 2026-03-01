@@ -5,6 +5,7 @@ import Layout from "@layouts/Layout.astro";
 import HeadingGroup from "@components/HeadingGroup.astro";
 import { createLocale } from "@lib/i18n";
 import Languages from "~icons/heroicons/language-16-solid";
+import Divider from "@components/Divider.astro";
 
 export async function getStaticPaths() {
     const posts = (await getCollection("blog")).filter((blog) => !blog.data.draft);
@@ -44,10 +45,10 @@ const formatTime = (time: number) => {
         <HeadingGroup title={post.data.title}>
             <header
                 slot="subtitle"
-                class="text-brand-muted inline-flex items-center gap-1"
+                class="text-brand-muted inline-flex items-center gap-1 leading-none"
                 role="contentinfo"
                 aria-label="Article metadata">
-                <Languages class="-mb-0.5 h-4 w-4" />
+                <Languages class="h-4 w-4" />
                 {post.data.language}
                 <span>-</span>
                 {post.data.date.toLocaleDateString(`${locale}-NL`)}
@@ -55,7 +56,9 @@ const formatTime = (time: number) => {
                 {formatTime(remarkPluginFrontmatter.readingTime)}
             </header>
         </HeadingGroup>
-        <hr class="border-brand-hr my-5" />
+
+        <Divider class="my-5" />
+
         <div class="prose_img prose prose-amber">
             <Content />
         </div>
