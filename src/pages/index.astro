@@ -131,7 +131,7 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         </div>
     </section>
 
-    <Divider class="my-5"  />
+    <Divider class="my-5" />
 
     <section>
         <h2 class="font-display text-brand -ml-px text-3xl font-bold">
@@ -224,52 +224,56 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
 
     {
         blogEntries.length > 0 && (
-            <Divider class="my-5" />
+            <>
+                <Divider class="my-5" />
 
-            <section class="mt-6">
-                <h2 class="font-display text-brand -ml-px text-3xl font-bold">Blog</h2>
-                <ul class="flex flex-col gap-6 py-6">
-                    {blogEntries.slice(0, 3).map((blogPost) => (
-                        <li class="contents">
-                            <article>
-                                <div class="flex justify-between">
-                                    <a
-                                        href={getLocaleUrl(`/blog/${blogPost.id}`)}
-                                        class="decoration-brand-border text-lg font-medium underline underline-offset-1">
-                                        {blogPost.data.title}
-                                    </a>
-                                    <span class="text-brand-muted inline-flex items-center gap-1">
-                                        <p class="inline-flex items-center gap-1">
-                                            <Languages class="-mb-0.5 h-4 w-4" />
-                                            <span
-                                                aria-label={`${str("Language", "Taal")}: ${blogPost.data.language}`}>
-                                                {blogPost.data.language}
-                                            </span>
-                                        </p>
-                                        <span aria-hidden="true">-</span>
-                                        <p class="tracking-tighter tabular-nums">
-                                            <span class="sr-only">
-                                                {str("Posted on", "Gepubliceerd op")}
-                                            </span>
-                                            {blogPost.data.date.toLocaleDateString(locale, {
-                                                month: "short",
-                                                day: "numeric",
-                                                year: "numeric",
-                                            })}
-                                        </p>
-                                    </span>
-                                </div>
-                                <p class="max-w-[50ch] text-pretty">{blogPost.data.description}</p>
-                            </article>
-                        </li>
-                    ))}
-                </ul>
-                <div class="pt-1">
-                    <a href={getLocaleUrl("/blog")} class="text-brand-muted">
-                        {str("All posts", "Alle posts")} →
-                    </a>
-                </div>
-            </section>
+                <section class="mt-6">
+                    <h2 class="font-display text-brand -ml-px text-3xl font-bold">Blog</h2>
+                    <ul class="flex flex-col gap-6 py-6">
+                        {blogEntries.slice(0, 3).map((blogPost) => (
+                            <li class="contents">
+                                <article>
+                                    <div class="flex justify-between">
+                                        <a
+                                            href={getLocaleUrl(`/blog/${blogPost.id}`)}
+                                            class="decoration-brand-border text-lg font-medium underline underline-offset-1">
+                                            {blogPost.data.title}
+                                        </a>
+                                        <span class="text-brand-muted inline-flex items-center gap-1">
+                                            <p class="inline-flex items-center gap-1">
+                                                <Languages class="-mb-0.5 h-4 w-4" />
+                                                <span
+                                                    aria-label={`${str("Language", "Taal")}: ${blogPost.data.language}`}>
+                                                    {blogPost.data.language}
+                                                </span>
+                                            </p>
+                                            <span aria-hidden="true">-</span>
+                                            <p class="tracking-tighter tabular-nums">
+                                                <span class="sr-only">
+                                                    {str("Posted on", "Gepubliceerd op")}
+                                                </span>
+                                                {blogPost.data.date.toLocaleDateString(locale, {
+                                                    month: "short",
+                                                    day: "numeric",
+                                                    year: "numeric",
+                                                })}
+                                            </p>
+                                        </span>
+                                    </div>
+                                    <p class="max-w-[50ch] text-pretty">
+                                        {blogPost.data.description}
+                                    </p>
+                                </article>
+                            </li>
+                        ))}
+                    </ul>
+                    <div class="pt-1">
+                        <a href={getLocaleUrl("/blog")} class="text-brand-muted">
+                            {str("All posts", "Alle posts")} →
+                        </a>
+                    </div>
+                </section>
+            </>
         )
     }
 </Layout>

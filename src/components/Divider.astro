@@ -101,9 +101,13 @@ const waveUrl = generateSineWaveUrl(amplitude, period, 8, strokeWidth);
         border: none;
         height: var(--height);
         background-color: var(--brand-hr);
+        -webkit-mask-image: var(--waveUrl);
         mask-image: var(--waveUrl);
+        -webkit-mask-repeat: repeat-x;
         mask-repeat: repeat-x;
+        -webkit-mask-size: var(--maskSize);
         mask-size: var(--maskSize);
+        -webkit-mask-position: center;
         mask-position: center;
     }
 </style>
