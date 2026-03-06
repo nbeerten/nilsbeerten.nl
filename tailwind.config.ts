@@ -1,4 +1,3 @@
-import defaultTheme from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
@@ -7,8 +6,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
-                display: ["var(--font-satoshi)", ...defaultTheme.fontFamily.sans],
+                sans: "var(--font-inter)",
+                display: "var(--font-satoshi)",
             },
             typography: () => ({
                 amber: {

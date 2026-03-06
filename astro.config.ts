@@ -51,7 +51,9 @@ export default defineConfig({
                 provider: fontProviders.fontshare(),
                 name: "Satoshi",
                 cssVariable: "--font-satoshi",
-                weights: ["300 900"],
+                weights: ["700"],
+                subsets: ["latin"],
+                styles: ["normal"],
             },
             {
                 provider: fontProviders.local(),
