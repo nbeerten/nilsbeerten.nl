@@ -57,15 +57,16 @@ function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
 <!doctype html>
 <html lang={lang}>
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
-
         <Font
             cssVariable="--font-satoshi"
-            preload
+            preload={[{ weight: 700, style: "normal" }]}
             transition:persist
         />
         <Font cssVariable="--font-inter" preload transition:persist />
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        
 
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
