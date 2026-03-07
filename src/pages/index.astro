@@ -20,22 +20,6 @@ const blogEntries = (await getCollection("blog"))
 const { str, locale, getLocaleUrl } = createLocale(Astro.url);
 ---
 
-<script>
-    const emaildecode = (e: HTMLAnchorElement) => {
-        let email = atob(e.dataset.mail || "");
-        e.href = "mailto:" + email;
-        const mailDisplay = e.querySelector("#mail-display");
-        if (mailDisplay) mailDisplay.textContent = email;
-    };
-
-    document.querySelectorAll("a[data-mail]").forEach((x) => emaildecode(x as HTMLAnchorElement));
-    document.addEventListener("astro:after-swap", () => {
-        document
-            .querySelectorAll("a[data-mail]")
-            .forEach((x) => emaildecode(x as HTMLAnchorElement));
-    });
-</script>
-
 <Layout
     title="Nils Beerten"
     lang={locale}
@@ -277,3 +261,19 @@ const { str, locale, getLocaleUrl } = createLocale(Astro.url);
         )
     }
 </Layout>
+
+<script>
+    const emaildecode = (e: HTMLAnchorElement) => {
+        let email = atob(e.dataset.mail || "");
+        e.href = "mailto:" + email;
+        const mailDisplay = e.querySelector("#mail-display");
+        if (mailDisplay) mailDisplay.textContent = email;
+    };
+
+    document.querySelectorAll("a[data-mail]").forEach((x) => emaildecode(x as HTMLAnchorElement));
+    document.addEventListener("astro:after-swap", () => {
+        document
+            .querySelectorAll("a[data-mail]")
+            .forEach((x) => emaildecode(x as HTMLAnchorElement));
+    });
+</script>
