@@ -193,6 +193,20 @@ function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
                     );
             });
         </script>
+        <script>
+            document.addEventListener("astro:before-swap", (event) => {
+                // Copy font preload links and @font-face styles into the new document
+                // before Chrome sees it, preventing the font re-evaluation flash
+                document.head
+                    .querySelectorAll('link[rel="preload"][as="font"], link[rel="stylesheet"][data-astro-font], style')
+                    .forEach((el) => {
+                        if (
+                            el.tagName === "STYLE" && !el.textContent?.includes("@font-face")
+                        ) return;
+                        event.newDocument.head.prepend(el.cloneNode(true));
+                    });
+            });
+        </script>
 
         <style is:global>
             :root {
