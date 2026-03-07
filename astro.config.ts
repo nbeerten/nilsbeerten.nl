@@ -54,7 +54,6 @@ export default defineConfig({
                 weights: ["700"],
                 subsets: ["latin"],
                 styles: ["normal"],
-                display: "optional"
             },
             {
                 provider: fontProviders.local(),
@@ -74,7 +73,6 @@ export default defineConfig({
                         },
                     ],
                 },
-                display: "optional"
             },
         ],
     },
