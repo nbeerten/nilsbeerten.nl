@@ -4,6 +4,7 @@ export function GET({ request }: { request: Request }) {
     const inverse: boolean = typeof searchParams.get("inverse") === "string";
     const amplitude: number = parseFloat(searchParams.get("amplitude") ?? "6.5") || 6.5;
     const waves: number = parseInt(searchParams.get("waves") ?? "12") || 12;
+    const radius: number = parseFloat(searchParams.get("radius") ?? "225") || 225;
 
     /**
      * Generates an SVG path string for a wavy circle using the same
@@ -78,7 +79,7 @@ export function GET({ request }: { request: Request }) {
         return d + " Z";
     }
 
-    const path = generateWavyCirclePath(256, 256, 225, waves, amplitude);
+    const path = generateWavyCirclePath(256, 256, radius, waves, amplitude);
 
     const output = `<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
         <g stroke-linecap="round" fill-rule="evenodd">
