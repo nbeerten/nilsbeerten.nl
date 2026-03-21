@@ -54,6 +54,7 @@ export default defineConfig({
                 weights: ["700"],
                 subsets: ["latin"],
                 styles: ["normal"],
+                featureSettings: `"ss03" on, "ss01" on, "cv05" on, "cv06" on, "cv11" on`,
             },
             {
                 provider: fontProviders.local(),
@@ -65,11 +66,13 @@ export default defineConfig({
                             weight: "100 900",
                             style: "normal",
                             src: ["./src/assets/InterVariable.woff2"],
+                            featureSettings: `"ss01" on, "cv05" on, "cv06" on, "cv07" on, "cv11" on`,
                         },
                         {
                             weight: "100 900",
                             style: "italic",
                             src: ["./src/assets/InterVariable-Italic.woff2"],
+                            featureSettings: `"ss01" on, "cv05" on, "cv06" on, "cv07" on, "cv11" on`,
                         },
                     ],
                 },
