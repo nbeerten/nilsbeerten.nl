@@ -2,24 +2,25 @@ import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import icons from "unplugin-icons/vite";
-import tunnel from "astro-tunnel";
+// import tunnel from "astro-tunnel";
 import sitemap from "@astrojs/sitemap";
 import { remarkTimeRead } from "./remark-plugins";
 
-const vesper = async () => {
-    const response = await fetch(
-        "https://raw.githubusercontent.com/raunofreiberg/vesper/main/themes/Vesper-dark-color-theme.json"
-    );
-    const text = await response.text();
-    const sanitizedText = text.replace(
-        /\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g,
-        (match, group) => (group ? "" : match)
-    );
-    return JSON.parse(sanitizedText);
-};
+// const vesper = async () => {
+//     const response = await fetch(
+//         "https://raw.githubusercontent.com/raunofreiberg/vesper/main/themes/Vesper-dark-color-theme.json"
+//     );
+//     const text = await response.text();
+//     const sanitizedText = text.replace(
+//         /\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g,
+//         (match, group) => (group ? "" : match)
+//     );
+//     return JSON.parse(sanitizedText);
+// };
 
 // https://astro.build/config
 export default defineConfig({
+    adapter: cloudflare(),
     integrations: [
         sitemap({
             i18n: {
@@ -30,7 +31,7 @@ export default defineConfig({
                 },
             },
         }),
-        tunnel()
+        // tunnel(),
     ],
     fonts: [
         {
@@ -51,13 +52,13 @@ export default defineConfig({
                     {
                         weight: "100 900",
                         style: "normal",
-                        src: ["./src/assets/InterVariable.woff2"],
+                        src: ["./src/fonts/InterVariable.woff2"],
                         featureSettings: `"ss01" on, "cv05" on, "cv06" on, "cv07" on, "cv11" on`,
                     },
                     {
                         weight: "100 900",
                         style: "italic",
-                        src: ["./src/assets/InterVariable-Italic.woff2"],
+                        src: ["./src/fonts/InterVariable-Italic.woff2"],
                         featureSettings: `"ss01" on, "cv05" on, "cv06" on, "cv07" on, "cv11" on`,
                     },
                 ],
@@ -72,28 +73,25 @@ export default defineConfig({
                 autoInstall: true,
             }),
         ],
-        ssr: {
-            external: ["node:buffer"],
-        },
-        build: {
-            sourcemap: true,
-        },
+        // ssr: {
+        //     external: ["node:buffer"],
+        // },
+        // build: {
+        //     sourcemap: true,
+        // },
     },
-    site: import.meta.env.CF_PAGES_URL || "https://www.nilsbeerten.nl",
-    trailingSlash: "never",
-    build: {
-        format: "file",
-    },
+    site: "https://www.nilsbeerten.nl",
+    // trailingSlash: "never",
+    // build: {
+    //     format: "file",
+    // },
     output: "server", // Astro 5.0 removed "hybrid", which is now "static", which essentially is still "hybrid".
-    adapter: cloudflare({
-        imageService: "passthrough",
-    }),
     markdown: {
         // @ts-expect-error
         remarkPlugins: [remarkTimeRead],
-        shikiConfig: {
-            theme: await vesper(),
-            wrap: true,
-        },
+        // shikiConfig: {
+        //     theme: await vesper(),
+        //     wrap: true,
+        // },
     },
 });
