@@ -3,11 +3,11 @@ import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import icons from "unplugin-icons/vite";
 // import tunnel from "astro-tunnel";
-import sitemap from "@astrojs/sitemap";
-import { remarkTimeRead } from "./remark-plugins";
+// import sitemap from "@astrojs/sitemap";
+// import { remarkTimeRead } from "./remark-plugins";
 
 // const vesper = async () => {
-//     const response = await fetch(
+//     const response = await fetch(p
 //         "https://raw.githubusercontent.com/raunofreiberg/vesper/main/themes/Vesper-dark-color-theme.json"
 //     );
 //     const text = await response.text();
@@ -21,18 +21,18 @@ import { remarkTimeRead } from "./remark-plugins";
 // https://astro.build/config
 export default defineConfig({
     adapter: cloudflare(),
-    integrations: [
-        sitemap({
-            i18n: {
-                defaultLocale: "en",
-                locales: {
-                    en: "en-GB",
-                    nl: "nl-NL",
-                },
-            },
-        }),
-        // tunnel(),
-    ],
+    // integrations: [
+    //     sitemap({
+    //         i18n: {
+    //             defaultLocale: "en",
+    //             locales: {
+    //                 en: "en",
+    //                 nl: "nl-NL",
+    //             },
+    //         },
+    //     }),
+    //     tunnel(),
+    // ],
     fonts: [
         {
             provider: fontProviders.fontshare(),
@@ -88,7 +88,7 @@ export default defineConfig({
     output: "server", // Astro 5.0 removed "hybrid", which is now "static", which essentially is still "hybrid".
     markdown: {
         // @ts-expect-error
-        remarkPlugins: [remarkTimeRead],
+        // remarkPlugins: [remarkTimeRead],
         // shikiConfig: {
         //     theme: await vesper(),
         //     wrap: true,

@@ -1,49 +1,54 @@
 {
-    "name": "nilsbeerten.nl",
-    "type": "module",
-    "scripts": {
-        "dev": "astro dev",
-        "start": "astro dev",
-        "build": "astro check && astro build",
-        "preview": "wrangler pages dev ./dist",
-        "astro": "astro",
-        "format": "prettier --write ."
+  "name": "nilsbeerten.nl",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "wrangler dev ./dist",
+    "astro": "astro",
+    "format": "prettier --write .",
+    "generate-types": "wrangler types"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/cloudflare": "^13.1.3",
+    "@astrojs/sitemap": "^3.7.1",
+    "@cloudflare/workers-types": "^4.20260317.1",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@radix-ui/colors": "^3.0.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.0.8",
+    "astro-tunnel": "^0.1.9",
+    "kleur": "^4.1.5",
+    "mdast-util-to-string": "^4.0.0",
+    "prettier": "^3.8.1",
+    "reading-time": "^1.5.0",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.2",
+    "touchsweep": "^2.2.0",
+    "typescript": "^5.9.3",
+    "unplugin-icons": "^23.0.1",
+    "vfile": "^6.0.3"
+  },
+  "devDependencies": {
+    "@iconify-json/heroicons": "^1.2.3",
+    "@iconify-json/lucide": "^1.2.98",
+    "@iconify-json/simple-icons": "^1.2.74",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "wrangler": "^4.76.0"
+  },
+  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
+  "pnpm": {
+    "overrides": {
+      "vite": "^7.3.1"
     },
-    "dependencies": {
-        "@astrojs/check": "^0.9.8",
-        "@astrojs/cloudflare": "^13.1.3",
-        "@astrojs/sitemap": "^3.7.1",
-        "@cloudflare/workers-types": "^4.20260317.1",
-        "@fontsource-variable/inter": "^5.2.8",
-        "@radix-ui/colors": "^3.0.0",
-        "@tailwindcss/typography": "^0.5.19",
-        "@tailwindcss/vite": "^4.2.2",
-        "astro": "^6.0.8",
-        "astro-i18n-aut": "^0.7.3",
-        "astro-tunnel": "^0.1.9",
-        "kleur": "^4.1.5",
-        "mdast-util-to-string": "^4.0.0",
-        "prettier": "^3.8.1",
-        "reading-time": "^1.5.0",
-        "tailwind-merge": "^3.5.0",
-        "tailwindcss": "^4.2.2",
-        "touchsweep": "^2.2.0",
-        "typescript": "^5.9.3",
-        "unplugin-icons": "^23.0.1",
-        "vfile": "^6.0.3"
-    },
-    "devDependencies": {
-        "@iconify-json/heroicons": "^1.2.3",
-        "@iconify-json/lucide": "^1.2.98",
-        "@iconify-json/simple-icons": "^1.2.74",
-        "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.7.2",
-        "wrangler": "^4.76.0"
-    },
-    "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
-    "pnpm": {
-        "overrides": {
-            "vite": "^7.3.1"
-        }
-    }
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "workerd"
+    ]
+  }
 }
