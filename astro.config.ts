@@ -1,16 +1,10 @@
 import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
-import Icons from "unplugin-icons/vite";
+import icons from "unplugin-icons/vite";
 import tunnel from "astro-tunnel";
 import sitemap from "@astrojs/sitemap";
-import {
-    i18n,
-    filterSitemapByDefaultLocale,
-    type UserI18nConfig,
-} from "astro-i18n-aut/integration";
 import { remarkTimeRead } from "./remark-plugins";
-import pageInsight from "astro-page-insight";
 
 const vesper = async () => {
     const response = await fetch(
@@ -23,66 +17,57 @@ const vesper = async () => {
     );
     return JSON.parse(sanitizedText);
 };
-const i18nConfig: UserI18nConfig = {
-    defaultLocale: "en",
-    locales: {
-        en: "en-UK",
-        nl: "nl-NL",
-    },
-    exclude: ["pages/open-graph/**/*", "pages/api/**/*"],
-};
 
 // https://astro.build/config
 export default defineConfig({
     integrations: [
-        i18n(i18nConfig),
         sitemap({
-            i18n: i18nConfig,
-            filter: filterSitemapByDefaultLocale({
-                defaultLocale: i18nConfig.defaultLocale,
-            }),
-        }),
-        tunnel(),
-        pageInsight(),
-    ],
-    experimental: {
-        fonts: [
-            {
-                provider: fontProviders.fontshare(),
-                name: "Satoshi",
-                cssVariable: "--font-satoshi",
-                weights: ["700"],
-                subsets: ["latin"],
-                styles: ["normal"],
-                featureSettings: `"ss03" on, "ss01" on, "cv05" on, "cv06" on, "cv11" on`,
-            },
-            {
-                provider: fontProviders.local(),
-                name: "Inter",
-                cssVariable: "--font-inter",
-                options: {
-                    variants: [
-                        {
-                            weight: "100 900",
-                            style: "normal",
-                            src: ["./src/assets/InterVariable.woff2"],
-                            featureSettings: `"ss01" on, "cv05" on, "cv06" on, "cv07" on, "cv11" on`,
-                        },
-                        {
-                            weight: "100 900",
-                            style: "italic",
-                            src: ["./src/assets/InterVariable-Italic.woff2"],
-                            featureSettings: `"ss01" on, "cv05" on, "cv06" on, "cv07" on, "cv11" on`,
-                        },
-                    ],
+            i18n: {
+                defaultLocale: "en",
+                locales: {
+                    en: "en-GB",
+                    nl: "nl-NL",
                 },
             },
-        ],
-    },
+        }),
+        tunnel()
+    ],
+    fonts: [
+        {
+            provider: fontProviders.fontshare(),
+            name: "Satoshi",
+            cssVariable: "--font-satoshi",
+            weights: ["700"],
+            subsets: ["latin"],
+            styles: ["normal"],
+            featureSettings: `"ss03" on, "ss01" on, "cv05" on, "cv06" on, "cv11" on`,
+        },
+        {
+            provider: fontProviders.local(),
+            name: "Inter",
+            cssVariable: "--font-inter",
+            options: {
+                variants: [
+                    {
+                        weight: "100 900",
+                        style: "normal",
+                        src: ["./src/assets/InterVariable.woff2"],
+                        featureSettings: `"ss01" on, "cv05" on, "cv06" on, "cv07" on, "cv11" on`,
+                    },
+                    {
+                        weight: "100 900",
+                        style: "italic",
+                        src: ["./src/assets/InterVariable-Italic.woff2"],
+                        featureSettings: `"ss01" on, "cv05" on, "cv06" on, "cv07" on, "cv11" on`,
+                    },
+                ],
+            },
+        },
+    ],
     vite: {
         plugins: [
             tailwindcss(),
-            Icons({
+            icons({
                 compiler: "astro",
                 autoInstall: true,
             }),

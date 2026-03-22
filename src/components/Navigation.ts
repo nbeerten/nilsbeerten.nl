@@ -1,4 +1,4 @@
-import { getUrlWithoutLocale } from "astro-i18n-aut";
+import { getUrlWithoutLocale } from "@lib/i18n";
 
 type Route = {
     label: string;

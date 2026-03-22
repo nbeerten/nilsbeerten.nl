@@ -4,7 +4,7 @@ import { ClientRouter } from "astro:transitions";
 import Navigation from "@components/Navigation.astro";
 import { createLocale } from "@lib/i18n";
 import type { CollectionEntry } from "astro:content";
-import { Font } from "astro:assets";
+import { Font } from 'astro:assets';
 
 const { getLocaleUrl, locale } = createLocale(Astro.url);
 
@@ -66,7 +66,6 @@ function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
         <Font cssVariable="--font-inter" preload transition:persist />
 
         <meta name="viewport" content="width=device-width" />
-
 
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -198,11 +197,12 @@ function breadcrumbsToJson(breadcrumbs: [string, string?][]): string {
                 // Copy font preload links and @font-face styles into the new document
                 // before Chrome sees it, preventing the font re-evaluation flash
                 document.head
-                    .querySelectorAll('link[rel="preload"][as="font"], link[rel="stylesheet"][data-astro-font], style')
+                    .querySelectorAll(
+                        'link[rel="preload"][as="font"], link[rel="stylesheet"][data-astro-font], style'
+                    )
                     .forEach((el) => {
-                        if (
-                            el.tagName === "STYLE" && !el.textContent?.includes("@font-face")
-                        ) return;
+                        if (el.tagName === "STYLE" && !el.textContent?.includes("@font-face"))
+                            return;
                         event.newDocument.head.prepend(el.cloneNode(true));
                     });
             });
