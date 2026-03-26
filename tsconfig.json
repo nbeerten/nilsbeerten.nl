@@ -9,5 +9,5 @@
         },
         "types": ["unplugin-icons/types/astro"]
     },
-    "include": ["./worker-configuration.d.ts"]
+    "include": ["src/**/*", "./worker-configuration.d.ts"]
 }

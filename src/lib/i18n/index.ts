@@ -32,7 +32,8 @@ export function getLocaleUrl(url: string | URL, locale: string, defaultLocale = 
 }
 
 export function createLocale(url: string | URL) {
-    const locale = getLocale(url) as "en" | "nl";
+    // const locale = getLocale(url) as "en" | "nl";
+    const locale = "en";
 
     return {
         locale,

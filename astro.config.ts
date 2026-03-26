@@ -2,9 +2,8 @@ import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import icons from "unplugin-icons/vite";
-// import tunnel from "astro-tunnel";
-// import sitemap from "@astrojs/sitemap";
-// import { remarkTimeRead } from "./remark-plugins";
+import sitemap from "@astrojs/sitemap";
+import { remarkTimeRead } from "./remark-plugins";
 
 // const vesper = async () => {
 //     const response = await fetch(p
@@ -21,18 +20,9 @@ import icons from "unplugin-icons/vite";
 // https://astro.build/config
 export default defineConfig({
     adapter: cloudflare(),
-    // integrations: [
-    //     sitemap({
-    //         i18n: {
-    //             defaultLocale: "en",
-    //             locales: {
-    //                 en: "en",
-    //                 nl: "nl-NL",
-    //             },
-    //         },
-    //     }),
-    //     tunnel(),
-    // ],
+    integrations: [
+        sitemap()
+    ],
     fonts: [
         {
             provider: fontProviders.fontshare(),
@@ -73,25 +63,15 @@ export default defineConfig({
                 autoInstall: true,
             }),
         ],
-        // ssr: {
-        //     external: ["node:buffer"],
-        // },
-        // build: {
-        //     sourcemap: true,
-        // },
+        build: {
+            sourcemap: true,
+        },
     },
     site: "https://www.nilsbeerten.nl",
-    // trailingSlash: "never",
-    // build: {
-    //     format: "file",
-    // },
-    output: "server", // Astro 5.0 removed "hybrid", which is now "static", which essentially is still "hybrid".
+    trailingSlash: "never",
+    output: "server",
     markdown: {
         // @ts-expect-error
-        // remarkPlugins: [remarkTimeRead],
-        // shikiConfig: {
-        //     theme: await vesper(),
-        //     wrap: true,
-        // },
+        remarkPlugins: [remarkTimeRead]
     },
 });

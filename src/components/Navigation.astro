@@ -1,7 +1,7 @@
 ---
 import { createNavigation } from "./Navigation";
 import { createLocale } from "@lib/i18n";
-import Languages from "~icons/heroicons/language-16-solid";
+// import Languages from "~icons/heroicons/language-16-solid";
 import ColorschemeToggle from "./ColorschemeToggle.astro";
 import { getCollection } from "astro:content";
 
@@ -11,7 +11,7 @@ interface Props {
 }
 const { class: className, back = "/" } = Astro.props;
 
-const { getLocaleUrl, str, normalizedUrl, locale } = createLocale(Astro.url);
+const { getLocaleUrl, str, normalizedUrl } = createLocale(Astro.url);
 
 const localizedBack = getLocaleUrl(back);
 
@@ -76,7 +76,7 @@ const navigation = createNavigation(routes, Astro.url);
             <div
                 class="border-brand-border ml-auto flex items-center rounded-full border text-sm md:justify-normal"
                 aria-label={str("Website settings", "Website-instellingen")}>
-                <a
+                <!-- <a
                     href={getLocaleUrl(Astro.url, locale === "en" ? "nl" : "en")}
                     class="j ustify-center flex items-center gap-1 rounded-s-full px-3 py-1 pr-2.5"
                     title={str(
@@ -111,7 +111,7 @@ const navigation = createNavigation(routes, Astro.url);
                         }
                     </span>
                 </a>
-                <div class="border-brand-border h-4 border-r"></div>
+                <div class="border-brand-border h-4 border-r"></div> -->
                 <div>
                     <ColorschemeToggle />
                 </div>
