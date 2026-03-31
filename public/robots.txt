@@ -1,4 +1,2 @@
 User-agent: *
-Disallow: /brand
 Allow: /
-Sitemap: https://www.nilsbeerten.nl/sitemap-index.xml

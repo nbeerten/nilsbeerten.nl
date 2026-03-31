@@ -13,7 +13,6 @@
     "dependencies": {
         "@astrojs/check": "^0.9.8",
         "@astrojs/cloudflare": "^13.1.6",
-        "@astrojs/sitemap": "^3.7.2",
         "@cloudflare/workers-types": "^4.20260331.1",
         "@fontsource-variable/inter": "^5.2.8",
         "@radix-ui/colors": "^3.0.0",

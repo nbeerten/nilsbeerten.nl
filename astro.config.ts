@@ -2,25 +2,12 @@ import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import icons from "unplugin-icons/vite";
-import sitemap from "@astrojs/sitemap";
 import { remarkTimeRead } from "./remark-plugins";
-
-// const vesper = async () => {
-//     const response = await fetch(p
-//         "https://raw.githubusercontent.com/raunofreiberg/vesper/main/themes/Vesper-dark-color-theme.json"
-//     );
-//     const text = await response.text();
-//     const sanitizedText = text.replace(
-//         /\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g,
-//         (match, group) => (group ? "" : match)
-//     );
-//     return JSON.parse(sanitizedText);
-// };
 
 // https://astro.build/config
 export default defineConfig({
     adapter: cloudflare(),
-    integrations: [sitemap()],
+    integrations: [],
     fonts: [
         {
             provider: fontProviders.fontshare(),
@@ -69,7 +56,6 @@ export default defineConfig({
     trailingSlash: "never",
     output: "server",
     markdown: {
-        // @ts-expect-error
         remarkPlugins: [remarkTimeRead],
     },
 });
