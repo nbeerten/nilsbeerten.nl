@@ -10,7 +10,7 @@ const blogEntries = (await getCollection("blog"))
     .filter((blog) => !blog.data.draft)
     .sort((a, b) => (a.data.date > b.data.date ? -1 : 1));
 
-const { str, getLocaleUrl, locale } = createLocale(Astro.url);
+const { str, getLocaleUrl, locale } = createLocale(Astro.url, Astro.locals.locale);
 ---
 
 <Layout

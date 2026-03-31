@@ -8,6 +8,6 @@
             "@lib/*": ["src/lib/*"]
         },
         "types": ["unplugin-icons/types/astro"]
-    }
-
+    },
+    "include": ["src/**/*", "./worker-configuration.d.ts"]
 }

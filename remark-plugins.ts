@@ -11,5 +11,10 @@ export const remarkTimeRead =
         const textOnPage = toString(tree);
         const readingTime = getReadingTime(textOnPage);
 
+        // Ensure reading time is at least 1 minute
+        if (readingTime.minutes < 1) {
+            readingTime.minutes = 1;
+        }
+
         file.data.astro.frontmatter.readingTime = readingTime.minutes;
     };
