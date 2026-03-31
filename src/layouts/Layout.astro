@@ -6,7 +6,7 @@ import { createLocale } from "@lib/i18n";
 import type { CollectionEntry } from "astro:content";
 import { Font } from "astro:assets";
 
-const { getLocaleUrl, locale } = createLocale(Astro.url);
+const { getLocaleUrl, locale } = createLocale(Astro.url, Astro.locals.locale);
 
 interface Props {
     title: string;

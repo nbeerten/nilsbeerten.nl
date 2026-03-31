@@ -3,7 +3,7 @@ import Sun from "~icons/heroicons/sun-16-solid";
 import Moon from "~icons/heroicons/moon-16-solid";
 import { createLocale } from "@lib/i18n";
 
-const { str } = createLocale(Astro.url);
+const { str } = createLocale(Astro.url, Astro.locals.locale);
 
 const colorschemes = [
     {

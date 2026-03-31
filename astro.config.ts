@@ -20,9 +20,7 @@ import { remarkTimeRead } from "./remark-plugins";
 // https://astro.build/config
 export default defineConfig({
     adapter: cloudflare(),
-    integrations: [
-        sitemap()
-    ],
+    integrations: [sitemap()],
     fonts: [
         {
             provider: fontProviders.fontshare(),
@@ -72,6 +70,6 @@ export default defineConfig({
     output: "server",
     markdown: {
         // @ts-expect-error
-        remarkPlugins: [remarkTimeRead]
+        remarkPlugins: [remarkTimeRead],
     },
 });

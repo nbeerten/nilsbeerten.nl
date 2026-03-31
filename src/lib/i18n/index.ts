@@ -1,62 +1,46 @@
-export function getLocale(url: string | URL, defaultLocale = "en"): string {
-    const pathname = url instanceof URL ? url.pathname : new URL(url, "http://localhost").pathname;
+function removeTrailingSlash(pathname: string): string {
+    return pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+}
 
-    const match = pathname.match(/^\/([a-z]{2}(?:-[A-Z]{2})?)(\/|$)/);
+export function getLocale(url: string | URL, defaultLocale = "en"): string {
+    const parsed = new URL(url, "http://localhost");
+    const match = parsed.pathname.match(/^\/([a-z]{2}(?:-[A-Z]{2})?)(\/|$)/);
+
     return match?.[1] ?? defaultLocale;
 }
 
 export function getUrlWithoutLocale(url: string | URL): string {
-    const parsed = typeof url === "string" ? new URL(url, "http://localhost") : url;
-    const localePattern = /^\/[a-z]{2}(-[A-Z]{2})?(\/|$)/;
-    const stripped = parsed.pathname.replace(localePattern, "/");
+    const isRelative = typeof url === "string" && !url.startsWith("http");
+    const parsed = new URL(url, "http://localhost");
 
-    return typeof url === "string" && !url.startsWith("http")
-        ? stripped + parsed.search + parsed.hash
-        : parsed.origin + stripped + parsed.search + parsed.hash;
+    const localePattern = /^\/[a-z]{2}(-[A-Z]{2})?(\/|$)/;
+    parsed.pathname = removeTrailingSlash(parsed.pathname.replace(localePattern, "/"));
+
+    return isRelative ? parsed.pathname + parsed.search + parsed.hash : parsed.href;
 }
 
 export function getLocaleUrl(url: string | URL, locale: string, defaultLocale = "en"): string {
-    const withoutLocale = getUrlWithoutLocale(url);
-
-    if (locale === defaultLocale) return withoutLocale;
+    if (locale === defaultLocale) return getUrlWithoutLocale(url);
 
     const isRelative = typeof url === "string" && !url.startsWith("http");
 
-    if (isRelative) {
-        return `/${locale}${withoutLocale === "/" ? "" : withoutLocale}`;
-    }
+    // Base the new URL object on the already-stripped URL
+    const parsed = new URL(getUrlWithoutLocale(url), "http://localhost");
 
-    const parsed = url instanceof URL ? url : new URL(url);
-    const newPath = `/${locale}${withoutLocale === "/" ? "" : new URL(withoutLocale, parsed.origin).pathname}`;
-    return parsed.origin + newPath + parsed.search + parsed.hash;
+    // Inject the locale into the pathname
+    parsed.pathname = removeTrailingSlash(
+        `/${locale}${parsed.pathname === "/" ? "" : parsed.pathname}`
+    );
+
+    return isRelative ? parsed.pathname + parsed.search + parsed.hash : parsed.href;
 }
 
-export function createLocale(url: string | URL) {
-    // const locale = getLocale(url) as "en" | "nl";
-    const locale = "en";
-
+export function createLocale(url: string | URL, locale: "en" | "nl") {
     return {
         locale,
-        str: createStrFunction(locale),
+        str: <T>(en: T, nl: T): T => (locale === "nl" ? nl : en),
         getLocaleUrl: (url: string | URL, useLocale?: string) =>
             getLocaleUrl(url, useLocale || locale),
         normalizedUrl: getUrlWithoutLocale(url),
-    };
-}
-
-function createStrFunction(locale: string): (en: string, nl: string) => string;
-function createStrFunction(locale: string): (en: HTMLElement, nl: HTMLElement) => HTMLElement;
-function createStrFunction(
-    locale: string
-): (en: string | HTMLElement, nl: string | HTMLElement) => any {
-    return (en, nl) => {
-        switch (locale) {
-            case "en":
-                return en;
-            case "nl":
-                return nl;
-            default:
-                return en;
-        }
     };
 }

@@ -1,32 +1,31 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import { getCollection, render } from "astro:content";
+// import type { CollectionEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import HeadingGroup from "@components/HeadingGroup.astro";
 import { createLocale } from "@lib/i18n";
 import Languages from "~icons/heroicons/language-16-solid";
 import Divider from "@components/Divider.astro";
 
-export async function getStaticPaths() {
-    const posts = (await getCollection("blog")).filter((blog) => !blog.data.draft);
+// Extract the ID from the URL parameters dynamically
+const { id } = Astro.params;
+if (!id) return new Response(null, { status: 404 });
 
-    return posts.map((post) => ({
-        params: { id: post.id },
-        props: { post },
-    }));
-}
+// Fetch the specific blog post on-demand
+const post = await getEntry("blog", id);
+if (!post) return new Response(null, { status: 404 });
 
-export const prerender = true;
+// export const prerender = true;
 
-type Props = {
-    post: CollectionEntry<"blog">;
-};
+// type Props = {
+//     post: CollectionEntry<"blog">;
+// };
 
-const { post } = Astro.props;
+// const { post } = Astro.props;
 
 const { Content, remarkPluginFrontmatter } = await render(post);
 
-const { locale, str } = createLocale(Astro.url);
+const { locale, str } = createLocale(Astro.url, Astro.locals.locale);
 
 const formatTime = (time: number) => {
     const minutes = Math.round(time);
