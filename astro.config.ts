@@ -5,10 +5,12 @@ import cloudflare from "@astrojs/cloudflare";
 import icons from "unplugin-icons/vite";
 import { remarkTimeRead } from "./remark-plugins";
 
+import svelte from "@astrojs/svelte";
+
 // https://astro.build/config
 export default defineConfig({
     adapter: cloudflare(),
-    integrations: [],
+    integrations: [svelte()],
     fonts: [
         {
             provider: fontProviders.fontshare(),
