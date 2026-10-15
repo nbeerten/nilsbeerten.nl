@@ -1,0 +1,35 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HeadingGroup from "@components/HeadingGroup.astro";
+import Divider from "@components/Divider.astro";
+import IconGenerator from "@components/IconGenerator.svelte";
+import { createLocale } from "@lib/i18n";
+
+const { str, locale } = createLocale(Astro.url, Astro.locals.locale);
+---
+
+<Layout
+    title={str("Icon", "Icoon")}
+    lang={locale}
+    noindex={true}
+    description={str(
+        "Generator for my personal logo/emblem.",
+        "Generator voor mijn persoonlijke logo/embleem."
+    )}>
+    <section>
+        <HeadingGroup title={str("Icon", "Icoon")}>
+            <Fragment slot="subtitle">
+                <span class="text-brand-muted">
+                    {str(
+                        "Generator for my personal emblem/logo.",
+                        "Generator voor mijn persoonlijke logo/embleem."
+                    )}
+                </span>
+            </Fragment>
+        </HeadingGroup>
+
+        <Divider class="my-5" />
+
+        <IconGenerator client:load locale={locale} />
+    </section>
+</Layout>
