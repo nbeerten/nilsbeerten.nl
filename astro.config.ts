@@ -1,4 +1,5 @@
 import { defineConfig, fontProviders } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import icons from "unplugin-icons/vite";
@@ -56,6 +57,8 @@ export default defineConfig({
     trailingSlash: "never",
     output: "server",
     markdown: {
-        remarkPlugins: [remarkTimeRead],
+        processor: unified({
+            remarkPlugins: [remarkTimeRead],
+        }),
     },
 });
