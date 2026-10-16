@@ -97,6 +97,23 @@ export function generateWavyCirclePath(
     return d + " Z";
 }
 
+export const PRIDE_GRADIENT_DEFS = `<defs>
+        <linearGradient id="pride-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e40303" />
+            <stop offset="16.666%" stop-color="#e40303" />
+            <stop offset="16.666%" stop-color="#ff8c00" />
+            <stop offset="33.333%" stop-color="#ff8c00" />
+            <stop offset="33.333%" stop-color="#ffed00" />
+            <stop offset="50%" stop-color="#ffed00" />
+            <stop offset="50%" stop-color="#008026" />
+            <stop offset="66.666%" stop-color="#008026" />
+            <stop offset="66.666%" stop-color="#004dff" />
+            <stop offset="83.333%" stop-color="#004dff" />
+            <stop offset="83.333%" stop-color="#750787" />
+            <stop offset="100%" stop-color="#750787" />
+        </linearGradient>
+    </defs>`;
+
 /**
  * Generates the complete SVG markup for the logo.
  */
@@ -111,9 +128,14 @@ export function generateLogoSvg(options: LogoOptions = {}): string {
     const heightAttr = opts.responsive ? "100%" : `${opts.size}`;
     const styleAttr = opts.responsive ? ' style="width: 100%; height: 100%; display: block;"' : "";
 
+    const isPrideBg = opts.bgColor === "pride";
+    const bgFill = isPrideBg ? "url(#pride-gradient)" : opts.bgColor;
+    const defsBlock = isPrideBg ? PRIDE_GRADIENT_DEFS : "";
+
     return `<svg width="${widthAttr}" height="${heightAttr}" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"${styleAttr}>
+    ${defsBlock}
     <g stroke-linecap="round" fill-rule="evenodd">
-        <rect width="512" height="512" rx="${opts.circleExport ? "512" : "0"}" ry="${opts.circleExport ? "512" : "0"}" fill="${opts.bgColor}" />
+        <rect width="512" height="512" rx="${opts.circleExport ? "512" : "0"}" ry="${opts.circleExport ? "512" : "0"}" fill="${bgFill}" />
         <path fill="${opts.circleColor}" d="${wavyPath}" />
         <path fill="${opts.innerColor}" transform="${monogramTransform}" d="${NB_MONOGRAM_PATH}" />
     </g>

@@ -70,6 +70,9 @@
 
     let matchMonogramWithBg = $state(true);
     let openDrawer = $state<ColorTarget | null>("bg");
+    let bgMode = $state<"solid" | "pride">("solid");
+
+    let effectiveBgColor = $derived(bgMode === "pride" ? "pride" : colors.bg.hex);
 
     let effectiveInnerColor = $derived(
         matchMonogramWithBg ? colors.bg.hex : colors.inner.hex
@@ -82,7 +85,7 @@
             amplitude: geometry.amplitude,
             radius: geometry.radius,
             innerScale: geometry.innerScale / 100,
-            bgColor: colors.bg.hex,
+            bgColor: effectiveBgColor,
             circleColor: colors.circle.hex,
             innerColor: effectiveInnerColor,
             circleExport: false,
@@ -91,6 +94,7 @@
     );
 
     function updateTargetHex(target: ColorTarget, hex: string) {
+        if (target === "bg") bgMode = "solid";
         colors[target].setHex(hex);
         if (target === "inner") {
             matchMonogramWithBg = false;
@@ -100,6 +104,7 @@
     }
 
     function updateTargetHsl(target: ColorTarget, h?: number, s?: number, l?: number) {
+        if (target === "bg") bgMode = "solid";
         colors[target].setHsl(h, s, l);
         if (target === "inner") {
             matchMonogramWithBg = false;
@@ -111,23 +116,45 @@
     // 5. Presets & Actions
     const presets = [
         { id: "dark", labelEn: "dark", labelNl: "donker", bg: "#ffe7b3", circle: "#111110", inner: "#ffe7b3" },
-        { id: "dark-inv", labelEn: "dark (inverted)", labelNl: "donker (geïnverteerd)", bg: "#111110", circle: "#ffe7b3", inner: "#111110" },
         { id: "light", labelEn: "light", labelNl: "licht", bg: "#111110", circle: "#fefdfb", inner: "#111110" },
-        { id: "light-inv", labelEn: "light (inverted)", labelNl: "licht (geïnverteerd)", bg: "#fefdfb", circle: "#111110", inner: "#fefdfb" },
-        { id: "radboud", labelEn: "radboud", labelNl: "radboud", bg: "#e3000b", circle: "#fbf5ee", inner: "#e3000b" },
-        { id: "outlook", labelEn: "outlook", labelNl: "outlook", bg: "#0078d4", circle: "#ffffff", inner: "#0078d4" },
+        { id: "red", labelEn: "red", labelNl: "rood", bg: "#e3000b", circle: "#fbf5ee", inner: "#e3000b" },
+        { id: "blue", labelEn: "blue", labelNl: "blauw", bg: "#0078d4", circle: "#ffffff", inner: "#0078d4" },
+        { id: "rainbow", labelEn: "rainbow", labelNl: "regenboog", bg: "pride", circle: "#111110", inner: "#ffffff" },
         { id: "pastel-1", labelEn: "pastel 1", labelNl: "pastel 1", bg: "#ffddee", circle: "#00aa00", inner: "#ffddee" },
         { id: "pastel-2", labelEn: "pastel 2", labelNl: "pastel 2", bg: "#00aa00", circle: "#aaee77", inner: "#00aa00" },
     ];
 
+    let activePresetId = $derived.by(() => {
+        const currentBg = bgMode === "pride" ? "pride" : colors.bg.hex.toLowerCase();
+        const currentCircle = colors.circle.hex.toLowerCase();
+        const currentInner = effectiveInnerColor.toLowerCase();
+
+        const match = presets.find(
+            (p) =>
+                p.bg.toLowerCase() === currentBg &&
+                p.circle.toLowerCase() === currentCircle &&
+                p.inner.toLowerCase() === currentInner
+        );
+        return match ? match.id : null;
+    });
+
     function applyPreset(p: (typeof presets)[number]) {
-        matchMonogramWithBg = p.bg === p.inner;
-        colors.bg.setHex(p.bg);
-        colors.circle.setHex(p.circle);
-        colors.inner.setHex(p.inner);
+        if (p.id === "rainbow") {
+            bgMode = "pride";
+            matchMonogramWithBg = false;
+            colors.circle.setHex(p.circle);
+            colors.inner.setHex(p.inner);
+        } else {
+            bgMode = "solid";
+            matchMonogramWithBg = p.bg === p.inner;
+            colors.bg.setHex(p.bg);
+            colors.circle.setHex(p.circle);
+            colors.inner.setHex(p.inner);
+        }
     }
 
     function invertColors() {
+        if (bgMode === "pride") return;
         const oldBg = colors.bg.hex;
         const oldCircle = colors.circle.hex;
         colors.bg.setHex(oldCircle);
@@ -142,7 +169,7 @@
             amplitude: geometry.amplitude,
             radius: geometry.radius,
             innerScale: geometry.innerScale / 100,
-            bgColor: colors.bg.hex,
+            bgColor: effectiveBgColor,
             circleColor: colors.circle.hex,
             innerColor: effectiveInnerColor,
             circleExport: shape === "circle",
@@ -210,7 +237,9 @@
     {@const target = section.key}
     {@const c = colors[target]}
     {@const isInner = target === "inner"}
-    {@const displayHex = isInner ? effectiveInnerColor : c.hex}
+    {@const isBg = target === "bg"}
+    {@const isPrideBg = isBg && bgMode === "pride"}
+    {@const displayHex = isPrideBg ? str("rainbow", "regenboog") : (isInner ? effectiveInnerColor : c.hex)}
     {@const isOpen = openDrawer === target}
 
     <li class="border-b border-brand-border/20 last:border-b-0 pb-1.5">
@@ -221,7 +250,9 @@
             <div class="flex items-center gap-3">
                 <span
                     class="h-4 w-4 rounded-full border border-black/10 dark:border-white/10 shrink-0 shadow-xs"
-                    style:background-color={displayHex}></span>
+                    style:background={isPrideBg
+                        ? "linear-gradient(to bottom, #e40303 0% 16.66%, #ff8c00 16.66% 33.33%, #ffed00 33.33% 50%, #008026 50% 66.66%, #004dff 66.66% 83.33%, #750787 83.33% 100%)"
+                        : displayHex}></span>
                 <span
                     class="text-base {isOpen
                         ? 'font-medium text-brand-text underline underline-offset-2 decoration-brand-border'
@@ -241,82 +272,101 @@
 
         <div class="drawer-container" class:is-open={isOpen}>
             <div class="drawer-inner flex flex-col gap-3 pt-2 pb-3 px-0.5">
-                <div class="flex items-center justify-between text-xs">
-                    {#if isInner}
-                        <div class="flex items-center gap-2 text-xs text-brand-muted">
+                {#if isPrideBg}
+                    <div class="flex items-center justify-between text-xs py-1">
+                        <span class="text-brand-muted font-mono">
+                            {str("rainbow flag · static", "regenboogvlag · statisch")}
+                        </span>
+                        <button
+                            type="button"
+                            onclick={() => (bgMode = "solid")}
+                            class="text-brand-muted hover:text-brand-text cursor-pointer underline underline-offset-1 text-xs">
+                            {str("switch to solid", "naar egale kleur")}
+                        </button>
+                    </div>
+                    <div
+                        class="h-2 w-full rounded-full"
+                        style="background: linear-gradient(to right, #e40303 0% 16.66%, #ff8c00 16.66% 33.33%, #ffed00 33.33% 50%, #008026 50% 66.66%, #004dff 66.66% 83.33%, #750787 83.33% 100%);">
+                    </div>
+                {:else}
+                    <div class="flex items-center justify-between text-xs">
+                        {#if isInner}
+                            <div class="flex items-center gap-2 text-xs text-brand-muted">
+                                <button
+                                    type="button"
+                                    onclick={() => {
+                                        if (bgMode === "pride") bgMode = "solid";
+                                        matchMonogramWithBg = true;
+                                        colors.inner.setHex(colors.bg.hex);
+                                    }}
+                                    class="cursor-pointer transition-colors {matchMonogramWithBg
+                                        ? 'text-brand-text underline underline-offset-1 font-medium'
+                                        : 'text-brand-muted hover:text-brand-text'}">
+                                    {str("matches background", "volgt achtergrond")}
+                                </button>
+                                <span class="text-brand-border">·</span>
+                                <button
+                                    type="button"
+                                    onclick={() => (matchMonogramWithBg = false)}
+                                    class="cursor-pointer transition-colors {!matchMonogramWithBg
+                                        ? 'text-brand-text underline underline-offset-1 font-medium'
+                                        : 'text-brand-muted hover:text-brand-text'}">
+                                    {str("independent", "onafhankelijk")}
+                                </button>
+                            </div>
+                        {:else}
+                            <span class="text-brand-muted font-mono tabular-nums">
+                                {c.h}° · {c.s}% · {c.l}%
+                            </span>
+                        {/if}
+
+                        <div class="flex items-center gap-2">
+                            <input
+                                type="text"
+                                value={displayHex}
+                                onchange={(e) => updateTargetHex(target, e.currentTarget.value)}
+                                maxlength="7"
+                                class="w-18 bg-transparent text-right font-mono text-xs uppercase text-brand-text border-b border-brand-border focus:border-brand-text focus:outline-none"
+                            />
                             <button
                                 type="button"
                                 onclick={() => {
-                                    matchMonogramWithBg = true;
-                                    colors.inner.setHex(colors.bg.hex);
+                                    if (isInner) matchMonogramWithBg = false;
+                                    updateTargetHex(target, section.defaultHex);
                                 }}
-                                class="cursor-pointer transition-colors {matchMonogramWithBg
-                                    ? 'text-brand-text underline underline-offset-1 font-medium'
-                                    : 'text-brand-muted hover:text-brand-text'}">
-                                {str("matches background", "volgt achtergrond")}
-                            </button>
-                            <span class="text-brand-border">·</span>
-                            <button
-                                type="button"
-                                onclick={() => (matchMonogramWithBg = false)}
-                                class="cursor-pointer transition-colors {!matchMonogramWithBg
-                                    ? 'text-brand-text underline underline-offset-1 font-medium'
-                                    : 'text-brand-muted hover:text-brand-text'}">
-                                {str("independent", "onafhankelijk")}
+                                class="text-brand-muted hover:text-brand-text cursor-pointer underline underline-offset-1 text-xs">
+                                {str("reset", "herstel")}
                             </button>
                         </div>
-                    {:else}
-                        <span class="text-brand-muted font-mono tabular-nums">
-                            {c.h}° · {c.s}% · {c.l}%
-                        </span>
-                    {/if}
-
-                    <div class="flex items-center gap-2">
-                        <input
-                            type="text"
-                            value={displayHex}
-                            onchange={(e) => updateTargetHex(target, e.currentTarget.value)}
-                            maxlength="7"
-                            class="w-18 bg-transparent text-right font-mono text-xs uppercase text-brand-text border-b border-brand-border focus:border-brand-text focus:outline-none"
-                        />
-                        <button
-                            type="button"
-                            onclick={() => {
-                                if (isInner) matchMonogramWithBg = false;
-                                updateTargetHex(target, section.defaultHex);
-                            }}
-                            class="text-brand-muted hover:text-brand-text cursor-pointer underline underline-offset-1 text-xs">
-                            {str("reset", "herstel")}
-                        </button>
                     </div>
-                </div>
 
-                <!-- Sliders -->
-                <div class="flex flex-col gap-2 pt-0.5">
-                    {#each hslChannels as ch}
-                        <div class="flex flex-col gap-1">
-                            <div class="flex justify-between text-xs text-brand-muted">
-                                <span>{str(ch.labelEn, ch.labelNl)}</span>
-                                <span class="font-mono tabular-nums text-brand-text">{c[ch.key]}{ch.unit}</span>
+                    <!-- Sliders -->
+                    <div class="flex flex-col gap-2 pt-0.5">
+                        {#each hslChannels as ch}
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between text-xs text-brand-muted">
+                                    <span>{str(ch.labelEn, ch.labelNl)}</span>
+                                    <span class="font-mono tabular-nums text-brand-text">{c[ch.key]}{ch.unit}</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max={ch.max}
+                                    step="1"
+                                    value={c[ch.key]}
+                                    oninput={(e) => {
+                                        const val = +e.currentTarget.value;
+                                        if (ch.key === "h") updateTargetHsl(target, val, undefined, undefined);
+                                        else if (ch.key === "s") updateTargetHsl(target, undefined, val, undefined);
+                                        else updateTargetHsl(target, undefined, undefined, val);
+                                    }}
+                                    style:background={getHslTrack(ch.key, c)}
+                                    class="refined-slider hsl-track"
+                                />
                             </div>
-                            <input
-                                type="range"
-                                min="0"
-                                max={ch.max}
-                                step="1"
-                                value={c[ch.key]}
-                                oninput={(e) => {
-                                    const val = +e.currentTarget.value;
-                                    if (ch.key === "h") updateTargetHsl(target, val, undefined, undefined);
-                                    else if (ch.key === "s") updateTargetHsl(target, undefined, val, undefined);
-                                    else updateTargetHsl(target, undefined, undefined, val);
-                                }}
-                                style:background={getHslTrack(ch.key, c)}
-                                class="refined-slider hsl-track"
-                            />
-                        </div>
-                    {/each}
-                </div>
+                        {/each}
+                    </div>
+                {/if}
             </div>
         </div>
     </li>
@@ -441,7 +491,9 @@
                         <button
                             type="button"
                             onclick={() => applyPreset(preset)}
-                            class="hover:text-brand-text cursor-pointer underline underline-offset-1">
+                            class="cursor-pointer transition-colors {activePresetId === preset.id
+                                ? 'font-medium text-brand-text underline underline-offset-2 decoration-brand-border'
+                                : 'text-brand-muted hover:text-brand-text underline underline-offset-1'}">
                             {str(preset.labelEn, preset.labelNl)}
                         </button>
                     {/each}
