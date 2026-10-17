@@ -1,5 +1,6 @@
 <script lang="ts">
     import { DEFAULT_LOGO_OPTIONS, generateLogoSvg, hexToHsl, hslToHex } from "@lib/logo";
+    import { encodePng8 } from "@lib/png8";
 
     interface Props {
         locale?: "en" | "nl";
@@ -57,8 +58,12 @@
     });
 
     // 2. Format & export state
+    type ImageFormat = "png" | "png8" | "webp" | "jpg";
+    type ImageSize = 128 | 512 | 1024 | 2048;
+
     let shape = $state<"square" | "circle">("square");
-    let pngSize = $state<512 | 1024 | 2048>(1024);
+    let imageFormat = $state<ImageFormat>("png");
+    let imageSize = $state<ImageSize>(1024);
     let copied = $state(false);
 
     // 3. Color target state class
@@ -194,6 +199,24 @@
             labelNl: "regenboog",
             bg: "pride",
             circle: "#111110",
+            inner: "#ffffff",
+            geometry: { ...defaultGeometry, radius: 215 },
+        },
+        {
+            id: "christmas",
+            labelEn: "christmas",
+            labelNl: "kerst",
+            bg: "#f8f5ee",
+            circle: "#0e4a25",
+            inner: "#f3c442",
+            geometry: { ...defaultGeometry },
+        },
+        {
+            id: "eu",
+            labelEn: "eu",
+            labelNl: "eu",
+            bg: "#ffcc00",
+            circle: "#003399",
             inner: "#ffffff",
             geometry: { ...defaultGeometry },
         },
@@ -334,8 +357,18 @@
         triggerDownload(URL.createObjectURL(blob), `nilsbeerten-logo-${shape}.svg`);
     }
 
-    function downloadPng() {
-        const targetSize = pngSize;
+    function downloadImage() {
+        const targetSize = imageSize;
+        const format = imageFormat;
+        const mimeType =
+            format === "png" || format === "png8"
+                ? "image/png"
+                : format === "webp"
+                  ? "image/webp"
+                  : "image/jpeg";
+        const quality =
+            format === "png" || format === "png8" ? undefined : format === "webp" ? 0.95 : 0.92;
+
         const img = new Image();
         const url = URL.createObjectURL(
             new Blob([getExportSvg(targetSize)], { type: "image/svg+xml;charset=utf-8" })
@@ -343,14 +376,36 @@
         img.onload = () => {
             const canvas = document.createElement("canvas");
             canvas.width = canvas.height = targetSize;
-            canvas.getContext("2d")?.drawImage(img, 0, 0, targetSize, targetSize);
-            canvas.toBlob((blob) => {
-                if (blob)
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+                if (format === "jpg") {
+                    ctx.fillStyle = "#ffffff";
+                    ctx.fillRect(0, 0, targetSize, targetSize);
+                }
+                ctx.drawImage(img, 0, 0, targetSize, targetSize);
+
+                if (format === "png8") {
+                    const imgData = ctx.getImageData(0, 0, targetSize, targetSize);
+                    const png8Buffer = encodePng8(targetSize, targetSize, imgData.data);
+                    const blob = new Blob([png8Buffer.buffer as ArrayBuffer], { type: "image/png" });
                     triggerDownload(
                         URL.createObjectURL(blob),
-                        `nilsbeerten-logo-${shape}-${targetSize}.png`
+                        `nilsbeerten-logo-${shape}-${targetSize}-png8.png`
                     );
-            }, "image/png");
+                } else {
+                    canvas.toBlob(
+                        (blob) => {
+                            if (blob)
+                                triggerDownload(
+                                    URL.createObjectURL(blob),
+                                    `nilsbeerten-logo-${shape}-${targetSize}.${format}`
+                                );
+                        },
+                        mimeType,
+                        quality
+                    );
+                }
+            }
             URL.revokeObjectURL(url);
         };
         img.src = url;
@@ -418,7 +473,7 @@
                 <span
                     class="h-4 w-4 rounded-full border border-black/10 dark:border-white/10 shrink-0 shadow-xs"
                     style:background={isPrideBg
-                        ? "linear-gradient(to bottom, #e40303 0% 16.66%, #ff8c00 16.66% 33.33%, #ffed00 33.33% 50%, #008026 50% 66.66%, #004dff 66.66% 83.33%, #750787 83.33% 100%)"
+                        ? "linear-gradient(in oklch to bottom, #e40303, #ff8c00, #ffed00, #008026, #004dff, #750787)"
                         : displayHex}></span>
                 <span
                     class="text-base {isOpen
@@ -442,7 +497,7 @@
                     {#if isPrideBg}
                         <div class="flex items-center justify-between text-xs py-1">
                             <span class="text-brand-muted font-mono">
-                                {str("rainbow flag · static", "regenboogvlag · statisch")}
+                                {str("rainbow gradient · static", "regenboogverloop · statisch")}
                             </span>
                             <button
                                 type="button"
@@ -453,7 +508,7 @@
                         </div>
                         <div
                             class="h-2 w-full rounded-full"
-                            style="background: linear-gradient(to right, #e40303 0% 16.66%, #ff8c00 16.66% 33.33%, #ffed00 33.33% 50%, #008026 50% 66.66%, #004dff 66.66% 83.33%, #750787 83.33% 100%);">
+                            style="background: linear-gradient(in oklch to right, #e40303, #ff8c00, #ffed00, #008026, #004dff, #750787);">
                         </div>
                     {:else}
                         <div class="flex items-center justify-between text-xs">
@@ -548,61 +603,93 @@
             {@html previewSvg}
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm pt-1">
-            <button
-                type="button"
-                onclick={downloadSvg}
-                class="decoration-brand-border text-brand-text hover:text-brand-muted cursor-pointer font-medium underline underline-offset-1">
-                SVG
-            </button>
-            <span class="text-brand-border" aria-hidden="true">·</span>
-            <button
-                type="button"
-                onclick={downloadPng}
-                class="decoration-brand-border text-brand-text hover:text-brand-muted cursor-pointer font-medium underline underline-offset-1">
-                PNG
-            </button>
-            <span class="text-brand-border" aria-hidden="true">·</span>
-            <button
-                type="button"
-                onclick={copySvg}
-                class="decoration-brand-border text-brand-text hover:text-brand-muted cursor-pointer font-medium underline underline-offset-1">
-                <span>{copied ? str("Copied!", "Gekopieerd!") : str("Copy", "Kopieer")}</span>
-            </button>
-        </div>
-
-        <!-- Shape & Size Toggles -->
-        <div class="flex flex-col items-center gap-1.5 text-xs text-brand-muted">
-            <div class="flex items-center gap-2">
-                <span>{str("Shape:", "Vorm:")}</span>
-                {#each ["square", "circle"] as const as s}
-                    {#if s !== "square"}<span>·</span>{/if}
-                    <button
-                        type="button"
-                        onclick={() => (shape = s)}
-                        class="cursor-pointer font-medium transition-colors {shape === s
-                            ? 'text-brand-text underline underline-offset-2 decoration-brand-border'
-                            : 'text-brand-muted hover:text-brand-text'}">
-                        {s === "square"
-                            ? str("square", "vierkant")
-                            : str("circle (pfp)", "cirkel (pfp)")}
-                    </button>
-                {/each}
+        <!-- Export & Shape Controls -->
+        <div class="flex w-full max-w-62.5 flex-col gap-3 text-xs">
+            <!-- 1. Shape -->
+            <div class="flex items-center justify-between border-b border-brand-border/20 pb-2.5">
+                <span class="text-brand-muted">{str("Shape:", "Vorm:")}</span>
+                <div class="flex items-center gap-2">
+                    {#each ["square", "circle"] as const as s, idx}
+                        {#if idx > 0}<span class="text-brand-border">·</span>{/if}
+                        <button
+                            type="button"
+                            onclick={() => (shape = s)}
+                            class="cursor-pointer font-medium transition-colors {shape === s
+                                ? 'text-brand-text underline underline-offset-2 decoration-brand-border'
+                                : 'text-brand-muted hover:text-brand-text'}">
+                            {s === "square" ? str("square", "vierkant") : str("circle", "cirkel")}
+                        </button>
+                    {/each}
+                </div>
             </div>
 
-            <div class="flex items-center gap-2">
-                <span>{str("PNG size:", "PNG grootte:")}</span>
-                {#each [512, 1024, 2048] as const as size}
-                    {#if size !== 512}<span>·</span>{/if}
+            <!-- 2. SVG -->
+            <div class="flex items-center justify-between border-b border-brand-border/20 pb-2.5">
+                <span class="text-brand-muted">SVG:</span>
+                <div class="flex items-center gap-3">
                     <button
                         type="button"
-                        onclick={() => (pngSize = size)}
-                        class="cursor-pointer font-medium transition-colors {pngSize === size
-                            ? 'text-brand-text underline underline-offset-2 decoration-brand-border'
-                            : 'text-brand-muted hover:text-brand-text'}">
-                        {size}
+                        onclick={downloadSvg}
+                        class="cursor-pointer font-medium text-brand-text underline underline-offset-1 decoration-brand-border hover:text-brand-muted transition-colors">
+                        {str("Download", "Download")}
                     </button>
-                {/each}
+                    <span class="text-brand-border">·</span>
+                    <button
+                        type="button"
+                        onclick={copySvg}
+                        class="cursor-pointer font-medium text-brand-text underline underline-offset-1 decoration-brand-border hover:text-brand-muted transition-colors">
+                        {copied ? str("Copied!", "Gekopieerd!") : str("Copy", "Kopieer")}
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Image -->
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                    <span class="text-brand-muted">{str("Format:", "Formaat:")}</span>
+                    <div class="flex items-center gap-2">
+                        {#each ["png", "png8", "webp", "jpg"] as const as fmt, idx}
+                            {#if idx > 0}<span class="text-brand-border">·</span>{/if}
+                            <button
+                                type="button"
+                                onclick={() => (imageFormat = fmt)}
+                                class="cursor-pointer font-medium uppercase transition-colors {imageFormat === fmt
+                                    ? 'text-brand-text underline underline-offset-2 decoration-brand-border'
+                                    : 'text-brand-muted hover:text-brand-text'}">
+                                {fmt === "png8" ? "PNG-8" : fmt}
+                            </button>
+                        {/each}
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span class="text-brand-muted">{str("Size:", "Grootte:")}</span>
+                    <div class="flex items-center gap-2">
+                        {#each [128, 512, 1024, 2048] as const as size, idx}
+                            {#if idx > 0}<span class="text-brand-border">·</span>{/if}
+                            <button
+                                type="button"
+                                onclick={() => (imageSize = size)}
+                                class="cursor-pointer font-medium tabular-nums transition-colors {imageSize === size
+                                    ? 'text-brand-text underline underline-offset-2 decoration-brand-border'
+                                    : 'text-brand-muted hover:text-brand-text'}">
+                                {size}
+                            </button>
+                        {/each}
+                    </div>
+                </div>
+
+                <div class="pt-1 text-center">
+                    <button
+                        type="button"
+                        onclick={downloadImage}
+                        class="cursor-pointer font-medium text-brand-text underline underline-offset-1 decoration-brand-border hover:text-brand-muted transition-colors">
+                        {str(
+                            `Download ${imageFormat === "png8" ? "PNG-8" : imageFormat.toUpperCase()}`,
+                            `Download ${imageFormat === "png8" ? "PNG-8" : imageFormat.toUpperCase()}`
+                        )}
+                    </button>
+                </div>
             </div>
         </div>
     </div>

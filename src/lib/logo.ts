@@ -100,16 +100,25 @@ export function generateWavyCirclePath(
 export const PRIDE_GRADIENT_DEFS = `<defs>
         <linearGradient id="pride-gradient" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#e40303" />
-            <stop offset="16.666%" stop-color="#e40303" />
-            <stop offset="16.666%" stop-color="#ff8c00" />
-            <stop offset="33.333%" stop-color="#ff8c00" />
-            <stop offset="33.333%" stop-color="#ffed00" />
-            <stop offset="50%" stop-color="#ffed00" />
-            <stop offset="50%" stop-color="#008026" />
-            <stop offset="66.666%" stop-color="#008026" />
-            <stop offset="66.666%" stop-color="#004dff" />
-            <stop offset="83.333%" stop-color="#004dff" />
-            <stop offset="83.333%" stop-color="#750787" />
+            <stop offset="5%" stop-color="#ed3b00" />
+            <stop offset="10%" stop-color="#f55a00" />
+            <stop offset="15%" stop-color="#fb7400" />
+            <stop offset="20%" stop-color="#ff8c00" />
+            <stop offset="25%" stop-color="#ffa300" />
+            <stop offset="30%" stop-color="#ffbb00" />
+            <stop offset="35%" stop-color="#ffd400" />
+            <stop offset="40%" stop-color="#ffed00" />
+            <stop offset="45%" stop-color="#c5d300" />
+            <stop offset="50%" stop-color="#8db813" />
+            <stop offset="55%" stop-color="#559d20" />
+            <stop offset="60%" stop-color="#008026" />
+            <stop offset="65%" stop-color="#008864" />
+            <stop offset="70%" stop-color="#0085a2" />
+            <stop offset="75%" stop-color="#0072db" />
+            <stop offset="80%" stop-color="#004dff" />
+            <stop offset="85%" stop-color="#4d37e8" />
+            <stop offset="90%" stop-color="#6425cb" />
+            <stop offset="95%" stop-color="#7015aa" />
             <stop offset="100%" stop-color="#750787" />
         </linearGradient>
     </defs>`;

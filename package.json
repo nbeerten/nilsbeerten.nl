@@ -22,6 +22,8 @@
         "@tailwindcss/vite": "^4.3.3",
         "astro": "^7.4.0",
         "astro-tunnel": "^0.1.9",
+        "fast-png": "^8.0.0",
+        "image-q": "^4.0.0",
         "kleur": "^4.1.5",
         "mdast-util-to-string": "^4.0.0",
         "prettier": "^3.9.10",
