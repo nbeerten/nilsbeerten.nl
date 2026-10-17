@@ -12,6 +12,7 @@ export interface LogoOptions {
     innerColor?: string;
     size?: number;
     responsive?: boolean;
+    rotation?: number;
 }
 
 export const DEFAULT_LOGO_OPTIONS: Required<Omit<LogoOptions, "responsive">> = {
@@ -24,6 +25,7 @@ export const DEFAULT_LOGO_OPTIONS: Required<Omit<LogoOptions, "responsive">> = {
     circleColor: "#111110",
     innerColor: "#ffe7b3",
     size: 512,
+    rotation: 0,
 };
 
 /**
@@ -36,6 +38,7 @@ export const DEFAULT_LOGO_OPTIONS: Required<Omit<LogoOptions, "responsive">> = {
  * @param waves      - Number of full waves around the circle
  * @param amplitude  - Peak deviation from the base radius in px
  * @param segments   - Cubic Bézier segments per wave (≥4 recommended)
+ * @param angleOffset - Phase offset angle in radians to rotate the wave pattern
  * @returns SVG path `d` attribute value
  */
 export function generateWavyCirclePath(
@@ -44,16 +47,17 @@ export function generateWavyCirclePath(
     radius: number,
     waves: number,
     amplitude: number,
-    segments: number = 8
+    segments: number = 8,
+    angleOffset: number = 0
 ): string {
     const totalSegments = waves * segments;
     const angleStep = (2 * Math.PI) / totalSegments;
 
     // Radius at a given angle: base radius + sine wave oscillating `waves` times per revolution
-    const r = (angle: number): number => radius + amplitude * Math.cos(waves * angle);
+    const r = (angle: number): number => radius + amplitude * Math.cos(waves * (angle - angleOffset));
 
     // Derivative of r with respect to angle
-    const dr = (angle: number): number => -amplitude * waves * Math.sin(waves * angle);
+    const dr = (angle: number): number => -amplitude * waves * Math.sin(waves * (angle - angleOffset));
 
     // Cartesian position at a given angle
     const point = (angle: number): [number, number] => [
@@ -164,12 +168,43 @@ export const RADIAL_GRADIENT_DEFS = `<defs>
 
 export const GOOGLE_GRADIENT_DEFS = RADIAL_GRADIENT_DEFS;
 
+export const EU_STARS_ELEMENT = `<pattern id="eu-stars" width="512" height="512" patternUnits="userSpaceOnUse">
+            <rect width="512" height="512" fill="#003399" />
+            <g fill="#ffcc00">
+                <path d="M 256.00,29.00 L 261.16,44.89 L 277.87,44.89 L 264.36,54.71 L 269.52,70.61 L 256.00,60.79 L 242.48,70.61 L 247.64,54.71 L 234.13,44.89 L 250.84,44.89 Z" />
+                <path d="M 358.00,56.33 L 363.16,72.22 L 379.87,72.22 L 366.36,82.05 L 371.52,97.94 L 358.00,88.12 L 344.48,97.94 L 349.64,82.05 L 336.13,72.22 L 352.84,72.22 Z" />
+                <path d="M 432.67,131.00 L 437.83,146.89 L 454.54,146.89 L 441.02,156.71 L 446.19,172.61 L 432.67,162.79 L 419.15,172.61 L 424.31,156.71 L 410.79,146.89 L 427.51,146.89 Z" />
+                <path d="M 460.00,233.00 L 465.16,248.89 L 481.87,248.89 L 468.36,258.71 L 473.52,274.61 L 460.00,264.79 L 446.48,274.61 L 451.64,258.71 L 438.13,248.89 L 454.84,248.89 Z" />
+                <path d="M 432.67,335.00 L 437.83,350.89 L 454.54,350.89 L 441.02,360.71 L 446.19,376.61 L 432.67,366.79 L 419.15,376.61 L 424.31,360.71 L 410.79,350.89 L 427.51,350.89 Z" />
+                <path d="M 358.00,409.67 L 363.16,425.56 L 379.87,425.56 L 366.36,435.38 L 371.52,451.28 L 358.00,441.45 L 344.48,451.28 L 349.64,435.38 L 336.13,425.56 L 352.84,425.56 Z" />
+                <path d="M 256.00,437.00 L 261.16,452.89 L 277.87,452.89 L 264.36,462.71 L 269.52,478.61 L 256.00,468.79 L 242.48,478.61 L 247.64,462.71 L 234.13,452.89 L 250.84,452.89 Z" />
+                <path d="M 154.00,409.67 L 159.16,425.56 L 175.87,425.56 L 162.36,435.38 L 167.52,451.28 L 154.00,441.45 L 140.48,451.28 L 145.64,435.38 L 132.13,425.56 L 148.84,425.56 Z" />
+                <path d="M 79.33,335.00 L 84.49,350.89 L 101.21,350.89 L 87.69,360.71 L 92.85,376.61 L 79.33,366.79 L 65.81,376.61 L 70.98,360.71 L 57.46,350.89 L 74.17,350.89 Z" />
+                <path d="M 52.00,233.00 L 57.16,248.89 L 73.87,248.89 L 60.36,258.71 L 65.52,274.61 L 52.00,264.79 L 38.48,274.61 L 43.64,258.71 L 30.13,248.89 L 46.84,248.89 Z" />
+                <path d="M 79.33,131.00 L 84.49,146.89 L 101.21,146.89 L 87.69,156.71 L 92.85,172.61 L 79.33,162.79 L 65.81,172.61 L 70.98,156.71 L 57.46,146.89 L 74.17,146.89 Z" />
+                <path d="M 154.00,56.33 L 159.16,72.22 L 175.87,72.22 L 162.36,82.05 L 167.52,97.94 L 154.00,88.12 L 140.48,97.94 L 145.64,82.05 L 132.13,72.22 L 148.84,72.22 Z" />
+            </g>
+        </pattern>`;
+
+export const EU_STARS_DEFS = `<defs>
+        ${EU_STARS_ELEMENT}
+    </defs>`;
+
 /**
  * Generates the complete SVG markup for the logo.
  */
 export function generateLogoSvg(options: LogoOptions = {}): string {
     const opts = { ...DEFAULT_LOGO_OPTIONS, ...options };
-    const wavyPath = generateWavyCirclePath(256, 256, opts.radius, opts.waves, opts.amplitude);
+    const angleOffsetRad = ((opts.rotation ?? 0) * Math.PI) / 180;
+    const wavyPath = generateWavyCirclePath(
+        256,
+        256,
+        opts.radius,
+        opts.waves,
+        opts.amplitude,
+        8,
+        angleOffsetRad
+    );
 
     // At innerScale = 1: translate(256, 246) scale(1) translate(-256, -256) == translate(0, -10)
     const monogramTransform = `translate(256, 246) scale(${opts.innerScale.toFixed(4)}) translate(-256, -256)`;
@@ -179,33 +214,55 @@ export function generateLogoSvg(options: LogoOptions = {}): string {
     const styleAttr = opts.responsive ? ' style="width: 100%; height: 100%; display: block;"' : "";
 
     const isPrideBg = opts.bgColor === "pride";
+    const isPrideCircle = opts.circleColor === "pride";
     const isPrideInner = opts.innerColor === "pride";
     const isRadialBg =
         opts.bgColor === "radial" ||
         opts.bgColor === "radial-gradient" ||
         opts.bgColor === "google";
+    const isRadialCircle =
+        opts.circleColor === "radial" ||
+        opts.circleColor === "radial-gradient" ||
+        opts.circleColor === "google";
     const isRadialInner =
         opts.innerColor === "radial" ||
         opts.innerColor === "radial-gradient" ||
         opts.innerColor === "google";
+    const isEuStarsBg = opts.bgColor === "eu-stars";
+    const isEuStarsCircle = opts.circleColor === "eu-stars";
+    const isEuStarsInner = opts.innerColor === "eu-stars";
 
     const bgFill = isPrideBg
         ? "url(#pride-gradient)"
         : isRadialBg
           ? "url(#radial-gradient)"
-          : opts.bgColor;
+          : isEuStarsBg
+            ? "url(#eu-stars)"
+            : opts.bgColor;
+
+    const circleFill = isPrideCircle
+        ? "url(#pride-gradient)"
+        : isRadialCircle
+          ? "url(#radial-gradient)"
+          : isEuStarsCircle
+            ? "url(#eu-stars)"
+            : opts.circleColor;
 
     const innerFill = isPrideInner
         ? "url(#pride-gradient)"
         : isRadialInner
           ? "url(#radial-gradient)"
-          : opts.innerColor;
+          : isEuStarsInner
+            ? "url(#eu-stars)"
+            : opts.innerColor;
 
-    const needsPride = isPrideBg || isPrideInner;
-    const needsRadial = isRadialBg || isRadialInner;
+    const needsPride = isPrideBg || isPrideCircle || isPrideInner;
+    const needsRadial = isRadialBg || isRadialCircle || isRadialInner;
+    const needsEuStars = isEuStarsBg || isEuStarsCircle || isEuStarsInner;
     const defsContent = [
         needsPride ? PRIDE_GRADIENT_ELEMENT : "",
         needsRadial ? RADIAL_GRADIENT_ELEMENT : "",
+        needsEuStars ? EU_STARS_ELEMENT : "",
     ]
         .filter(Boolean)
         .join("\n        ");
@@ -215,7 +272,7 @@ export function generateLogoSvg(options: LogoOptions = {}): string {
     ${defsBlock}
     <g stroke-linecap="round" fill-rule="evenodd">
         <rect width="512" height="512" rx="${opts.circleExport ? "512" : "0"}" ry="${opts.circleExport ? "512" : "0"}" fill="${bgFill}" />
-        <path fill="${opts.circleColor}" d="${wavyPath}" />
+        <path fill="${circleFill}" d="${wavyPath}" />
         <path fill="${innerFill}" transform="${monogramTransform}" d="${NB_MONOGRAM_PATH}" />
     </g>
 </svg>`;

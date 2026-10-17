@@ -33,7 +33,7 @@
             key: "radius",
             labelEn: "Radius",
             labelNl: "Straal",
-            min: 150,
+            min: 100,
             max: 245,
             step: 1,
             unit: "",
@@ -107,10 +107,12 @@
 
     let matchMonogramWithBg = $state(true);
     let openDrawer = $state<ColorTarget | null>("bg");
-    let bgMode = $state<"solid" | "pride" | "radial">("solid");
+    let bgMode = $state<"solid" | "pride" | "radial" | "eu-stars">("solid");
+    let circleMode = $state<"solid" | "eu-stars">("solid");
+    let rotation = $state(0);
 
     let effectiveBgColor = $derived(bgMode !== "solid" ? bgMode : colors.bg.hex);
-
+    let effectiveCircleColor = $derived(circleMode !== "solid" ? circleMode : colors.circle.hex);
     let effectiveInnerColor = $derived(matchMonogramWithBg ? effectiveBgColor : colors.inner.hex);
 
     // 4. Reactive Preview SVG
@@ -121,8 +123,9 @@
             radius: geometry.radius,
             innerScale: geometry.innerScale / 100,
             bgColor: effectiveBgColor,
-            circleColor: colors.circle.hex,
+            circleColor: effectiveCircleColor,
             innerColor: effectiveInnerColor,
+            rotation,
             circleExport: false,
             responsive: true,
         })
@@ -130,6 +133,7 @@
 
     function updateTargetHex(target: ColorTarget, hex: string) {
         if (target === "bg") bgMode = "solid";
+        if (target === "circle") circleMode = "solid";
         colors[target].setHex(hex);
         if (target === "inner") {
             matchMonogramWithBg = false;
@@ -140,6 +144,7 @@
 
     function updateTargetHsl(target: ColorTarget, h?: number, s?: number, l?: number) {
         if (target === "bg") bgMode = "solid";
+        if (target === "circle") circleMode = "solid";
         colors[target].setHsl(h, s, l);
         if (target === "inner") {
             matchMonogramWithBg = false;
@@ -154,6 +159,7 @@
         amplitude: DEFAULT_LOGO_OPTIONS.amplitude,
         radius: DEFAULT_LOGO_OPTIONS.radius,
         innerScale: 100,
+        rotation: 0,
     };
 
     const presets = [
@@ -203,6 +209,15 @@
             geometry: { ...defaultGeometry, radius: 210 },
         },
         {
+            id: "halloween",
+            labelEn: "halloween",
+            labelNl: "halloween",
+            bg: "#ff7518",
+            circle: "#111110",
+            inner: "#ff7518",
+            geometry: { ...defaultGeometry, radius: 210 },
+        },
+        {
             id: "christmas",
             labelEn: "christmas",
             labelNl: "kerst",
@@ -217,6 +232,24 @@
             labelNl: "eu",
             bg: "#ffcc00",
             circle: "#003399",
+            inner: "#ffffff",
+            geometry: { ...defaultGeometry, radius: 210 },
+        },
+        {
+            id: "eu-stars",
+            labelEn: "eu stars",
+            labelNl: "eu sterren",
+            bg: "eu-stars",
+            circle: "#ffcc00",
+            inner: "#003399",
+            geometry: { waves: 12, amplitude: 8, radius: 145, innerScale: 68, rotation: 15 },
+        },
+        {
+            id: "us",
+            labelEn: "us",
+            labelNl: "vs",
+            bg: "#bf0a30",
+            circle: "#002868",
             inner: "#ffffff",
             geometry: { ...defaultGeometry, radius: 210 },
         },
@@ -264,7 +297,8 @@
 
     let activePreset = $derived.by(() => {
         const currentBg = bgMode !== "solid" ? bgMode : colors.bg.hex.toLowerCase();
-        const currentCircle = colors.circle.hex.toLowerCase();
+        const currentCircle =
+            circleMode !== "solid" ? circleMode : colors.circle.hex.toLowerCase();
         const currentInner = effectiveInnerColor.toLowerCase();
 
         return (
@@ -276,7 +310,8 @@
                     p.geometry.waves === geometry.waves &&
                     p.geometry.amplitude === geometry.amplitude &&
                     p.geometry.radius === geometry.radius &&
-                    p.geometry.innerScale === geometry.innerScale
+                    p.geometry.innerScale === geometry.innerScale &&
+                    (p.geometry.rotation ?? 0) === rotation
             ) ?? null
         );
     });
@@ -296,20 +331,27 @@
         geometry.amplitude = p.geometry.amplitude;
         geometry.radius = p.geometry.radius;
         geometry.innerScale = p.geometry.innerScale;
+        rotation = p.geometry.rotation ?? 0;
 
-        if (p.bg === "pride" || p.bg === "radial") {
+        if (p.bg === "pride" || p.bg === "radial" || p.bg === "eu-stars") {
             bgMode = p.bg;
             matchMonogramWithBg = p.bg === p.inner;
-            colors.circle.setHex(p.circle);
-            if (p.inner !== "pride" && p.inner !== "radial") {
+            if (p.inner !== "pride" && p.inner !== "radial" && p.inner !== "eu-stars") {
                 colors.inner.setHex(p.inner);
             }
         } else {
             bgMode = "solid";
             matchMonogramWithBg = p.bg === p.inner;
             colors.bg.setHex(p.bg);
-            colors.circle.setHex(p.circle);
             colors.inner.setHex(p.inner);
+        }
+
+        if (p.circle === "eu-stars") {
+            circleMode = "eu-stars";
+            colors.circle.setHex("#003399");
+        } else {
+            circleMode = "solid";
+            colors.circle.setHex(p.circle);
         }
     }
 
@@ -319,7 +361,11 @@
 
     function resetTargetColor(target: ColorTarget) {
         if (target === "bg") {
-            if (lastActivePreset.bg === "pride" || lastActivePreset.bg === "radial") {
+            if (
+                lastActivePreset.bg === "pride" ||
+                lastActivePreset.bg === "radial" ||
+                lastActivePreset.bg === "eu-stars"
+            ) {
                 bgMode = lastActivePreset.bg;
             } else {
                 bgMode = "solid";
@@ -329,21 +375,38 @@
                 }
             }
         } else if (target === "circle") {
-            colors.circle.setHex(lastActivePreset.circle);
+            if (lastActivePreset.circle === "eu-stars") {
+                circleMode = "eu-stars";
+                colors.circle.setHex("#003399");
+            } else {
+                circleMode = "solid";
+                colors.circle.setHex(lastActivePreset.circle);
+            }
         } else if (target === "inner") {
             const shouldMatch =
                 lastActivePreset.bg === lastActivePreset.inner &&
                 lastActivePreset.bg !== "pride" &&
-                lastActivePreset.bg !== "radial";
+                lastActivePreset.bg !== "radial" &&
+                lastActivePreset.bg !== "eu-stars";
             matchMonogramWithBg = shouldMatch;
-            if (lastActivePreset.inner !== "pride" && lastActivePreset.inner !== "radial") {
+            if (
+                lastActivePreset.inner !== "pride" &&
+                lastActivePreset.inner !== "radial" &&
+                lastActivePreset.inner !== "eu-stars"
+            ) {
                 colors.inner.setHex(lastActivePreset.inner);
             }
         }
     }
 
     function invertColors() {
-        if (bgMode === "pride" || bgMode === "radial") return;
+        if (
+            bgMode === "pride" ||
+            bgMode === "radial" ||
+            bgMode === "eu-stars" ||
+            circleMode === "eu-stars"
+        )
+            return;
         const oldBg = colors.bg.hex;
         const oldCircle = colors.circle.hex;
         colors.bg.setHex(oldCircle);
@@ -359,8 +422,9 @@
             radius: geometry.radius,
             innerScale: geometry.innerScale / 100,
             bgColor: effectiveBgColor,
-            circleColor: colors.circle.hex,
+            circleColor: effectiveCircleColor,
             innerColor: effectiveInnerColor,
+            rotation,
             circleExport: shape === "circle",
             size,
             responsive: false,
@@ -479,15 +543,21 @@
     {@const c = colors[target]}
     {@const isInner = target === "inner"}
     {@const isBg = target === "bg"}
+    {@const isCircle = target === "circle"}
     {@const isPride = (isBg && bgMode === "pride") || (isInner && effectiveInnerColor === "pride")}
     {@const isRadial = (isBg && bgMode === "radial") || (isInner && effectiveInnerColor === "radial")}
+    {@const isEuStars = (isBg && bgMode === "eu-stars") || (isCircle && circleMode === "eu-stars")}
     {@const displayHex = isPride
         ? str("rainbow", "regenboog")
         : isRadial
           ? str("radial gradient", "radiaal verloop")
-          : isInner
-            ? effectiveInnerColor
-            : c.hex}
+          : isEuStars
+            ? str("eu stars", "eu sterren")
+            : isInner
+              ? effectiveInnerColor
+              : isCircle
+                ? effectiveCircleColor
+                : c.hex}
     {@const isOpen = openDrawer === target}
 
     <li class="border-b border-brand-border/20 last:border-b-0">
@@ -497,12 +567,18 @@
             class="group flex w-full cursor-pointer items-center justify-between py-2 text-left transition-colors">
             <div class="flex items-center gap-3">
                 <span
-                    class="h-4 w-4 rounded-full border border-black/10 dark:border-white/10 shrink-0 shadow-xs"
+                    class="h-4 w-4 rounded-full border border-black/10 dark:border-white/10 shrink-0 shadow-xs relative overflow-hidden"
                     style:background={isPride
                         ? "linear-gradient(in oklch to bottom, #e40303, #ff8c00, #ffed00, #008026, #004dff, #750787)"
                         : isRadial
                           ? "conic-gradient(in oklch from 0deg, #fe4845 0deg, #3386fe 90deg, #13ba60 180deg, #ffce10 270deg, #fe4845 360deg)"
-                          : displayHex}></span>
+                          : isEuStars
+                            ? "#003399"
+                            : displayHex}>
+                    {#if isEuStars}
+                        <span class="absolute inset-0 flex items-center justify-center text-[8px] text-[#ffcc00] leading-none select-none">★</span>
+                    {/if}
+                </span>
                 <span
                     class="text-base {isOpen
                         ? 'font-medium text-brand-text underline underline-offset-2 decoration-brand-border'
@@ -554,6 +630,39 @@
                             class="h-2 w-full rounded-full"
                             style="background: linear-gradient(in oklch to right, #fe4845, #ffce10, #13ba60, #3386fe);">
                         </div>
+                    {:else if isBg && bgMode === "eu-stars"}
+                        <div class="flex items-center justify-between text-xs py-1">
+                            <span class="text-brand-muted font-mono">
+                                {str("eu stars · static", "eu sterren · statisch")}
+                            </span>
+                            <button
+                                type="button"
+                                onclick={() => {
+                                    bgMode = "solid";
+                                    colors.bg.setHex("#003399");
+                                }}
+                                class="text-brand-muted hover:text-brand-text cursor-pointer underline underline-offset-1 text-xs">
+                                {str("switch to solid", "naar egale kleur")}
+                            </button>
+                        </div>
+                        <div
+                            class="h-2 w-full rounded-full bg-[#003399]">
+                        </div>
+                    {:else if isCircle && circleMode === "eu-stars"}
+                        <div class="flex items-center justify-between text-xs py-1">
+                            <span class="text-brand-muted font-mono">
+                                {str("eu stars · static", "eu sterren · statisch")}
+                            </span>
+                            <button
+                                type="button"
+                                onclick={() => (circleMode = "solid")}
+                                class="text-brand-muted hover:text-brand-text cursor-pointer underline underline-offset-1 text-xs">
+                                {str("switch to solid", "naar egale kleur")}
+                            </button>
+                        </div>
+                        <div
+                            class="h-2 w-full rounded-full bg-[#003399]">
+                        </div>
                     {:else}
                         <div class="flex items-center justify-between text-xs">
                             {#if isInner}
@@ -581,8 +690,8 @@
                                             }
                                         }}
                                         class="cursor-pointer transition-colors {!matchMonogramWithBg
-                                            ? 'text-brand-text underline underline-offset-1 font-medium'
-                                            : 'text-brand-muted hover:text-brand-text'}">
+                                             ? 'text-brand-text underline underline-offset-1 font-medium'
+                                             : 'text-brand-muted hover:text-brand-text'}">
                                         {str("independent", "onafhankelijk")}
                                     </button>
                                 </div>
@@ -595,7 +704,7 @@
                             <div class="flex items-center gap-2">
                                 <input
                                     type="text"
-                                    value={isInner ? c.hex : displayHex}
+                                    value={c.hex}
                                     onchange={(e) => updateTargetHex(target, e.currentTarget.value)}
                                     maxlength="7"
                                     class="w-18 bg-transparent text-right font-mono text-xs uppercase text-brand-text border-b border-brand-border focus:border-brand-text focus:outline-none" />
