@@ -97,8 +97,7 @@ export function generateWavyCirclePath(
     return d + " Z";
 }
 
-export const PRIDE_GRADIENT_DEFS = `<defs>
-        <linearGradient id="pride-gradient" x1="0" y1="0" x2="0" y2="1">
+export const PRIDE_GRADIENT_ELEMENT = `<linearGradient id="pride-gradient" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#e40303" />
             <stop offset="5%" stop-color="#ed3b00" />
             <stop offset="10%" stop-color="#f55a00" />
@@ -120,8 +119,50 @@ export const PRIDE_GRADIENT_DEFS = `<defs>
             <stop offset="90%" stop-color="#6425cb" />
             <stop offset="95%" stop-color="#7015aa" />
             <stop offset="100%" stop-color="#750787" />
-        </linearGradient>
+        </linearGradient>`;
+
+export const PRIDE_GRADIENT_DEFS = `<defs>
+        ${PRIDE_GRADIENT_ELEMENT}
     </defs>`;
+
+export const RADIAL_GRADIENT_ELEMENT = `<radialGradient id="radial-grad-blue" cx="100%" cy="65%" r="70%">
+            <stop offset="0%" stop-color="#3386fe" stop-opacity="1" />
+            <stop offset="50%" stop-color="#3386fe" stop-opacity="0.85" />
+            <stop offset="100%" stop-color="#3386fe" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="radial-grad-green" cx="25%" cy="100%" r="65%">
+            <stop offset="0%" stop-color="#13ba60" stop-opacity="1" />
+            <stop offset="50%" stop-color="#13ba60" stop-opacity="0.85" />
+            <stop offset="100%" stop-color="#13ba60" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="radial-grad-yellow" cx="0%" cy="40%" r="65%">
+            <stop offset="0%" stop-color="#ffce10" stop-opacity="1" />
+            <stop offset="50%" stop-color="#ffce10" stop-opacity="0.85" />
+            <stop offset="100%" stop-color="#ffce10" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="radial-grad-red" cx="50%" cy="0%" r="65%">
+            <stop offset="0%" stop-color="#fe4845" stop-opacity="1" />
+            <stop offset="50%" stop-color="#fe4845" stop-opacity="0.85" />
+            <stop offset="100%" stop-color="#fe4845" stop-opacity="0" />
+        </radialGradient>
+        <pattern id="radial-gradient" width="512" height="512" patternUnits="userSpaceOnUse">
+            <rect width="512" height="512" fill="#202124" />
+            <rect width="512" height="512" fill="url(#radial-grad-green)" />
+            <rect width="512" height="512" fill="url(#radial-grad-blue)" />
+            <rect width="512" height="512" fill="url(#radial-grad-yellow)" />
+            <rect width="512" height="512" fill="url(#radial-grad-red)" />
+        </pattern>
+        <pattern id="google-gradient" width="512" height="512" patternUnits="userSpaceOnUse">
+            <rect width="512" height="512" fill="url(#radial-gradient)" />
+        </pattern>`;
+
+export const GOOGLE_GRADIENT_ELEMENT = RADIAL_GRADIENT_ELEMENT;
+
+export const RADIAL_GRADIENT_DEFS = `<defs>
+        ${RADIAL_GRADIENT_ELEMENT}
+    </defs>`;
+
+export const GOOGLE_GRADIENT_DEFS = RADIAL_GRADIENT_DEFS;
 
 /**
  * Generates the complete SVG markup for the logo.
@@ -138,15 +179,44 @@ export function generateLogoSvg(options: LogoOptions = {}): string {
     const styleAttr = opts.responsive ? ' style="width: 100%; height: 100%; display: block;"' : "";
 
     const isPrideBg = opts.bgColor === "pride";
-    const bgFill = isPrideBg ? "url(#pride-gradient)" : opts.bgColor;
-    const defsBlock = isPrideBg ? PRIDE_GRADIENT_DEFS : "";
+    const isPrideInner = opts.innerColor === "pride";
+    const isRadialBg =
+        opts.bgColor === "radial" ||
+        opts.bgColor === "radial-gradient" ||
+        opts.bgColor === "google";
+    const isRadialInner =
+        opts.innerColor === "radial" ||
+        opts.innerColor === "radial-gradient" ||
+        opts.innerColor === "google";
+
+    const bgFill = isPrideBg
+        ? "url(#pride-gradient)"
+        : isRadialBg
+          ? "url(#radial-gradient)"
+          : opts.bgColor;
+
+    const innerFill = isPrideInner
+        ? "url(#pride-gradient)"
+        : isRadialInner
+          ? "url(#radial-gradient)"
+          : opts.innerColor;
+
+    const needsPride = isPrideBg || isPrideInner;
+    const needsRadial = isRadialBg || isRadialInner;
+    const defsContent = [
+        needsPride ? PRIDE_GRADIENT_ELEMENT : "",
+        needsRadial ? RADIAL_GRADIENT_ELEMENT : "",
+    ]
+        .filter(Boolean)
+        .join("\n        ");
+    const defsBlock = defsContent ? `<defs>\n        ${defsContent}\n    </defs>` : "";
 
     return `<svg width="${widthAttr}" height="${heightAttr}" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"${styleAttr}>
     ${defsBlock}
     <g stroke-linecap="round" fill-rule="evenodd">
         <rect width="512" height="512" rx="${opts.circleExport ? "512" : "0"}" ry="${opts.circleExport ? "512" : "0"}" fill="${bgFill}" />
         <path fill="${opts.circleColor}" d="${wavyPath}" />
-        <path fill="${opts.innerColor}" transform="${monogramTransform}" d="${NB_MONOGRAM_PATH}" />
+        <path fill="${innerFill}" transform="${monogramTransform}" d="${NB_MONOGRAM_PATH}" />
     </g>
 </svg>`;
 }

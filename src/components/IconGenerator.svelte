@@ -107,11 +107,11 @@
 
     let matchMonogramWithBg = $state(true);
     let openDrawer = $state<ColorTarget | null>("bg");
-    let bgMode = $state<"solid" | "pride">("solid");
+    let bgMode = $state<"solid" | "pride" | "radial">("solid");
 
-    let effectiveBgColor = $derived(bgMode === "pride" ? "pride" : colors.bg.hex);
+    let effectiveBgColor = $derived(bgMode !== "solid" ? bgMode : colors.bg.hex);
 
-    let effectiveInnerColor = $derived(matchMonogramWithBg ? colors.bg.hex : colors.inner.hex);
+    let effectiveInnerColor = $derived(matchMonogramWithBg ? effectiveBgColor : colors.inner.hex);
 
     // 4. Reactive Preview SVG
     let previewSvg = $derived(
@@ -182,7 +182,7 @@
             bg: "#e3000b",
             circle: "#fbf5ee",
             inner: "#e3000b",
-            geometry: { ...defaultGeometry },
+            geometry: { ...defaultGeometry, radius: 210 },
         },
         {
             id: "blue",
@@ -191,7 +191,7 @@
             bg: "#0078d4",
             circle: "#ffffff",
             inner: "#0078d4",
-            geometry: { ...defaultGeometry },
+            geometry: { ...defaultGeometry, radius: 210 },
         },
         {
             id: "rainbow",
@@ -200,7 +200,7 @@
             bg: "pride",
             circle: "#111110",
             inner: "#ffffff",
-            geometry: { ...defaultGeometry, radius: 215 },
+            geometry: { ...defaultGeometry, radius: 210 },
         },
         {
             id: "christmas",
@@ -209,7 +209,7 @@
             bg: "#f8f5ee",
             circle: "#0e4a25",
             inner: "#f3c442",
-            geometry: { ...defaultGeometry },
+            geometry: { ...defaultGeometry, radius: 210 },
         },
         {
             id: "eu",
@@ -218,7 +218,25 @@
             bg: "#ffcc00",
             circle: "#003399",
             inner: "#ffffff",
-            geometry: { ...defaultGeometry },
+            geometry: { ...defaultGeometry, radius: 210 },
+        },
+        {
+            id: "purple",
+            labelEn: "purple",
+            labelNl: "paars",
+            bg: "#bb73ff",
+            circle: "#111110",
+            inner: "#bb73ff",
+            geometry: { ...defaultGeometry, radius: 210 },
+        },
+        {
+            id: "radial-gradient",
+            labelEn: "radial gradient",
+            labelNl: "radiaal verloop",
+            bg: "radial",
+            circle: "#202124",
+            inner: "radial",
+            geometry: { ...defaultGeometry, radius: 210 },
         },
         {
             id: "pastel-1",
@@ -227,7 +245,7 @@
             bg: "#ffddee",
             circle: "#00aa00",
             inner: "#ffddee",
-            geometry: { ...defaultGeometry },
+            geometry: { ...defaultGeometry, radius: 210 },
         },
         {
             id: "pastel-2",
@@ -236,7 +254,7 @@
             bg: "#00aa00",
             circle: "#aaee77",
             inner: "#00aa00",
-            geometry: { ...defaultGeometry },
+            geometry: { ...defaultGeometry, radius: 210 },
         },
     ];
 
@@ -245,7 +263,7 @@
     let lastActivePreset = $state<Preset>(presets[0]);
 
     let activePreset = $derived.by(() => {
-        const currentBg = bgMode === "pride" ? "pride" : colors.bg.hex.toLowerCase();
+        const currentBg = bgMode !== "solid" ? bgMode : colors.bg.hex.toLowerCase();
         const currentCircle = colors.circle.hex.toLowerCase();
         const currentInner = effectiveInnerColor.toLowerCase();
 
@@ -279,11 +297,13 @@
         geometry.radius = p.geometry.radius;
         geometry.innerScale = p.geometry.innerScale;
 
-        if (p.bg === "pride") {
-            bgMode = "pride";
-            matchMonogramWithBg = false;
+        if (p.bg === "pride" || p.bg === "radial") {
+            bgMode = p.bg;
+            matchMonogramWithBg = p.bg === p.inner;
             colors.circle.setHex(p.circle);
-            colors.inner.setHex(p.inner);
+            if (p.inner !== "pride" && p.inner !== "radial") {
+                colors.inner.setHex(p.inner);
+            }
         } else {
             bgMode = "solid";
             matchMonogramWithBg = p.bg === p.inner;
@@ -299,8 +319,8 @@
 
     function resetTargetColor(target: ColorTarget) {
         if (target === "bg") {
-            if (lastActivePreset.bg === "pride") {
-                bgMode = "pride";
+            if (lastActivePreset.bg === "pride" || lastActivePreset.bg === "radial") {
+                bgMode = lastActivePreset.bg;
             } else {
                 bgMode = "solid";
                 colors.bg.setHex(lastActivePreset.bg);
@@ -313,14 +333,17 @@
         } else if (target === "inner") {
             const shouldMatch =
                 lastActivePreset.bg === lastActivePreset.inner &&
-                lastActivePreset.bg !== "pride";
+                lastActivePreset.bg !== "pride" &&
+                lastActivePreset.bg !== "radial";
             matchMonogramWithBg = shouldMatch;
-            colors.inner.setHex(lastActivePreset.inner);
+            if (lastActivePreset.inner !== "pride" && lastActivePreset.inner !== "radial") {
+                colors.inner.setHex(lastActivePreset.inner);
+            }
         }
     }
 
     function invertColors() {
-        if (bgMode === "pride") return;
+        if (bgMode === "pride" || bgMode === "radial") return;
         const oldBg = colors.bg.hex;
         const oldCircle = colors.circle.hex;
         colors.bg.setHex(oldCircle);
@@ -387,7 +410,7 @@
                 if (format === "png8") {
                     const imgData = ctx.getImageData(0, 0, targetSize, targetSize);
                     const png8Buffer = encodePng8(targetSize, targetSize, imgData.data);
-                    const blob = new Blob([png8Buffer.buffer as ArrayBuffer], { type: "image/png" });
+                    const blob = new Blob([png8Buffer], { type: "image/png" });
                     triggerDownload(
                         URL.createObjectURL(blob),
                         `nilsbeerten-logo-${shape}-${targetSize}-png8.png`
@@ -456,12 +479,15 @@
     {@const c = colors[target]}
     {@const isInner = target === "inner"}
     {@const isBg = target === "bg"}
-    {@const isPrideBg = isBg && bgMode === "pride"}
-    {@const displayHex = isPrideBg
+    {@const isPride = (isBg && bgMode === "pride") || (isInner && effectiveInnerColor === "pride")}
+    {@const isRadial = (isBg && bgMode === "radial") || (isInner && effectiveInnerColor === "radial")}
+    {@const displayHex = isPride
         ? str("rainbow", "regenboog")
-        : isInner
-          ? effectiveInnerColor
-          : c.hex}
+        : isRadial
+          ? str("radial gradient", "radiaal verloop")
+          : isInner
+            ? effectiveInnerColor
+            : c.hex}
     {@const isOpen = openDrawer === target}
 
     <li class="border-b border-brand-border/20 last:border-b-0">
@@ -472,9 +498,11 @@
             <div class="flex items-center gap-3">
                 <span
                     class="h-4 w-4 rounded-full border border-black/10 dark:border-white/10 shrink-0 shadow-xs"
-                    style:background={isPrideBg
+                    style:background={isPride
                         ? "linear-gradient(in oklch to bottom, #e40303, #ff8c00, #ffed00, #008026, #004dff, #750787)"
-                        : displayHex}></span>
+                        : isRadial
+                          ? "conic-gradient(in oklch from 0deg, #fe4845 0deg, #3386fe 90deg, #13ba60 180deg, #ffce10 270deg, #fe4845 360deg)"
+                          : displayHex}></span>
                 <span
                     class="text-base {isOpen
                         ? 'font-medium text-brand-text underline underline-offset-2 decoration-brand-border'
@@ -494,7 +522,7 @@
         <div class="drawer-container" class:is-open={isOpen}>
             <div class="drawer-inner">
                 <div class="flex flex-col gap-3 pt-1 pb-3 px-0.5">
-                    {#if isPrideBg}
+                    {#if isBg && bgMode === "pride"}
                         <div class="flex items-center justify-between text-xs py-1">
                             <span class="text-brand-muted font-mono">
                                 {str("rainbow gradient · static", "regenboogverloop · statisch")}
@@ -510,6 +538,22 @@
                             class="h-2 w-full rounded-full"
                             style="background: linear-gradient(in oklch to right, #e40303, #ff8c00, #ffed00, #008026, #004dff, #750787);">
                         </div>
+                    {:else if isBg && bgMode === "radial"}
+                        <div class="flex items-center justify-between text-xs py-1">
+                            <span class="text-brand-muted font-mono">
+                                {str("radial gradient · static", "radiaal verloop · statisch")}
+                            </span>
+                            <button
+                                type="button"
+                                onclick={() => (bgMode = "solid")}
+                                class="text-brand-muted hover:text-brand-text cursor-pointer underline underline-offset-1 text-xs">
+                                {str("switch to solid", "naar egale kleur")}
+                            </button>
+                        </div>
+                        <div
+                            class="h-2 w-full rounded-full"
+                            style="background: linear-gradient(in oklch to right, #fe4845, #ffce10, #13ba60, #3386fe);">
+                        </div>
                     {:else}
                         <div class="flex items-center justify-between text-xs">
                             {#if isInner}
@@ -517,19 +561,25 @@
                                     <button
                                         type="button"
                                         onclick={() => {
-                                            if (bgMode === "pride") bgMode = "solid";
                                             matchMonogramWithBg = true;
-                                            colors.inner.setHex(colors.bg.hex);
+                                            if (bgMode === "solid") {
+                                                colors.inner.setHex(colors.bg.hex);
+                                            }
                                         }}
                                         class="cursor-pointer transition-colors {matchMonogramWithBg
-                                            ? 'text-brand-text underline underline-offset-1 font-medium'
-                                            : 'text-brand-muted hover:text-brand-text'}">
+                                             ? 'text-brand-text underline underline-offset-1 font-medium'
+                                             : 'text-brand-muted hover:text-brand-text'}">
                                         {str("matches background", "volgt achtergrond")}
                                     </button>
                                     <span class="text-brand-border">·</span>
                                     <button
                                         type="button"
-                                        onclick={() => (matchMonogramWithBg = false)}
+                                        onclick={() => {
+                                            matchMonogramWithBg = false;
+                                            if (effectiveInnerColor === "radial" || effectiveInnerColor === "pride") {
+                                                colors.inner.setHex(colors.bg.hex);
+                                            }
+                                        }}
                                         class="cursor-pointer transition-colors {!matchMonogramWithBg
                                             ? 'text-brand-text underline underline-offset-1 font-medium'
                                             : 'text-brand-muted hover:text-brand-text'}">
@@ -545,7 +595,7 @@
                             <div class="flex items-center gap-2">
                                 <input
                                     type="text"
-                                    value={displayHex}
+                                    value={isInner ? c.hex : displayHex}
                                     onchange={(e) => updateTargetHex(target, e.currentTarget.value)}
                                     maxlength="7"
                                     class="w-18 bg-transparent text-right font-mono text-xs uppercase text-brand-text border-b border-brand-border focus:border-brand-text focus:outline-none" />

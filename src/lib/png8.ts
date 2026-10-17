@@ -81,7 +81,7 @@ export function encodePng8(
         indexedData[i] = idx;
     }
 
-    return encodeFastPng({
+    const encoded = encodeFastPng({
         width,
         height,
         data: indexedData,
@@ -89,4 +89,7 @@ export function encodePng8(
         channels: 1,
         palette: sortedPalette,
     });
+
+    // Return a trimmed copy so that .buffer matches .byteLength exactly without trailing data after IEND
+    return encoded.slice();
 }
